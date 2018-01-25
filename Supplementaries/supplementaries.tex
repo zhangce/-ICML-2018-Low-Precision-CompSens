@@ -1,0 +1,404 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% ICML 2017 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use the following line _only_ if you're still using LaTeX 2.09.
+%\documentstyle[icml2013,epsf,natbib]{article}
+% If you rely on Latex2e packages, like most moden people use this:
+\documentclass{article}
+
+% For figures
+\usepackage{graphicx} % more modern
+%\usepackage{epsfig} % less modern
+\usepackage{subfigure} 
+
+% For citations
+\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+
+
+% For algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% As of 2011, we use the hyperref package to produce hyperlinks in the
+% resulting PDF.  If this breaks your system, please commend out the
+% following usepackage line and replace \usepackage{icml2013} with
+% \usepackage[nohyperref]{icml2013} above.
+\usepackage{hyperref}
+
+% Packages hyperref and algorithmic misbehave sometimes.  We can fix
+% this with the following command.
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Employ the following version of the ``usepackage'' statement for
+% submitting the draft version of the paper for review.  This will set
+% the note in the first column to ``Under review.  Do not distribute.''
+
+\usepackage{icml2013} 
+% Employ this version of the ``usepackage'' statement after the paper has
+% been accepted, when creating the final version.  This will set the
+% note in the first column to ``Proceedings of the...''
+% \usepackage[accepted]{icml2013}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+%\newtheorem{proof}{Proof}
+\newtheorem{remark}{Remark}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{proof*}{Proof}
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\onecolumn
+
+\icmltitlerunning{Iterative Hard Thresholding for Low Precision Compressed Sensing}
+%\icmltitle{SUPPLEMENTARIES}
+\begin{document} 
+\setlength{\abovedisplayskip}{5.5pt}
+\setlength{\belowdisplayskip}{6pt}
+\onecolumn
+
+\appendix
+\section*{Supplementaries}
+\addcontentsline{toc}{section}{Appendices}
+\renewcommand{\thesubsection}{\Alph{subsection}}
+
+
+% ${\bf x}^{[n+1]}\leftarrow H_s\big({\bf x}^{[n]} + \mu ({\bf \Phi}{\bf \Psi})^{\dagger}({\bf y} -{\bf \Phi}{\bf \Psi}{\bf x}^{[n]})\big)$
+
+% ${\bf x}^{[n]}$
+
+% ${\bf \Phi}$, ${\bf \Psi}$
+
+% $\mu Q({\bf \Phi}{\bf \Psi})^{\dagger}(Q({\bf y}) -Q({\bf \Phi}{\bf \Psi}){\bf x}^{[n]})$
+
+% $\mu ({\bf \Phi}{\bf \Psi})^{\dagger}({\bf y} -{\bf \Phi}{\bf \Psi}{\bf x}^{[n]})$
+
+% ${\bf x}^{[n+1]}\leftarrow H_s\big({\bf x}^{[n]} + \mu Q({\bf \Phi}{\bf \Psi})^{\dagger}({\bf y} -Q({\bf \Phi}{\bf \Psi}){\bf x}^{[n]})\big)$
+
+% ${\bf x}^{[n+1]}\leftarrow H_s\big({\bf x}^{[n]} + \mu Q({\bf \Phi}{\bf \Psi})^{\dagger}(Q({\bf y}) -Q({\bf \Phi}{\bf \Psi}){\bf x}^{[n]})\big)$
+
+% $Q({\bf \Phi}{\bf \Psi})$
+
+% $\alpha_s \leq \frac{\|{\bf \Phi \Psi x} \|_2}{\|x \|_2} \leq \beta_s$
+
+% $\mathbb{E}[\|{\bf x}^{[n+1]}-{\bf x}^*\|_2|{\bf x}^{[0]}=0] \leq 2^{-n} \| {\bf x}^*\|_2 +\boldsymbol{\epsilon} + \boldsymbol{\epsilon}_q$
+
+% $Q({\bf y})$
+
+% ${\bf y}$
+
+% $\boldsymbol{\epsilon}$, $\boldsymbol{\epsilon}_q << \| {\bf x}^*\|_2$
+
+% ${\bf y} = {\bf \Phi \Psi x} + {\bf e}$
+
+
+
+
+
+
+\subsection{Proofs}
+We begin with introducing our notation.
+\begin{enumerate}
+    \item ${\bf y} = {\bf \Phi} {\bf x} + {\bf e} = {\bf \Phi} {\bf x}^s + {\bf \Phi}({\bf x}-{\bf x}^s) + {\bf e}$,
+    \item $\boldsymbol{\varepsilon} = {\bf \Phi}({\bf x}-{\bf x}^s) + {\bf e}$, hence ${\bf y} = {\bf \Phi} {\bf x}^s + \boldsymbol{\varepsilon}$,
+    \item $\boldsymbol{\epsilon_y} = Q({\bf y},b) - {\bf y}$,
+    \item $\Gamma^{[n]} = \rm{supp}\{{\bf x}^{[n]} \}$, $\hat{\Gamma}^{[n]} = \rm{supp}\{\hat{{\bf x}}^{[n]} \}$ and $\Gamma^{*} = \rm{supp}\{{\bf x}^{*} \}$,
+    \item $B^{[n]} = \Gamma^{[n]} \cup \Gamma^{*}$ and $B^{[n]} = \hat{\Gamma}^{[n]} \cup \Gamma^{*}$,
+    \item ${\bf a}^{[n+1]} = \hat{{\bf x}}^{[n]} + \mu^{[n]}{\bf \Phi}^{\dag}({\bf y} - {\bf \Phi}\hat{{\bf x}}^{[n]})$ and $\hat{{\bf a}}^{[n+1]} = \hat{{\bf x}}^{[n]} + \hat{\mu}^{[n]}Q_{1}({\bf \Phi})^{\dag}({\bf y} - Q_2({\bf \Phi})\hat{{\bf x}}^{[n]})$,
+    \item ${\bf x}^{[n+1]} = H_s({\bf a}^{[n+1]})$ and $\hat{{\bf x}}^{[n+1]} = H_s(\hat{{\bf a}}^{[n+1]})$,
+    \item ${\bf r}^{[n]} = \hat{{\bf x}}^{[n]}-{\bf x}^s$.
+\end{enumerate}
+Assume ${\mathbf{{\bf \Phi}}$ satisfies the non-symmetric Restricted Isometry Property 
+\begin{equation}\label{rip}
+\alpha_{s} \leq \frac{\|{\bf {\bf \Phi}} {\bf x}\|_2}{\|{\bf x}\|_2} \leq \beta_{s}
+\end{equation}
+for all ${\bf x}: \|{\bf x}\|_0 \leq s$, and some $\alpha_s, \beta_s \in \mathbb{R}$ such that $0<\alpha_s\leq \beta_s$. the so-called restricted isometric constants. Inherent from its definition, the restricted isometry holds for the quantized measurement matrix denoted by $Q({\bf {\bf \Phi}}, b_m)$ such that
+\begin{equation}\label{rip_lowprecision}
+\hat{\alpha}_{s} \leq \frac{\|Q({\bf {\bf \Phi}}, b_m) {\bf x}\|_2}{\|{\bf x}\|_2} \leq \hat{\beta}_{s}
+\end{equation}
+where $\hat{\alpha}_{s}$ and $\hat{\beta}_{s}$ are associated restricted isometry constants. For simplicity, we drop $b_m$, and use $Q({\bf {\bf \Phi}})$ instead. Also, let $\gamma_s=\beta_s/\alpha_s-1$ and $\hat{\gamma}_s=\hat{\beta}_s/\hat{\alpha}_s-1$.
+
+We will start by the following results.
+\begin{lemma}\label{lemmas_on_phi}
+{\rm{\cite{niht}}}}
+If ${\bf {\bf \Phi}}$ satisfies the restricted isometry property, then for $|\Gamma|\leq 2s$
+\begin{equation}\label{mu*phi}
+    \| {\bf {\bf \Phi}}_{\Gamma}^T{\bf x}\|_2 \leq \beta_{2s}\|{\bf x} \|_2,
+\end{equation}
+\begin{equation}\label{mu*phi*phi}
+    \| \mu^{[n]}{\bf {\bf \Phi}}_{\Gamma}^T{\bf {\bf \Phi}}_{\Gamma}{\bf x}_{\Gamma}\|_2 \leq (\gamma_{2s}+1)\|{\bf x}_{\Gamma} \|_2,
+\end{equation}
+\begin{equation}\label{1-mu*phi*phi}
+    \| ( {\bf I}- \mu^{[n]}{\bf {\bf \Phi}}_{\Gamma}^T{\bf {\bf \Phi}}_{\Gamma}){\bf x}_{\Gamma}\|_2 \leq \gamma_{2s}\|{\bf x}_{\Gamma} \|_2,
+\end{equation}
+\begin{equation}\label{mu*phi1*phi2}
+     \| \mu^{[n]}{\bf {\bf \Phi}}_{\Upsilon}^T{\bf {\bf \Phi}}_{\Lambda}{\bf x}_{\Lambda}\|_2 \leq \gamma_{2s}\|{\bf x}_{\Lambda} \|_2,
+\end{equation}
+where $\Upsilon$ and $\Lambda$ are two disjoint sets (i.e., $\Upsilon \cap \Lambda = \emptyset$) such that $|\Upsilon \cup \Lambda| \leq 2s$. 
+\end{lemma}
+Clearly, similar results hold for $Q(\boldsymbol{{\bf \Phi}})$ such that
+\begin{equation}\label{q_mu*phi}
+     \|Q({\bf {\bf \Phi}})_{\Gamma}^T{\bf x}\|_2 \leq \hat{\beta}_{2s}\|{\bf x} \|_2,
+\end{equation}
+\begin{equation}\label{q_mu*phi*phi}
+    \| \mu^{[n]}Q({\bf {\bf \Phi}})_{\Gamma}^TQ({\bf {\bf \Phi}})_{\Gamma}{\bf x}_{\Gamma}\|_2 \leq (\hat{\gamma}_{2s}+1)\|{\bf x}_{\Gamma} \|_2,
+\end{equation}
+\begin{equation}\label{1-q_mu*phi*phi}
+    \| ( {\bf I}- \mu^{[n]}Q({\bf {\bf \Phi}})_{\Gamma}^TQ({\bf {\bf \Phi}})_{\Gamma}){\bf x}_{\Gamma}\|_2 \leq \hat{\gamma}_{2s}\|{\bf x}_{\Gamma} \|_2,
+\end{equation}
+\begin{equation}\label{q_mu*phi1*phi2}
+    \| \mu^{[n]}Q({\bf {\bf \Phi}})_{\Upsilon}^TQ({\bf {\bf \Phi}})_{\Lambda}{\bf x}_{\Lambda}\|_2 \leq \hat{\gamma}_{2s}\|{\bf x}_{\Lambda} \|_2.
+\end{equation}
+\begin{lemma} \label{residual_lemma}
+{\rm{\cite{niht}}}}
+For any ${\bf x}$, let ${\bf x}^s$ be the best s-term approximation to ${\bf x}$ and $\Upsilon$ be a set with at most s elements. Then
+\begin{equation}\label{residual_x_bound}
+\|\mu^{[n]}{\bf \Phi}^T_{\Upsilon} {\bf \Phi} ({\bf x}-{\bf x}^s)\|_2 \leq (1+\gamma_{2s})\big [\|{\bf x}-{\bf x}^s\|_2 ]+ \frac{\|{\bf x}-{\bf x}^s\|_}{\sqrt{s}}\big].
+\end{equation}
+\end{lemma}
+Based on the properties above, the restricted isometry, which we will require repeatedly throughout the proof, has several other consequences, summarized as follows.
+\begin{corollary}\label{corollary_auxiliary_results}
+Suppose $Q(\boldsymbol{{\bf \Phi}})$ satisfies restricted isometry property in \ref{rip_lowprecision}. Then
+\begin{equation}\label{mu_phi}
+    \| ({\mu}^{[n]}{\bf {\bf \Phi}}_{\Gamma}^T-\hat{\mu}^{[n]}Q({\bf {\bf \Phi}})_{\Gamma}^T){\bf x}_{\Gamma}\|_2 \leq \rm{max}(({1+\gamma_{2s}})/{\beta_{2s}}-{1}/{\hat{\beta}_{2s}}, ({1+\hat{\gamma}_{2s}})/{\hat{\beta}_{2s}}-{1}/{\beta_{2s}})\| {\bf x}_{\Gamma}\|_2,
+\end{equation} \begin{equation}\label{mu_phi2}
+    \|( \mu^{[n]}{\bf {\bf \Phi}}_{\Gamma}^T\boldsymbol{{\bf \Phi}}_{\Gamma} - \mu^{[n]}Q_1(\boldsymbol{{\bf \Phi}})_{\Gamma}^TQ_2(\boldsymbol{{\bf \Phi}})_{\Gamma}}){\bf x}_{\Gamma}\|_2 \leq \rm{max}(\gamma_{2s}, \hat{\gamma}_{2s})\| {\bf x}_{\Gamma}\|_2,
+\end{equation}
+\begin{equation}\label{mu_phi2_diff}
+    \| (\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Upsilon}^T\boldsymbol{{\bf \Phi}}_{\Lambda} - \mu^{[n]}Q_1(\boldsymbol{{\bf \Phi}})_{\Upsilon}^TQ_2(\boldsymbol{{\bf \Phi}})_{\Lambda}}){\bf x}_{\Lambda}\|_2 \leq \rm{max}(\gamma_{2s}, \hat{\gamma}_{2s})\| {\bf x}_{\Lambda}\|_2.
+\end{equation}
+\end{corollary}
+\begin{proof}
+As a simple consequence of restricted isometry property, the singular values of ${\bf \Phi}_{\Gamma}$ lie between $\alpha_{2s}$ and $\beta_{2s}$. Reminding that $\mu^{[n]}$ is chosen to satisfy $1/\beta^2_{2s}\leq \mu^{[n]}\leq 1/\alpha^2_{2s}$ we have
+\begin{equation}
+\begin{align}
+   1/\beta_{2s} \| {\bf x}_{\Gamma}\|_2\leq \|{\mu}^{[n]}{\bf {\bf \Phi}}_{\Gamma} {\bf x}_{\Gamma}\|_2\leq (1+\gamma_{2s})/\beta_{2s}\| {\bf x}_{\Gamma}\|_2.
+\end{align}
+\end{equation}
+\end{proof}
+It similarly holds for $Q(\boldsymbol{{\bf \Phi}})$:
+\begin{equation}
+\begin{align}
+   1/\hat{\beta}_{2s} \| {\bf x}_{\Gamma}\|_2\leq \|{\hat{\mu}}^{[n]}Q({\bf {\bf \Phi}})_{\Gamma} {\bf x}_{\Gamma}\|_2\leq (1+\hat{\gamma}_{2s})/\hat{\beta}_{2s}\| {\bf x}_{\Gamma}\|_2.
+\end{align}
+\end{equation}
+Singular values of ${\mu}^{[n]}{\bf {\bf \Phi}}_{\Gamma}^T-\hat{\mu}^{[n]}Q({\bf {\bf \Phi}})_{\Gamma}^T$ therefore fall in the interval $[({1+\hat{\gamma}_{2s}})/{\hat{\beta}_{2s}}-{1}/{\beta_{2s}},({1+\gamma_{2s}})/{\beta_{2s}}-{1}/{\hat{\beta}_{2s}}]$. \ref{mu_phi} then trivially holds.
+
+Using restricted isometry property in \ref{rip} and \ref{rip_lowprecision} over 2s-sparse vectors, similar argument holds for \ref{mu_phi2}, that is, the singular values of $\boldsymbol{{\bf \Phi}}_{\Gamma}$ and $Q(\boldsymbol{{\bf \Phi}})_{\Gamma}$ fall into $[1, 1+ \gamma_{2s}]$ and $[1, 1+ \hat{\gamma}_{2s}]$, respectively. Then $\|\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Gamma}^T\boldsymbol{{\bf \Phi}}_{\Gamma} - \mu^{[n]}Q_1(\boldsymbol{{\bf \Phi}})_{\Gamma}^TQ_2(\boldsymbol{{\bf \Phi}})_{\Gamma}}\|_2$ is bounded above by the term $\rm{max}((1+\hat{\gamma}_{2s})-1, (1+\gamma_{2s})-1)$, which proves \ref{mu_phi2}. 
+
+Equation \ref{mu_phi2_diff} is a consequence of the fact that $-\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Upsilon}^T\boldsymbol{{\bf \Phi}}_{\Lambda}$ is a submatrix of $\rm{I}-\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Upsilon \cup \Lambda}^T\boldsymbol{{\bf \Phi}}_{\Upsilon \cup \Lambda}$, which in turn implies that $\|\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Upsilon}^T\boldsymbol{{\bf \Phi}}_{\Lambda}\|_2 \leq \|\rm{I}-\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Upsilon \cup \Lambda}^T\boldsymbol{{\bf \Phi}}_{\Upsilon \cup \Lambda} \|_2$, (i.e., spectral norm of a submatrix is bounded by the norm of its full matrix). Using \ref{mu*phi*phi}, the eigenvalues of $\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Upsilon}^T\boldsymbol{{\bf \Phi}}_{\Lambda}$ can be shown to be in $[0, \gamma_{2s}]$, and in parallel, $\hat{\mu}^{[n]}Q(\boldsymbol{{\bf \Phi}})_{\Upsilon}^TQ(\boldsymbol{{\bf \Phi}})_{\Lambda}$ in $[0, \hat{\gamma}_{2s}]$. The difference $\rm{I}-\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Upsilon \cup \Lambda}^T\boldsymbol{{\bf \Phi}}_{\Upsilon \cup \Lambda}$ then have eigenvalues no larger than $\rm{max}(\gamma_{2s}, \hat{\gamma}_{2s})$.
+\begin{lemma}\label{lemma_on_quantized_vector}
+Let $Q(\cdot, b): \mathbb{R}^n\times \mathbb{Z}^+ \rightarrow \mathbb{Z}^n$ denote quantization operator described in ref. For any ${\bf v}\in \mathbb{R}^n$, the norm of quantization error can be bounded by
+\begin{equation}\label{quantization_error}
+    \mathbb{E}[\| Q({\bf v}, b) - \hat{\bf v}\|_2] \leq \frac{\sqrt{n}}{2^{b-1}}
+\end{equation}
+where $\hat{\bf v}$ is a scaled version of ${\bf v}$ so that every component is normalized to $[-1, 1]$.
+\end{lemma}
+\begin{proof}
+Using Jensen's inequality we can easily show that
+\begin{equation}\label{quantization_error_bound1}
+\begin{split}
+    \mathbb{E}[\| Q({\bf v}, b) - \hat{\bf v}\|_2] &= \mathbb{E}\left[\sqrt{\| Q({\bf v}, b) - \hat{\bf v}\|^2_2} \right]\\
+    &\leq \sqrt{\mathbb{E}[\| Q({\bf v}, b) - \hat{\bf v}\|^2_2]}\\
+    &\leq \sqrt{\sum_{i=1}^{n} \mathbb{E}[\big (Q({\bf v}, b)_i -\hat{v_i}\big)^2]}\\
+    &\leq \sqrt{\sum_{i=1}^{n} \mathbb{P}(Q({\bf v}, b)_i = \ell_j)(\hat{v}_i-\ell_j)^2 + \mathbb{P}(Q({\bf v}, b)_i = \ell_{j+1})(\ell_{j+1}-\hat{v}_i)^2}.
+\end{split}
+\end{equation}
+Our quantization scheme uses a stochastic approach such that $\mathbb{P}(Q({\bf v}, b)_i = \ell_j)=\frac{\ell_{j+1}-\hat{v}_i}{\ell_{j+1}-\ell_{j}}$, and hence $\mathbb{P}(Q({\bf v}, b)_i = \ell_{j+1})=1-\frac{\ell_{j+1}-\hat{v}_i}{\ell_{j+1}-\ell_{j}}$. Substituting these into \ref{quantization_error_bound1} we have
+\begin{equation}\label{quantization_error}
+\begin{split}
+    \mathbb{E}[\| Q({\bf v}, b) - \hat{\bf v}\|_2] &\leq \sqrt{\sum_{i=1}^{n} (l_{j+1}-Q({\bf v}, b)_i)(Q({\bf v}, b)_i-\ell_j)}\\
+    &\leq \sqrt{\sum_{i=1}^{n} \frac{(\ell_{j+1}-\ell_j)^2}{4}}\\
+    &\leq \frac{\sqrt{n}(\ell_{j+1}-\ell_j)}{2}\\
+    &\leq \frac{\sqrt{n}}{2^{b-1}}.
+\end{split}
+\end{equation}
+\end{proof}
+%\begin{corollary}
+% Let ${\boldsymbol{\phi}} \in \mathbb{R}^{m\times n}$. Using Lemma \ref{lemma_on_quantized_vector}, the quantization error over matrices can be bounded by
+% \begin{equation}\label{quantization_error_matrices}
+% \begin{split}
+%     \mathbb{E}[\|Q(\boldsymbol{\phi}, b) -\hat{\boldsymbol{\phi}}\|_2] \leq \frac{\sqrt{mn}}{2^{b-1}}.
+%     \end{split}
+% \end{equation}
+% \end{corollary}
+% \begin{proof}
+% coming soon
+%\end{proof}
+
+\subsubsection{Proof of Theorem}
+The recovery error can be split into two parts by using triangle inequality
+\begin{equation}\label{main_theorem}
+\begin{split}
+   \mathbb{E}[ \|\hat{{\bf x}}^{[n+1]} - {\bf x}^s \|_2 | \hat{{\bf x}}^{[n]}] &= \mathbb{E}[\|\hat{{\bf x}}_{B^{[n+1]}}^{[n+1]} - {\bf x}_{B^{[n+1]}}^s \|_2| \hat{{\bf x}}^{[n]}] \\
+    &\leq \mathbb{E}[\|\hat{{\bf x}}_{B^{[n+1]}}^{[n+1]} - \hat{{\bf a}}_{B^{[n+1]}}^{[n+1]} \|_2| \hat{{\bf x}}^{[n]}] + \mathbb{E}[\|\hat{{\bf a}}_{B^{[n+1]}}^{[n+1]} - {\bf x}_{B^{[n+1]}}^s \|_2| \hat{{\bf x}}^{[n]}].
+    \end{split}
+\end{equation}
+where the equality follows from that $\hat{{\bf x}}^{[n+1]} - {\bf x}^s$ is supported over the set $B^{[n+1]} = \hat{\Gamma}^{[n+1]} \cup \Gamma^s$.
+
+Recall that $\hat{{\bf x}}_{B^{[n+1]}}^{[n+1]}$ is a better s-term approximation to $\hat{{\bf a}}_{B^{[n+1]}}^{[n+1]}$ than ${\bf x}_{B^{[n+1]}}^{*}$ (i.e., $\|\hat{{\bf x}}^{[n+1]} - \hat{{\bf a}}_{B^{[n+1]}}^{[n+1]} \|_2\leq \| \hat{{\bf a}}_{B^{[n+1]}}^{[n+1]} - {\bf x}^s \|_2$). Then 
+\begin{equation}
+    \mathbb{E}[\|\hat{{\bf x}}^{[n+1]} - {\bf x}^s \|_2| \hat{{\bf x}}^{[n]}] \leq 2\mathbb{E}[ \|\hat{{\bf a}}_{B^{[n+1]}}^{[n+1]} - {\bf x}_{B^{[n+1]}}^s \|_2 | \hat{{\bf x}}^{[n]}].
+\end{equation}
+Using triangle inequality, we further have
+\begin{equation}\label{nonproof_bound_final}
+    \mathbb{E}[\|\hat{{\bf x}}^{[n+1]} - {\bf x}^s \|_2| \hat{{\bf x}}^{[n]}]\leq 2 \big [\mathbb{E}[\|\hat{{\bf a}}_{B^{[n+1]}}^{[n+1]} - {{\bf a}}_{B^{[n+1]}}^{[n+1]} \|_2  + \|{{\bf a}}_{B^{[n+1]}}^{[n+1]} - {{\bf x}}_{B^{[n+1]}}^{*} \|_2 | \hat{{\bf x}}^{[n]}]\big ]
+\end{equation}
+
+We now continue with the analysis referring to two terms on the right hand side of \ref{nonproof_bound_final} separately.\\
+
+{(a)} Expanding $\hat{{\bf a}}_{B^{[n+1]}}^{[n+1]}$ and ${{\bf a}}_{B^{[n+1]}}^{[n+1]}$ we have
+\begin{equation}\label{quantization_error_terms}
+    \begin{split}
+      \mathbb{E}[  \|\hat{{\bf a}}_{B^{[n+1]}}^{[n+1]} - {{\bf a}}_{B^{[n+1]}}^{[n+1]} \|_2| \hat{{\bf x}}^{[n]}] &= \mathbb{E}[\|\hat{\mu}^{[n]}Q_1({\bf {\bf \Phi}})_{B^{[n+1]}}^T\big(Q_y({\bf y})-Q_2({\bf {\bf \Phi}})\hat{{\bf x}}^{[n]}\big) - {\mu}^{[n]}{\bf {\bf \Phi}}_{B^{[n+1]}}^T({\bf y}-{\bf {\bf \Phi}}\hat{{\bf x}}^{[n]}) \|_2| \hat{{\bf x}}^{[n]}]\\
+        &=\mathbb{E}[\|\hat{\mu}^{[n]}Q_1({\bf {\bf \Phi}})_{B^{[n+1]}}^T\big({\bf {\bf \Phi}} {\bf x}^s +\boldsymbol{\varepsilon}+\boldsymbol{\epsilon}_y-Q_2({\bf {\bf \Phi}})\hat{{\bf x}}^{[n]}\big) - {\mu}^{[n]}{\bf {\bf \Phi}}_{B^{[n+1]}}^T({\bf {\bf \Phi}}{\bf x}^s +\boldsymbol{\varepsilon}-{\bf {\bf \Phi}}\hat{{\bf x}}^{[n]}) \|_2| \hat{{\bf x}}^{[n]}]\\
+        &=\mathbb{E}[\|\hat{\mu}^{[n]}Q_1({\bf {\bf \Phi}})_{B^{[n+1]}}^T\big(-Q_2({\bf {\bf \Phi}}) {\bf r}^{[n]} +\boldsymbol{\varepsilon}+\boldsymbol{\epsilon}_y+({\bf {\bf \Phi}}-Q_2({\bf {\bf \Phi}})){\bf x}^{*}\big)+{\mu}^{[n]}{\bf {\bf \Phi}}_{B^{[n+1]}}^T({\bf {\bf \Phi}}{\bf r}^{[n]} -\boldsymbol{\varepsilon}) \|_2| \hat{{\bf x}}^{[n]}]\\
+        &\leq \|\big(\mu^{[n]}{\bf {\bf \Phi}}_{B^{[n+1]}}^T{\bf {\bf \Phi}} - \hat{\mu}^{[n]}Q_1({\bf {\bf \Phi}})_{B^{[n+1]}}^T Q_2({\bf {\bf \Phi}})\big) {\bf r}^{[n]} \|_2\\
+        &\ \ \ \ \  +\|\big(\mu^{[n]}{\bf {\bf \Phi}}_{B^{[n+1]}}^T - \hat{\mu}^{[n]}Q_1({\bf {\bf \Phi}})_{B^{[n+1]}}^T \big)\boldsymbol{\varepsilon} \|_2\\
+     &\ \ \ \  \  +\mathbb{E}[\|\hat{\mu}^{[n]}Q_1({\bf {\bf \Phi}})_{B^{[n+1]}}^T\boldsymbol{\epsilon}_y \|_2]\\
+     &\ \ \ \  \  +\mathbb{E}[\| \hat{\mu}^{[n]}Q_1({\bf \Phi})_{B^{[n+1]}}^T\big({\bf {\bf \Phi}}-Q_2({\bf {\bf \Phi}})\big){\bf x}^s \|_2].
+    \end{split}
+\end{equation}
+where we used the expansion ${{\bf r}}^{[n]} = \hat{{\bf x}}^{[n]}-{\bf x}^s$.
+
+We further derive the terms governing the above expression in (a.1), (a.2), (a.3) and (a.4). 
+
+(a.1) Since ${\bf r}^{[n]}$ is supported over $B^{[n]}$, we clearly have
+\begin{equation}\label{first_term_q_bound}
+    \begin{split}
+     \|\big(\mu^{[n]}&{\bf {\bf \Phi}}_{B^{[n+1]}}^T{\bf {\bf \Phi}} - \hat{\mu}^{[n]}Q_1({\bf {\bf \Phi}})_{B^{[n+1]}}^T Q_2({\bf {\bf \Phi}})\big) {\bf r}^{[n]} \|_2\\ &\leq\|\big(\mu^{[n]}{\bf {\bf \Phi}}_{B^{[n+1]}}^T{\bf {\bf \Phi}}_{B^{[n+1]}} - \hat{\mu}^{[n]}Q_1({\bf {\bf \Phi}})_{B^{[n+1]}}^T Q_2({\bf {\bf \Phi}})_{B^{[n+1]}}\big) {\bf r}_{B^{[n+1]}}^{[n]}\|_2\\
+     & \ \ \ \ \ + \|\big ( \mu^{[n]}{\bf {\bf \Phi}}_{B^{[n+1]}}^T{\bf {\bf \Phi}}_{B^{[n]}\backslash B^{[n+1]}}-\hat{\mu}^{[n]}Q_1({\bf {\bf \Phi}})_{B^{[n+1]}}^T Q_2({\bf {\bf \Phi}})_{B^{[n]}\backslash B^{[n+1]}}\big ) {\bf r}_{B^{[n]}\backslash B^{[n+1]}}^{[n]} \|_2.
+    \end{split}
+\end{equation}
+Using \ref{mu_phi2} we have
+\begin{equation}\label{residual_bound}
+\begin{split}
+ \|\big(\mu^{[n]}{\bf {\bf \Phi}}_{B^{[n+1]}}^T{\bf {\bf \Phi}}_{B^{[n+1]}} - \hat{\mu}^{[n]}Q_1({\bf {\bf \Phi}})_{B^{[n+1]}}^T Q_2({\bf {\bf \Phi}})_{B^{[n+1]}}\big) {\bf r}_{B^{[n+1]}}^{[n]}\|_2 &\leq \rm{max}(\gamma_{2s}, \hat{\gamma}_{2s})\| {\bf r}_{B^{[n+1]}}^{[n]}\|_2.
+ \end{split}
+\end{equation}
+Let now $B^{[n+1]}$ be split into two disjoint sets $\Gamma_1$ and $\Gamma_2$, where $\Gamma_1 \cap \Gamma_2 = \emptyset$ and $|\Gamma_1|, |\Gamma_2| \leq s$. We have by \ref{mu_phi2_diff}
+{
+\begin{equation}\label{residual_full_precision}
+    \begin{split}
+\|\big ( \mu^{[n]}{\bf {\bf \Phi}}_{B^{[n+1]}}^T{\bf \Phi}_{B^{[n]}\backslash B^{[n+1]}}-& \hat{\mu}^{[n]}Q_1({\bf \Phi})_{B^{[n+1]}}^T Q_2({\bf \Phi})_{B^{[n]}\backslash B^{[n+1]}}\big ) {\bf r}_{B^{[n]}\backslash B^{[n+1]}}^{[n]} \|_2 \leq\\
+&\bigg({\|\big ( \mu^{[n]}{\bf \Phi}_{\Gamma_1}^T{\bf \Phi}_{B^{[n]}\backslash B^{[n+1]}} -\hat{\mu}^{[n]}Q_1({\bf \Phi})_{\Gamma_1}^T Q_2({\bf \Phi})_{B^{[n]}\backslash B^{[n+1]}}\big ) {\bf r}_{B^{[n]}\backslash B^{[n+1]}}\|_2^2\\
+&\ \ \ + \|\big ( \mu^{[n]}{\bf \Phi}_{\Gamma_2}^T{\bf \Phi}_{B^{[n]}\backslash B^{[n+1]}} - \hat{\mu}^{[n]}Q_1({\bf \Phi})_{\Gamma_2}^T Q_2({\bf \Phi})_{B^{[n]}\backslash B^{[n+1]}}\big ) {\bf r}_{B^{[n]}\backslash B^{[n+1]}}\|_2^2}\bigg)^{\frac{1}{2}}\\
+&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \leq \sqrt{2}\rm{max}(\gamma_{2s}, \hat{\gamma}_{2s})\| {\bf r}_{B^{[n]}\backslash B^{[n+1]}}\|_2.
+    \end{split}
+\end{equation}
+}
+Combining \ref{residual_bound} and \ref{residual_full_precision} 
+\begin{equation}\label{first_term_main_theorem}
+    \begin{split}
+     \|\big(\mu^{[n]}{\bf \Phi}_{B^{[n+1]}}^T{\bf \Phi} - \hat{\mu}^{[n]}Q_1({\bf \Phi})_{B^{[n+1]}}^T Q_2({\bf \Phi})\big) {\bf r}^{[n]} \|_2&= \rm{max}(\gamma_{2s}, \hat{\gamma}_{2s})\|{\bf r}_{B^{[n+1]}}^{[n]}\|_2 + \sqrt{2}\rm{max}(\gamma_{2s}, \hat{\gamma}_{2s})\|{\bf r}_{B^{[n]}\backslash B^{[n+1]}} \|_2\\
+     &\leq \sqrt{2}\rm{max}(\|{\bf r}_{B^{[n+1]}}^{[n]}\|_2 + \|{\bf r}_{B^{[n]}\backslash B^{[n+1]}} \|_2)\\
+     &\leq 2 \rm{max}(\gamma_{2s}, \hat{\gamma}_{2s})\|{\bf r}^{[n]} \|_2
+    \end{split}
+\end{equation}
+where the last inequality follows from the fact that ${\bf r}_{B^{[n+1]}}^{[n]}$ and ${\bf r}_{B^{[n]}\backslash B^{[n+1]}}$ are orthogonal.
+
+(a.2) Expanding the second term in \ref{quantization_error_terms}
+\begin{equation}
+    \begin{split}
+        &\|(\mu^{[n]}{\bf \Phi}_{B^{[n+1]}} - \hat{\mu}^{[n]}Q_1({\bf \Phi})_{B^{[n+1]}}^T)\boldsymbol{\varepsilon} \|_2 \\ &\leq\|(\mu^{[n]}{\bf \Phi}_{B^{[n+1]}} - \hat{\mu}^{[n]}Q_1({\bf \Phi})_{B^{[n+1]}}^T){\bf e} \|_2 + \|(\mu^{[n]}{\bf \Phi}_{B^{[n+1]}} - \hat{\mu}^{[n]}Q_1({\bf \Phi})_{B^{[n+1]}}^T){\bf \Phi} ({\bf x}-{\bf x}^s) \|_2.
+    \end{split}
+\end{equation}
+
+Using \ref{residual_x_bound}, \ref{mu_phi} and \ref{mu_phi2} we have
+\begin{equation}\label{second_term_quantization_error}
+    \begin{split}
+    \|(\mu^{[n]}{\bf \Phi}_{B^{[n+1]}} - \hat{\mu}^{[n]}Q_1({\bf \Phi})_{B^{[n+1]}}^T){\bf e} \|_2 &\leq \rm{max}\big((1+\gamma_{2s})/\beta_{2s} - 1/\hat{\beta}_{2s}, (1+\hat{\gamma}_{2s})/\hat{\beta}_{2s} - 1/{\beta}_{2s} \big)\|{\bf e} \|_2\\
+        \|(\mu^{[n]}{\bf \Phi}_{B^{[n+1]}} - \hat{\mu}^{[n]}Q_1({\bf \Phi})_{B^{[n+1]}}^T)&{\bf \Phi} ({\bf x}-{\bf x}^s) \|_2\\
+        \leq \big ({\|(\mu^{[n]}{\bf \Phi}_{\Gamma_1} - \hat{\mu}^{[n]}Q_1({\bf \Phi})_{\Gamma_1}^T)&{\bf \Phi} ({\bf x}-{\bf x}^s) \|^2_2 + \|(\mu^{[n]}{\bf \Phi}_{\Gamma_2} - \hat{\mu}^{[n]}Q_1({\bf \Phi})_{\Gamma_2}^T){\bf \Phi} ({\bf x}-{\bf x}^s) \|^2_2}\big )^{1/2}\\
+        \leq\sqrt{2}\rm{max}(\hat{\gamma}_{2s}, \hat{\gamma}_{2s}) \bigg  [ \|{\bf x}-&{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg].
+    \end{split}
+\end{equation}
+
+Combining results obtained in \ref{second_term_quantization_error} 
+\begin{equation}\label{second_term_main_theorem}
+\begin{split}
+    \|(\mu^{[n]}{\bf \Phi}_{B^{[n+1]}} - \hat{\mu}^{[n]}Q_1({\bf \Phi})_{B^{[n+1]}}^T)\boldsymbol{\bf \varepsilon} \|_2 \leq & \ \rm{max}\big((1+\gamma_{2s})/\beta_{2s} - 1/\hat{\beta}_{2s}, (1+\hat{\gamma}_{2s})/\hat{\beta}_{2s} - 1/{\beta}_{2s} \big)\|{\bf e} \|_2\\
+    & \ + \sqrt{2}\rm{max}(\hat{\gamma}_{2s}, \hat{\gamma}_{2s})\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg].
+\end{split}
+\end{equation}
+
+(a.3) The third term of \ref{quantization_error_terms}
+\begin{equation}\label{third_term_main_theorem}
+    \begin{split}
+         \mathbb{E}[\|\hat{\mu}^{[n+1]}Q_1({\bf \Phi})_{B^{[n+1]}}^T \boldsymbol{\epsilon}_y \|_2] &\leq \frac{\hat{\gamma}_{2s}+1}{\hat{\beta}_{2s}}\mathbb{E}[{\|\boldsymbol{\epsilon}_y \|_2}]\\
+         &\leq \frac{(1+\hat{\gamma}_{2s})\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}.
+    \end{split}
+\end{equation}
+where the inequalities follows from \ref{q_mu*phi}, the choice of $\hat{\mu}^{[n]}$, (i.e., $1/\hat{\beta}_{2s}\leq \hat{\mu}^{[n]} \leq 1/\hat{\alpha}_{2s})$ and \ref{quantization_error}.
+
+(a.4) Proof. coming soon.
+%Combining with {\it Cauchy-Bunyakovsky-Schwarz} inequality, an application of \ref{quantization_error_matrices} reveals that
+\begin{equation}\label{forth_term_main_theorem}
+    \mathbb{E}[\| \hat{\mu}^{[n]}Q_1({\bf \Phi})_{B^{[n+1]}}^T\big({\bf {\bf \Phi}}-Q_2({\bf {\bf \Phi}})\big){\bf x}^s \|_2]\leq \frac{(1+\hat{\gamma}_{2s})\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}\|{\bf x}^s \|_2.
+\end{equation}
+
+(b) Finally, we bound the second term on the right hand side of \ref{nonproof_bound_final} as follows.
+\begin{equation}\label{last_term_main_theorem}
+    \begin{split}
+       \|{{\bf a}}_{B^{[n+1]}}^{[n+1]} - {{\bf x}}_{B^{[n+1]}}^{*} \|_2 &= \|{\hat{\bf x}}_{B^{[n+1]}}^{[n]} + \mu^{[n]}{\bf \Phi}_{B^{[n+1]}}^T({\bf y}-{\bf \Phi} \hat{{\bf x}}^{[n]}) - {{\bf x}}_{B^{[n+1]}}^{*} \|_2\\
+        &= \|{\hat{\bf x}}_{B^{[n+1]}}^{[n]} + \mu^{[n]}{\bf \Phi}_{B^{[n+1]}}^T({\bf \Phi} {\bf x}^s + \boldsymbol{\varepsilon}-{\bf \Phi} \hat{\bf x}^{[n]}) - {{\bf x}}_{B^{[n+1]}}^{*} \|_2\\
+         &= \|{{\bf r}}_{B^{[n+1]}}^{[n]} - \mu^{[n]}{\bf \Phi}_{B^{[n+1]}}^T({\bf \Phi} {\bf r}^{[n]}  -\boldsymbol{\varepsilon}) \|_2\\
+         &= \|{{\bf r}}_{B^{[n+1]}}^{[n]} - \mu^{[n]}{\bf \Phi}_{B^{[n+1]}}^T({\bf \Phi}_{B^{[n+1]}}{\bf r}^{[n]}_{B^{[n+1]}} + {\bf \Phi}_{B^{[n]}\backslash B^{[n+1]}}{\bf r}^{[n]}_{B^{[n]}\backslash B^{[n+1]}}  - \boldsymbol{\varepsilon}) \|_2\\
+         &\leq \|({\boldsymbol{\rm I}} - \mu^{[n]}{\bf \Phi}_{B^{[n+1]}}^T{\bf \Phi}_{B^{[n+1]}}){\bf r}^{[n]}_{B^{[n+1]}}\|_2\\
+         &\ \ \ \ + \|\mu^{[n]}{\bf \Phi}_{B^{[n+1]}}^T{\bf \Phi}_{B^{[n]}\backslash B^{[n+1]}}{\bf r}^{[n]}_{B^{[n]}\backslash B^{[n+1]}}\|_2\\
+         &\ \ \ \ + \|\mu^{[n]}{\bf \Phi}_{B^{[n+1]}}^T\boldsymbol{\varepsilon}\|_2.
+    \end{split}
+\end{equation}
+
+It can easily be verified that
+\begin{equation}\label{last_term_main_theorem2}
+    \begin{split}
+        \|({\boldsymbol{\rm I}} - \mu^{[n]}{\bf \Phi}_{B^{[n+1]}}^T{\bf \Phi}_{B^{[n+1]}}){\bf r}^{[n]}_{B^{[n+1]}}\|_2 &\overset{(1)}{\leq} \gamma_{2s}\| {\bf r}_{B^{[n+1]}}^{[n]}\|_2\\
+        \|\mu^{[n]}{\bf \Phi}_{B^{[n+1]}}^T{\bf \Phi}_{B^{[n]}\backslash B^{[n+1]}}{\bf r}^{[n]}_{B^{[n]}\backslash B^{[n+1]}}\|_2 &{\leq} \big ({        \|\mu^{[n]}{\bf \Phi}_{\Gamma_1}^T{\bf \Phi}_{B^{[n]}\backslash B^{[n+1]}}{\bf r}^{[n]}_{B^{[n]}\backslash B^{[n+1]}}\|_2^2 +         \|\mu^{[n]}{\bf \Phi}_{\Gamma_2}^T{\bf \Phi}_{B^{[n]}\backslash B^{[n+1]}}{\bf r}^{[n]}_{B^{[n]}\backslash B^{[n+1]}}\|_2^2}\big )^{1/2}\\
+        &\overset{(2)}{\leq}\sqrt{2}\gamma_{2s}\| {\bf r}^{[n]}_{B^{[n]}\backslash B^{[n+1]}}\|_2\\
+        \|\mu^{[n]}{\bf \Phi}_{B^{[n+1]}}^T\varepsilon\|_2 &\overset{(3)}{\leq} \frac{\gamma_{2s}+1}{\beta_{2s}}\| {\bf e}\|_2 + \sqrt{2}(\gamma_{2s}+1) \big [ \|{\bf x} - {\bf x}^s\|_2 - \frac{\|{\bf x} - {\bf x}^s\|_1}{\sqrt{s}}\big]
+    \end{split}
+\end{equation}
+where (1) and (2) follow from Lemma \ref{lemmas_on_phi}, (3) is derived in \ref{second_term_quantization_error}.
+
+By the orthogonality between ${\bf r}_{B^{[n+1]}}^{[n]}$ and ${\bf r}_{B^{[n]} \backslash B^{[n+1]}}^{[n]}$, \ref{last_term_main_theorem} can further be simplified to
+\begin{equation}
+    \begin{split}
+        \|{{\bf a}}_{B^{[n+1]}}^{[n+1]} - {{\bf x}}_{B^{[n+1]}}^{*} \|_2 |{\bf x}^{[n]} \leq 2 \gamma_{2s} \| {\bf r}^{[n]}\|_2 + \frac{\gamma_{2s}+1}{\beta_{2s}}\| {\bf e}\|_2 + \sqrt{2}(\gamma_{2s}+1) \big [ \|{\bf x} - {\bf x}^s\|_2 - \frac{\|{\bf x} - {\bf x}^s\|_1}{\sqrt{s}}\big].
+    \end{split}
+\end{equation}
+
+Combining (a) and (b), the norm of recovery error is given by
+\begin{equation}\label{final_error_residual}
+    \begin{split}
+        \mathbb{E}[\|{\bf r}^{[n+1]}\|_2|{\bf r}^{[0]}=-{\bf x}^s] \leq &8\rm{max}(\gamma_{2s},\hat{\gamma}_{2s}) \|{\bf r}^{[n]}\|_2 
+        + 2\bigg(\rm{max}\big((1+\gamma_{2s})/\beta_{2s} - 1/\hat{\beta}_{2s}, (1+\hat{\gamma}_{2s})/\hat{\beta}_{2s} - 1/{\beta}_{2s} \big)+\frac{1+\gamma_{2s}}{\beta_{2s}}\bigg)\|{\bf e} \|_2\\
+        &+2\sqrt{2}(1+2\rm{max}({\gamma}_{2s}, \hat{\gamma}_{2s}))\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg]+2\frac{(1+\hat{\gamma}_{2s})\sqrt{ms}}{\hat{\beta}_{2s}2^{b-1}}\|{\bf x}^s \|_2 + 2\frac{\sqrt{m}(\hat{\gamma}_{2s}+1)}{\hat{\beta}_{2s}2^{b-1}}
+    \end{split}
+\end{equation}
+If $\rm{max}({\gamma_{2s}, \hat{\gamma}_{2s}})\leq 1/16$, \ref{final_error_residual} can be re-written as 
+\begin{equation}
+    \begin{split}
+        \mathbb{E}[\|{\bf r}^{[n+1]}\|_2|{\bf r}^{[0]}=-{\bf x}^s] \leq &\frac{1}{2}\|{\bf r}^{[n]}\|_2+ \frac{5}{\beta_{2s}}\|{\bf e} \|_2 +3.2\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg]+ \frac{2.5\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}(\sqrt{s}\| {\bf x}^s\|_2+1).
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        \mathbb{E}[\|\hat{{\bf x}}^{[n+1]}-{\bf x}^s\|_2|\hat{{\bf x}}^{[0]}={\bf 0}] \leq &2^{-n}\|{\bf x}^{s}\|_2+ \frac{10}{\beta_{2s}}\|{\bf e} \|_2 +6.4\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg] + \frac{5\sqrt{m}}{\beta_{2s}2^{b-1}}(\sqrt{s}\| {\bf x}^s\|_2+1).
+    \end{split}
+\end{equation}
+%\cite{iht}
+%\cite{niht}
+%\cite{greedy_algorithms}
+\bibliography{references}
+\bibliographystyle{icml2013}
+
+
+\end{document} 

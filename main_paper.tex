@@ -1,0 +1,227 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% ICML 2017 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use the following line _only_ if you're still using LaTeX 2.09.
+%\documentstyle[icml2013,epsf,natbib]{article}
+% If you rely on Latex2e packages, like most moden people use this:
+\documentclass{article}
+
+% For figures
+\usepackage{graphicx} % more modern
+%\usepackage{epsfig} % less modern
+\usepackage{subfigure} 
+
+% For citations
+\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+
+
+% For algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% As of 2011, we use the hyperref package to produce hyperlinks in the
+% resulting PDF.  If this breaks your system, please commend out the
+% following usepackage line and replace \usepackage{icml2013} with
+% \usepackage[nohyperref]{icml2013} above.
+\usepackage{hyperref}
+
+% Packages hyperref and algorithmic misbehave sometimes.  We can fix
+% this with the following command.
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Employ the following version of the ``usepackage'' statement for
+% submitting the draft version of the paper for review.  This will set
+% the note in the first column to ``Under review.  Do not distribute.''
+
+\usepackage{icml2013} 
+% Employ this version of the ``usepackage'' statement after the paper has
+% been accepted, when creating the final version.  This will set the
+% note in the first column to ``Proceedings of the...''
+% \usepackage[accepted]{icml2013}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{Low Precision Compressed Sensing with Use Case in
+Radio Astronomy}
+
+\begin{document} 
+\setlength{\abovedisplayskip}{5.5pt}
+\setlength{\belowdisplayskip}{6pt}
+
+\twocolumn[
+\icmltitle{Low Precision Compressed Sensing
+with Use Case in \\
+Radio Astronomy}
+
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2013
+% package.
+\icmlauthor{Nezihe Merve G\"{u}rel}{nezihe.guerel@inf.ethz.ch}
+\icmladdress{Eidgen�ssische Technische Hochschule Z�rich,
+            314159 Pi St., Palo Alto, CA 94306 USA}
+\icmlauthor{Your CoAuthor's Name}{email@coauthordomain.edu}
+\icmladdress{Their Fantastic Institute,
+            27182 Exp St., Toronto, ON M6H 2T1 CANADA}
+
+% You may provide any keywords that you 
+% find helpful for describing your paper; these are used to populate 
+% the "keywords" metadata in the PDF but will not be shown in the document
+\icmlkeywords{compressed sensing, low precision, iterative hard thresholding, radio astronomy, fpga}
+
+\vskip 0.3in
+]
+
+\begin{abstract} 
+Normalized Iterative Hard Thresholding (NIHT) algorithm offers near optimal recovery of compressible signals sampled below the Nyquist rate. NIHT, however, seems to have a computational bottleneck when applied to the compressed sensing recovery problems with general (non-Gaussian) dense measurement matrices. To relieve this, we propose to compress the measurement matrix by quantizing the bit-widths of its entries at each iteration. This low precision framework results in runtime efficiency on hardware yet still maintaining the stability and performance guarantees of the algorithm. To demonstrate this, we first derive theoretical error bounds for perfect support recovery. Under certain constraints, low precision NIHT is shown to converge with near-optimal error guarantees. We then illustrate through simulation the potential for Radio Astronomy (RA) with achievement of 16x speed up on FPGA. An application to RA leads to a better resolution of the sky sources recovered with order of magnitude speed up. 
+\end{abstract} 
+\section{Introduction}
+%Back through the decades, the breakthrough foundation of signal acquisition was the Nyquist-Shannon sampling theorem, namely a band-limited signal can be recovered from its samples perfectly if the sampling rate is at least twice the highest frequency component.
+%The recently emerging field of compressed sensing is a foundational technique in sparse signal reconstruction. Acquiring a signal with sparse representation in some transform domain, i.e., Wave
+
+1- CS
+
+2- IHT-NIHT-Comparison
+
+3- Quantization
+
+\subsection{Paper Overview}
+\subsection{Notation}
+Scalars are denoted by italics, vectors by bold lower-case and matrices by bold upper-case. For all ${\bf x}= (x_1, \hdot, x_n) \in \mathbb{R}^n$, we denote by $\|{\bf x}\|_p = (\sum_{i=1}^n x_n^p)^{1/p}$ the standard ${\ell}_p$-norm and by
+where $H_s({\bf x}): \mathbb{C}^n \rightarrow \mathbb{C}^n$ the nonlinear operator that preserves the largest $s$ (in magnitude) entries of {\bf x} and sets the remaining to zero. 
+\section{Preliminaries}
+\subsection{Compressed Sensing Problem}
+\subsection{Normalized Iterative Hard Thresholding}
+In this section, we review the preliminary results on the normalized Iterative Hard Thresholding (IHT) algorithm introduced by [refs].
+
+\subsubsection{Definition of the Algorithm} 
+Let ${\bf x}^{[0]} = 0$, the normalized IHT$_s$ has the following update rule per iteration
+\begin{equation}
+{\bf x}^{[n+1]} = H_s({\bf x}^{[n]} + \mu^{[n]}{\bf \Phi}({\bf y}-{\bf \Phi}{\bf x}^{[n]})),
+\end{equation}
+where $\mu^{[n]}>0$ is the adaptive step size parameter. %Under certain conditions, the normalized IHT converges to a local minimum of the optimization problem
+%\begin{equation}\label{cost_function}
+%    \textrm{min} \|{\bf y}-{\bf \Phi x} \|_2^2
+%\ \ \ {\textrm{subject \ to }}\ \ \|{\bf x}\|_0 \leq s.
+%\end{equation}
+
+\subsubsection{Convergence} 
+The analysis of the normalized IHT heavily relies on the scaling properties of ${\bf \Phi}$. More precisely, the converge to a local minimum of the cost function $\|{\bf y}-{\bf \Phi x} \|_2$ was proven under certain conditions on the measurement matrix: ${\bf \Phi}$ as well as the performance guarantees. To be more concrete on these conditions, one must often deal with non-symmetric Restricted Isometry Property (RIP), namely, a matrix ${\bf \Phi}$ satisfies non-symmetric RIP if
+\begin{equation}
+\alpha_{s} \leq \frac{\|{\bf \Phi} {\bf x}\|_2}{\|{\bf x}\|_2} \leq \beta_{s}
+\end{equation}
+for all ${\bf x}: \|{\bf x}\|_0 \leq s$, and some $\alpha_s, \beta_s \in \mathbb{R}$ such that $0<\alpha_s\leq \beta_s$. the so-called Restricted Isometric Constants (RICs).
+\begin{remark}
+The convergence of normalized IHT depends conditionally on the step size parameter $\mu^{[n]}$ unlike the traditional IHT approach where $\mu^{[n]}=1$. While the traditional approach merely requires a re-scaling of measurement matrix such that $\|{\bf \Phi}\|_2 <1$ to ensure convergence, introducing a step size parameter to compensate for this re-scaling avoids undesirable amplification of noise, i.e., the ratio of $\|{\bf \Phi x}\|_2/\|{\bf e}\|_2$ remains unchanged. 
+\end{remark}
+
+The main convergence result an be stated as follows. Proof can be found in, for example, [ref].
+
+\begin{theorem}
+{\rm{\cite{niht}}}\\ 
+Let ${\bf \Phi}$ is of full rank and $s\leq m$. If $\beta_{2s}\leq\mu^{-1}$, then normalized IHT converges to a local minimum of ref{costfunc}.
+\end{theorem}
+
+\subsubsection{Step Size Determination} 
+While setting the step size parameter, the condition that $\beta_{2s}\leq\mu^{-1}$ ensuring convergence poses the following challenge. To date, there is no universal strategy known to check if the RIP holds for an arbitrary measurement matrix in a computationally efficient manner. Similar discussion holds for attaining the RICs, i.e., ${\beta_s}$ and $\alpha_s$, associated with the measurement matrix ${\bf \Phi}$. It could however be shown that, under certain conditions, ran-
+domly constructed measurement matrices can satisfy
+the RIP with high probability []. Still, it remains a bottleneck for a more general class of
+measurement matrices. Without losing the main track, here we intend to review a more generic strategy for step size determination.
+
+If the support is fixed, a natural strategy to set the step size adaptively is []
+\begin{equation}
+   \mu^{[n]} = \frac{{\bf g}^T_{\Gamma^{[n]}}{\bf g}_{\Gamma^{[n]}}}{{\bf g}^T_{\Gamma^{[n]}}{\bf \Phi}^T_{\Gamma^{[n]}}{\bf \Phi}_{\Gamma^{[n]}}{\bf g}_{\Gamma^{[n]}}}
+\end{equation}
+where ${\bf g}^{[n]} = {\bf \Phi}^T({\bf y}-{\bf \Phi x}^{[n]})$. Clearly, the maximal reduction in cost function can then be attained. However, if the support of ${\bf x}^{[n+1]}$ differs than that of ${\bf x}^{[n]}$, the sufficient condition to guarantee convergence is [ref44ofgreedy]
+\begin{equation}
+    \mu^{[n]} \leq(1-c) \frac{\|{\bf x}^{[n+1]}-{\bf x}^{[n]} \|_2^2}{\|{\bf \Phi}({\bf x}^{[n+1]}-{\bf x}^{[n]}) \|_2^2},
+\end{equation}
+for any small constant $c$.
+
+If the above condition is not met, a new proposal for ${\bf x}^{[n+1]}$ can be calculated by using $\mu^{[n]}\leftarrow{\mu^{[n]}/(k(1-c))}$, where $k$ is a shrinkage parameter such that $k>1/(1-c)$.
+
+This adaptive setting of step size parameter is shown to provide RIP-invariant convergence result by [ref] as follows.
+\begin{theorem}
+{\rm{\cite{niht}}}\\
+If rank({${\bf \Phi}$}) = m and rank(${\bf \Phi}$_{\Gamma}) = s \ $\forall \Gamma:\ |\Gamma| = s$, then the so-called normalized IHT algorithm converges to a local minimum of the cost function ref.
+\end{theorem}
+\subsubsection{Recovery Performance.} 
+Convergence is necessary to guarantee the existence of a stable scheme for sparse signal recovery. However, the recovery performance of such algorithms is of our primary interest. In a series of papers [...], extensive research effors have been made and strong theoretical guarantees were derived. Here we state the most refined recovery error bounds.
+\begin{theorem}
+{\rm{\cite{niht}}}\\
+Consider a noisy observation ${\bf y} = {\bf \Phi x} + {\bf e}$ with an arbitrary vector {\bf x}. Also, assume ${\bf \Phi}}$ is non-symmetric RIP$_{2s}$ and let $\gamma_{2s} = \beta_{2s}/\alpha_{2s}-1$. If $\gamma_{2s} \leq {1}/{8}$, then
+\begin{equation}
+    \| {\bf x}-{\bf x}^n\|_2 \leq 2^{-n}\| {\bf x}^s\|_2 + 8\tilde{{\bf \epsilon}_s}\label{niht_error_bound}
+\end{equation} where \begin{equation}
+    \tilde{{\bf \epsilon}_s} =  \| {\bf x}-{\bf x}^s\|_2 + \frac{\| {\bf x}-{\bf x}^s\|_1}{\sqrt{s}}+\frac{1}{\beta_{2s}}\|{\bf e} \|_2.
+\end{equation}
+
+Remarkably, after at most $n^*=\log_2(\|{\bf x}^s\|_2/\tilde{\bf \epsilon}_s)$ iterations, the recovery error bound in \ref{niht_error_bound} can be further simplified to
+\begin{equation}
+   \| {\bf x}-{\bf x}^n\|_2 \leq 9\tilde{{\bf \epsilon}_s}.
+\end{equation}
+\end{theorem}
+The above result suggests that, after a sufficiently large number of IHT runs, the reconstruction error is induced only by the noise ${\bf e}$ and that ${\bf x}$ is not exactly s-sparse.
+
+
+\section{Low Precision IHT}
+\subsection{Proposed Approach}
+
+\subsubsection{Quantization Scheme}
+Similarly as in [refs], we employ a stochastic quantization function denoted with $Q_b({\bf v})$, where ${\bf v}=(v_1, v_2, .., v_d) \in \mathbb{R}^d$ is an arbitrary vector and $b$ is the total number of bits used to represent it. {\bf v} can then be quantized into $l=2^b$ levels as follows. Let $\ell_i$, $i\in \{1, 2, ..., l-1 \}$ denote $l$ equally spaced points on $[\min({\bf v}), \max({\bf v})]$ such that $\ell_1=\min({\bf v})$, $\ell_l=\max({\bf v})$ and $\ell_1\leq\ell_2 \leq ... \leq \ell_l$, also $v_j$ for $j\in \{1, 2, ..., d \}$ fall into the interval $[\ell_i, \ell_{i+1}]$. Then we assign the probabilities to the nearest levels as
+ \[
+    Q_b(v_j) = \left\{\begin{array}{lr}
+        \ell_i, & \textrm{with probability} \ \frac{\ell_{i+1}-v_j}{\ell_{i+1}-\ell_i}\\
+        \ell_{i+1},&\textrm{otherwise}.  \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+        \end{array}
+  \]
+
+Moreover, the above equation yields that the quantization function $Q({\bf v})$ is unbiased, i.e., $\mathbb{E}[Q({\bf v})] = {\bf v}$.
+\subsubsection{Conditions on $\Phi$}
+
+\subsubsection{Stability}
+
+\subsubsection{Performance Guarantees}
+\subsection{FPGA Implementation}
+\section{Experiments}
+\subsection{Radio Astronomy}
+\section{Discussion}
+
+
+
+
+
+
+
+
+\cite{iht}
+\cite{niht}
+\cite{greedy_algorithms}
+% In the unusual situation where you want a paper to appear in the
+% references without citing it in the main text, use \nocite
+\nocite{langley00}
+
+\bibliography{references}
+\bibliographystyle{icml2013}
+
+
+\end{document} 
+
+
+% This document was modified from the file originally made available by
+% Pat Langley and Andrea Danyluk for ICML-2K. This version was
+% created by Lise Getoor and Tobias Scheffer, it was slightly modified  
+% from the 2010 version by Thorsten Joachims & Johannes Fuernkranz, 
+% slightly modified from the 2009 version by Kiri Wagstaff and 
+% Sam Roweis's 2008 version, which is slightly modified from 
+% Prasad Tadepalli's 2007 version which is a lightly 
+% changed version of the previous year's version by Andrew Moore, 
+% which was in turn edited from those of Kristian Kersting and 
+% Codrina Lauth. Alex Smola contributed to the algorithmic style files.  
