@@ -379,19 +379,27 @@ Combining (a) and (b), the norm of recovery error is given by
     \begin{split}
         \mathbb{E}[\|{\bf r}^{[n+1]}\|_2|{\bf r}^{[0]}=-{\bf x}^s] \leq &8\rm{max}(\gamma_{2s},\hat{\gamma}_{2s}) \|{\bf r}^{[n]}\|_2 
         + 2\bigg(\rm{max}\big((1+\gamma_{2s})/\beta_{2s} - 1/\hat{\beta}_{2s}, (1+\hat{\gamma}_{2s})/\hat{\beta}_{2s} - 1/{\beta}_{2s} \big)+\frac{1+\gamma_{2s}}{\beta_{2s}}\bigg)\|{\bf e} \|_2\\
-        &+2\sqrt{2}(1+2\rm{max}({\gamma}_{2s}, \hat{\gamma}_{2s}))\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg]+2\frac{(1+\hat{\gamma}_{2s})\sqrt{ms}}{\hat{\beta}_{2s}2^{b-1}}\|{\bf x}^s \|_2 + 2\frac{\sqrt{m}(\hat{\gamma}_{2s}+1)}{\hat{\beta}_{2s}2^{b-1}}
+        &+2\sqrt{2}(1+2\rm{max}({\gamma}_{2s}, \hat{\gamma}_{2s}))\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg]+2\frac{(1+\hat{\gamma}_{2s})\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}\|{\bf x}^s \|_2 + 2\frac{(1+\hat{\gamma}_{2s})\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}
     \end{split}
 \end{equation}
 If $\rm{max}({\gamma_{2s}, \hat{\gamma}_{2s}})\leq 1/16$, \ref{final_error_residual} can be re-written as 
 \begin{equation}
     \begin{split}
-        \mathbb{E}[\|{\bf r}^{[n+1]}\|_2|{\bf r}^{[0]}=-{\bf x}^s] \leq &\frac{1}{2}\|{\bf r}^{[n]}\|_2+ \frac{5}{\beta_{2s}}\|{\bf e} \|_2 +3.2\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg]+ \frac{2.5\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}(\sqrt{s}\| {\bf x}^s\|_2+1).
+        \mathbb{E}[\|{\bf r}^{[n+1]}\|_2|{\bf r}^{[0]}=-{\bf x}^s] \leq &\frac{1}{2}\|{\bf r}^{[n]}\|_2+ \frac{5}{\beta_{2s}}\|{\bf e} \|_2 +3.2\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg]+ \frac{2.5\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}(\| {\bf x}^s\|_2+1).
     \end{split}
 \end{equation}
 
 \begin{equation}
     \begin{split}
-        \mathbb{E}[\|\hat{{\bf x}}^{[n+1]}-{\bf x}^s\|_2|\hat{{\bf x}}^{[0]}={\bf 0}] \leq &2^{-n}\|{\bf x}^{s}\|_2+ \frac{10}{\beta_{2s}}\|{\bf e} \|_2 +6.4\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg] + \frac{5\sqrt{m}}{\beta_{2s}2^{b-1}}(\sqrt{s}\| {\bf x}^s\|_2+1).
+        \mathbb{E}[\|\hat{{\bf x}}^{[n+1]}-{\bf x}^*\|_2|\hat{{\bf x}}^{[0]}={\bf 0}] \leq &2^{-n}\|{\bf x}^{*}\|_2+ \frac{10}{{\beta}_{2s}}\|{\bf e} \|_2 +6.4\bigg  [ \|{\bf x}-{\bf x}^* \|_2 + \frac{\|{\bf x}-{\bf x}^* \|_1}{\sqrt{s}}\bigg] + \frac{5\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}(\| {\bf x}^*\|_2+1).
+    \end{split}
+\end{equation}
+
+
+
+\begin{equation}
+    \begin{split}
+        \mathbb{E}[\|\hat{{\bf x}}^{[n+1]}-{\bf x}^*\|_2] \leq &2^{-n}\|{\bf x}^{*}\|_2+ \frac{10}{{\beta}_{2s}}\|{\bf e} \|_2 +6.4\bigg  [ \|{\bf x}-{\bf x}^* \|_2 + \frac{\|{\bf x}-{\bf x}^* \|_1}{\sqrt{s}}\bigg] + \frac{4}{\sqrt{s} 2^{b-1}}(\| {\bf x}^*\|_2+1).
     \end{split}
 \end{equation}
 %\cite{iht}

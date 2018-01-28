@@ -189,6 +189,14 @@ Moreover, the above equation yields that the quantization function $Q({\bf v})$ 
 \subsubsection{Stability}
 
 \subsubsection{Performance Guarantees}
+\begin{theorem}
+Consider a noisy observation ${\bf y} = {\bf \Phi x}+{\bf e} $ where ${\bf x}$ is an arbitrary vector with $\|{\bf x} \|_1 \leq s$. Let ${\bf \Phi}$ is a full rank and $s\leq m$.
+\end{theorem}
+\begin{equation}
+    \begin{split}
+        \mathbb{E}[\|\hat{{\bf x}}^{[n+1]}-{\bf x}^s\|_2|\hat{{\bf x}}^{[0]}={\bf 0}] \leq &2^{-n}\|{\bf x}^{s}\|_2+ \frac{10}{\beta_{2s}}\|{\bf e} \|_2 +6.4\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg] + \frac{5\sqrt{m}}{\beta_{2s}2^{b-1}}(\| {\bf x}^s\|_2+1).
+    \end{split}
+\end{equation}
 \subsection{FPGA Implementation}
 \section{Experiments}
 \subsection{Radio Astronomy}
