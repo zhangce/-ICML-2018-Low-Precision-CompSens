@@ -11,14 +11,13 @@
 \usepackage{graphicx} % more modern
 %\usepackage{epsfig} % less modern
 \usepackage{subfigure} 
-
-% For citations
 \usepackage{natbib}
 \usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{amsfonts}
-
-
-
+\usepackage{amsthm}
+\usepackage{mathtools}
+%\usepackage{algorithm2e}
 % For algorithms
 \usepackage{algorithm}
 \usepackage{algorithmic}
@@ -48,17 +47,14 @@
 
 % The \icmltitle you define below is probably too long as a header.
 % Therefore, a short form for the running title is supplied here:
-\icmltitlerunning{Low Precision Compressed Sensing with Use Case in
-Radio Astronomy}
+\icmltitlerunning{2-bits Compressive Sensing with Use Case in Radio Astronomy}
 
 \begin{document} 
 \setlength{\abovedisplayskip}{5.5pt}
 \setlength{\belowdisplayskip}{6pt}
 
 \twocolumn[
-\icmltitle{Low Precision Compressed Sensing
-with Use Case in \\
-Radio Astronomy}
+\icmltitle{2-bits Compressive Sensing with Use Case in Radio Astronomy}
 
 % It is OKAY to include author information, even for blind
 % submissions: the style file will automatically remove it for you
@@ -93,6 +89,7 @@ Normalized Iterative Hard Thresholding (NIHT) algorithm offers near optimal reco
 3- Quantization
 
 \subsection{Paper Overview}
+
 \subsection{Notation}
 Scalars are denoted by italics, vectors by bold lower-case and matrices by bold upper-case. For all ${\bf x}= (x_1, \hdot, x_n) \in \mathbb{R}^n$, we denote by $\|{\bf x}\|_p = (\sum_{i=1}^n x_n^p)^{1/p}$ the standard ${\ell}_p$-norm and by
 where $H_s({\bf x}): \mathbb{C}^n \rightarrow \mathbb{C}^n$ the nonlinear operator that preserves the largest $s$ (in magnitude) entries of {\bf x} and sets the remaining to zero. 
@@ -103,7 +100,7 @@ In this section, we review the preliminary results on the normalized Iterative H
 
 \subsubsection{Definition of the Algorithm} 
 Let ${\bf x}^{[0]} = 0$, the normalized IHT$_s$ has the following update rule per iteration
-\begin{equation}
+\begin{equation}\label{iht_update_rule}
 {\bf x}^{[n+1]} = H_s({\bf x}^{[n]} + \mu^{[n]}{\bf \Phi}({\bf y}-{\bf \Phi}{\bf x}^{[n]})),
 \end{equation}
 where $\mu^{[n]}>0$ is the adaptive step size parameter. %Under certain conditions, the normalized IHT converges to a local minimum of the optimization problem
@@ -113,8 +110,8 @@ where $\mu^{[n]}>0$ is the adaptive step size parameter. %Under certain conditio
 %\end{equation}
 
 \subsubsection{Convergence} 
-The analysis of the normalized IHT heavily relies on the scaling properties of ${\bf \Phi}$. More precisely, the converge to a local minimum of the cost function $\|{\bf y}-{\bf \Phi x} \|_2$ was proven under certain conditions on the measurement matrix: ${\bf \Phi}$ as well as the performance guarantees. To be more concrete on these conditions, one must often deal with non-symmetric Restricted Isometry Property (RIP), namely, a matrix ${\bf \Phi}$ satisfies non-symmetric RIP if
-\begin{equation}
+The analysis of the heavily relies on the scaling properties of ${\bf \Phi}$. More precisely, the converge to a local minimum of the cost function $\|{\bf y}-{\bf \Phi x} \|_2$ was proven under certain conditions on the measurement matrix: ${\bf \Phi}$ as well as the performance guarantees. To be more concrete on these conditions, one must often deal with non-symmetric Restricted Isometry Property (RIP), namely, a matrix ${\bf \Phi}$ satisfies non-symmetric RIP if
+\begin{equation}\label{rip}
 \alpha_{s} \leq \frac{\|{\bf \Phi} {\bf x}\|_2}{\|{\bf x}\|_2} \leq \beta_{s}
 \end{equation}
 for all ${\bf x}: \|{\bf x}\|_0 \leq s$, and some $\alpha_s, \beta_s \in \mathbb{R}$ such that $0<\alpha_s\leq \beta_s$. the so-called Restricted Isometric Constants (RICs).
@@ -136,7 +133,7 @@ the RIP with high probability []. Still, it remains a bottleneck for a more gene
 measurement matrices. Without losing the main track, here we intend to review a more generic strategy for step size determination.
 
 If the support is fixed, a natural strategy to set the step size adaptively is []
-\begin{equation}
+\begin{equation}\label{step_size}
    \mu^{[n]} = \frac{{\bf g}^T_{\Gamma^{[n]}}{\bf g}_{\Gamma^{[n]}}}{{\bf g}^T_{\Gamma^{[n]}}{\bf \Phi}^T_{\Gamma^{[n]}}{\bf \Phi}_{\Gamma^{[n]}}{\bf g}_{\Gamma^{[n]}}}
 \end{equation}
 where ${\bf g}^{[n]} = {\bf \Phi}^T({\bf y}-{\bf \Phi x}^{[n]})$. Clearly, the maximal reduction in cost function can then be attained. However, if the support of ${\bf x}^{[n+1]}$ differs than that of ${\bf x}^{[n]}$, the sufficient condition to guarantee convergence is [ref44ofgreedy]
@@ -153,7 +150,7 @@ This adaptive setting of step size parameter is shown to provide RIP-invariant c
 If rank({${\bf \Phi}$}) = m and rank(${\bf \Phi}$_{\Gamma}) = s \ $\forall \Gamma:\ |\Gamma| = s$, then the so-called normalized IHT algorithm converges to a local minimum of the cost function ref.
 \end{theorem}
 \subsubsection{Recovery Performance.} 
-Convergence is necessary to guarantee the existence of a stable scheme for sparse signal recovery. However, the recovery performance of such algorithms is of our primary interest. In a series of papers [...], extensive research effors have been made and strong theoretical guarantees were derived. Here we state the most refined recovery error bounds.
+ In a series of papers [...], extensive research effors have been made and strong theoretical guarantees were derived. Here we state the most refined recovery error bounds.
 \begin{theorem}
 {\rm{\cite{niht}}}\\
 Consider a noisy observation ${\bf y} = {\bf \Phi x} + {\bf e}$ with an arbitrary vector {\bf x}. Also, assume ${\bf \Phi}}$ is non-symmetric RIP$_{2s}$ and let $\gamma_{2s} = \beta_{2s}/\alpha_{2s}-1$. If $\gamma_{2s} \leq {1}/{8}$, then
@@ -171,35 +168,117 @@ Remarkably, after at most $n^*=\log_2(\|{\bf x}^s\|_2/\tilde{\bf \epsilon}_s)$ i
 The above result suggests that, after a sufficiently large number of IHT runs, the reconstruction error is induced only by the noise ${\bf e}$ and that ${\bf x}$ is not exactly s-sparse.
 
 
-\section{Low Precision IHT}
-\subsection{Proposed Approach}
 
-\subsubsection{Quantization Scheme}
-Similarly as in [refs], we employ a stochastic quantization function denoted with $Q_b({\bf v})$, where ${\bf v}=(v_1, v_2, .., v_d) \in \mathbb{R}^d$ is an arbitrary vector and $b$ is the total number of bits used to represent it. {\bf v} can then be quantized into $l=2^b$ levels as follows. Let $\ell_i$, $i\in \{1, 2, ..., l-1 \}$ denote $l$ equally spaced points on $[\min({\bf v}), \max({\bf v})]$ such that $\ell_1=\min({\bf v})$, $\ell_l=\max({\bf v})$ and $\ell_1\leq\ell_2 \leq ... \leq \ell_l$, also $v_j$ for $j\in \{1, 2, ..., d \}$ fall into the interval $[\ell_i, \ell_{i+1}]$. Then we assign the probabilities to the nearest levels as
- \[
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+\section{Low Precision Iterative Thresholding}
+In this section, we present the proposed accelerated Iterative Hard Thresholding and establish rigorous performance guarantee for sparse signal recovery. The key development here is that, by the number of bits to represent the dense measurement matrices as well as measurements, we still obtain near-optimal recoveries. 
+
+Let ${\bf x}^{[0]} = 0$ and use iteration
+\begin{equation} \label{modified_update_rule}
+  {\bf x}^{[n+1]} = H_s\big({\bf x}^{[n]}+\mu Q_b(\boldsymbol{\Phi})(Q_b({\bf y})-Q_b(\boldsymbol{\Phi}){\bf x}^{[n]})\big)  
+\end{equation}
+where $Q(\cdot)$ is the quantization function that maps single-precision floating-point onto a codomain where each element has $b$-bits precision.
+
+{\bf Quantization Scheme:} We employ a stochastic quantization function denoted with $Q_b({\bf v})$, where ${\bf v}=(v_1, v_2, .., v_d) \in \mathbb{R}^d$ is an arbitrary vector and $b$ is the total number of bits used to represent it. {\bf v} can then be quantized into $l=2^b$ levels as follows. Let $\ell_i$, $i\in \{1, 2, ..., l-1 \}$ denote $l$ equally spaced points on $[\min({\bf v}), \max({\bf v})]$ such that $\ell_1=\min({\bf v})$, $\ell_l=\max({\bf v})$ and $\ell_1\leq\ell_2 \leq ... \leq \ell_l$, also $v_j$ for $j\in \{1, 2, ..., d \}$ fall into the interval $[\ell_i, \ell_{i+1}]$. Then we assign the probabilities to the nearest levels as
+ $\[
     Q_b(v_j) = \left\{\begin{array}{lr}
         \ell_i, & \textrm{with probability} \ \frac{\ell_{i+1}-v_j}{\ell_{i+1}-\ell_i}\\
         \ell_{i+1},&\textrm{otherwise}.  \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
         \end{array}
-  \]
+  \]$
+  
+Remark that the above equation yields that the quantization operation $Q(\cdot)$ is unbiased, i.e., $\mathbb{E}[Q_b({\bf v})] = {\bf v}$. Also, let $\hat{{\bf v}}$ represent the quantized ${\bf v}$ and drop $Q(\cdot)$ to simplify notational burden. The detailed steps of the algorithm is then given in Algorithm \ref{low_precision_iht}.
 
-Moreover, the above equation yields that the quantization function $Q({\bf v})$ is unbiased, i.e., $\mathbb{E}[Q({\bf v})] = {\bf v}$.
-\subsubsection{Conditions on $\Phi$}
 
-\subsubsection{Stability}
 
-\subsubsection{Performance Guarantees}
-\begin{theorem}
-Consider a noisy observation ${\bf y} = {\bf \Phi x}+{\bf e} $ where ${\bf x}$ is an arbitrary vector with $\|{\bf x} \|_1 \leq s$. Let ${\bf \Phi}$ is a full rank and $s\leq m$.
-\end{theorem}
-\begin{equation}
+\begin{algorithm}[h!]
+   \caption{Low Precision Iterative Hard Thresholding}
+   \label{low_precision_iht}
+\begin{algorithmic}
+   \STATE {\bfseries Input:} Measurement matrix ${\bf \Phi}$, measurements ${\bf y}$, sparsity parameter $s$, number of iterations $n^*$, $b_{\bf \Phi}$ and $b_{\bf y}$ 
+   \REPEAT
+   \STATE Initialize ${\bf x} = 0$, $\mu = $.
+   \FOR{$i=1$ {\bfseries to} $n-1$}
+   \STATE ${\bf g}^{[i]} = Q^{\dagger}_{b_{\bf \Phi}}({\bf \Phi}) \big(Q_{b_{\bf y}}({\bf y})-Q^{\dagger}_{b_{\bf \Phi}}{\bf x}^{[i]}\big)$
+   \STATE ${\bf x}^{[i+1]} = H_s({\bf x}^{[i]} + \mu {\bf g}^{[i]})$
+   \ENDFOR
+   \UNTIL $n = n^*$
+\end{algorithmic}
+\end{algorithm}
+{\bf Convergence:} The modified algorithm attains a local minimum of the cost function $\mathbb{E} [ \| \hat{\bf y} - \hat{\bf \Phi}{\bf x}\|_2^2]$ such that $\|{\bf x}\|_0 \leq s$. This can be majorized by the following surrogate objective function 
+\begin{equation*}
     \begin{split}
-        \mathbb{E}[\|\hat{{\bf x}}^{[n+1]}-{\bf x}^s\|_2|\hat{{\bf x}}^{[0]}={\bf 0}] \leq &2^{-n}\|{\bf x}^{s}\|_2+ \frac{10}{\beta_{2s}}\|{\bf e} \|_2 +6.4\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg] + \frac{5\sqrt{m}}{\beta_{2s}2^{b-1}}(\| {\bf x}^s\|_2+1).
+        \mathbb{E} [\|\mu^{0.5}\hat{\bf y} -   \hat{\bf \Phi}{\bf x}\|_2^2+ \|{\bf x} 
+    - {\bf x}^{[n]} \|_2^2
+    - \|\mu^{0.5}\hat{\bf \Phi}({\bf x}- {\bf x}^{[n]}) \|_2^2] 
     \end{split}
+\end{equation*}
+whenever $\| \mu^{0.5}\hat{\bf \Phi}\|_2^2 <1$. If this condition is met, the minimizer of the above surrogate objective: ${\bf x}^{[n+1]}$ ensures that $\| \hat{\bf y} - \hat{\bf \Phi}{\bf x}^{[n+1]}\|_2^2 \leq \| \hat{\bf y} - \hat{\bf \Phi}{\bf x}^{[n]}\|_2^2$. Moreover, by using the arguments of [], \ref{modified_update_rule} can be shown to minimize the expected cost $\mathbb{E} [ \| \hat{\bf y} - \hat{\bf \Phi}{\bf x}\|_2^2]$.
+
+{\bf Computational Complexity:} The iterative thresholding algorithm involves two vector additions and two dense matrix multiplication as well as thresholding operation per iteration. Low precision approach thus alleviates the computations by blabla and reduces memory requirements to store the dense measurement matrix ${\bf \Phi}$. (we need to improve here)
+ 
+{\bf Conditions on $\hat{\Phi}$:} Unlike the traditional approach, the normalized iterative hard thresholding algorithm where $\mu$ is no longer unity enables the arbitrary scaling of measurement matrix by relaxing the bounds of the norm of $\hat{{\bf \Phi}}$. The restricted isometry property holds for the quantized measurement if
+\begin{equation}
+    \hat{\alpha}_{s} \leq \frac{\|\hat{{\bf \Phi}} {\bf x}\|_2}{\|{\bf x}\|_2} \leq \hat{\beta}_{s}
 \end{equation}
+$\forall {\bf x}: \| {\bf x}\|_0 \leq s$. The resctricted isometry constants $\hat{\alpha}_s$ and $\hat{\beta}_s$ can therefore be re-scaled accordingly with $\hat{\bf \Phi}$.
+
+{\bf Step Size Determination:} The step size $\mu$ is required to counteract the scaling of $\hat{{\bf \Phi}}$ such that $\|\mu^{0.5} \hat{\bf\Phi}\|_2^2 <1$ to ensure the convergence. This yields the trivial bound on $\mu$ as
+\begin{equation}
+    1/\hat{\beta}_s^2 < \mu < 1/\hat{\alpha}_s^2.
+\end{equation}
+Moreover, using \ref{step_size} in the low precision setting, we can initially determine $\mu$ to guarantee the convergence without requiring the knowledge of the restricted isometry constants.
+
+ \subsection{Performance Guarantees}
+ Convergence is necessary to guarantee the existence of a stable scheme for sparse signal recovery. However, the recovery performance of such algorithms is of our primary interest. The following theorem states the recovery error by explicitly exhibiting the component introduced by the quantization.
+\begin{theorem}
+Given a noisy observation ${\bf y} = {\bf \Phi x}+{\bf e} $ where ${\bf x}$ is an arbitrary vector with $\|{\bf x} \|_0 \leq s$ and $H_s({\bf x}) = {\bf x}^s$. Let $\hat{\bf \Phi}$ satisfies the restricted isometry property with $\hat{\alpha}_s$ and $\hat{\beta}_s$ with $s\leq m$. If the iterative hard thresholding algorithm is used at low precision such that $\hat{\beta}_s/\hat{\alpha}_s -1 \leq 1/16$ we have
+\begin{equation}
+\begin{split}
+        \mathbb{E}[\|\hat{{\bf x}}^{[n+1]}-{\bf x}^s\|_2]  
+        \leq &2^{-n}\|{\bf x}^{s}\|_2  + 10\epsilon_s + 5c\big ( \frac{\| {\bf x}^s\|_2}{2^{b_{\bf \Phi}-1}}+\frac{1}{2^{b_{\bf y}-1}} \big )
+\end{split}
+\end{equation}
+with 
+\begin{equation}
+\epsilon_s = \frac{1}{\beta_{2s}}\|{\bf e} \|_2 +\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg]    
+\end{equation}
+and
+\begin{equation}
+c = {\sqrt{m}}/{\hat{\beta}_{2s}}  
+\end{equation}
+where $b_{\bf \Phi}$ and $b_{\bf y}$ are the numbers of bits to represent ${\bf \Phi}$ and ${\bf y}$, respectively.
+\end{theorem}
+
+{\bf Optimality of the Result:}
+also stopping criteria
+\subsection{Application to Radio Astronomy}
 \subsection{FPGA Implementation}
+
+\newpage
+\
+\newpage
 \section{Experiments}
-\subsection{Radio Astronomy}
+\subsection{Non-Gaussian Dense Matrices}
+\subsection{Large Scale Experiments}
 \section{Discussion}
 
 
