@@ -189,7 +189,7 @@ The above result suggests that, after a sufficiently large number of IHT runs, t
 \newpage
 
 \section{Low Precision Iterative Thresholding}
-In this section, we present the proposed accelerated Iterative Hard Thresholding and establish rigorous performance guarantee for sparse signal recovery. The key development here is that, by the number of bits to represent the dense measurement matrices as well as measurements, we still obtain near-optimal recoveries. 
+In this section, we present the proposed accelerated Iterative Hard Thresholding and establish rigorous performance guarantee for sparse signal recovery. The key development here is that, by reducing the bit widths used to represent the dense measurement matrices as well as measurements, we still obtain near-optimal recoveries. 
 
 Let ${\bf x}^{[0]} = 0$ and use iteration
 \begin{equation} \label{modified_update_rule}
@@ -198,12 +198,12 @@ Let ${\bf x}^{[0]} = 0$ and use iteration
 where $Q(\cdot)$ is the quantization function that maps single-precision floating-point onto a codomain where each element has $b$-bits precision.
 
 {\bf Quantization Scheme:} We employ a stochastic quantization function denoted with $Q_b({\bf v})$, where ${\bf v}=(v_1, v_2, .., v_d) \in \mathbb{R}^d$ is an arbitrary vector and $b$ is the total number of bits used to represent it. {\bf v} can then be quantized into $l=2^b$ levels as follows. Let $\ell_i$, $i\in \{1, 2, ..., l-1 \}$ denote $l$ equally spaced points on $[\min({\bf v}), \max({\bf v})]$ such that $\ell_1=\min({\bf v})$, $\ell_l=\max({\bf v})$ and $\ell_1\leq\ell_2 \leq ... \leq \ell_l$, also $v_j$ for $j\in \{1, 2, ..., d \}$ fall into the interval $[\ell_i, \ell_{i+1}]$. Then we assign the probabilities to the nearest levels as
- $\[
+\[
     Q_b(v_j) = \left\{\begin{array}{lr}
         \ell_i, & \textrm{with probability} \ \frac{\ell_{i+1}-v_j}{\ell_{i+1}-\ell_i}\\
         \ell_{i+1},&\textrm{otherwise}.  \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
         \end{array}
-  \]$
+\]
   
 Remark that the above equation yields that the quantization operation $Q(\cdot)$ is unbiased, i.e., $\mathbb{E}[Q_b({\bf v})] = {\bf v}$. Also, let $\hat{{\bf v}}$ represent the quantized ${\bf v}$ and drop $Q(\cdot)$ to simplify notational burden. The detailed steps of the algorithm is then given in Algorithm \ref{low_precision_iht}.
 
@@ -249,12 +249,12 @@ Moreover, using \ref{step_size} in the low precision setting, we can initially d
 
  \subsection{Performance Guarantees}
  Convergence is necessary to guarantee the existence of a stable scheme for sparse signal recovery. However, the recovery performance of such algorithms is of our primary interest. The following theorem states the recovery error by explicitly exhibiting the component introduced by the quantization.
-\begin{theorem}
-Given a noisy observation ${\bf y} = {\bf \Phi x}+{\bf e} $ where ${\bf x}$ is an arbitrary vector with $\|{\bf x} \|_0 \leq s$ and $H_s({\bf x}) = {\bf x}^s$. Let $\hat{\bf \Phi}$ satisfies the restricted isometry property with $\hat{\alpha}_s$ and $\hat{\beta}_s$ with $s\leq m$. If the iterative hard thresholding algorithm is used at low precision such that $\hat{\beta}_s/\hat{\alpha}_s -1 \leq 1/16$ we have
-\begin{equation}
+\begin{theorem}\label{main_theorem_TH}
+Given a noisy observation ${\bf y} = {\bf \Phi x}+{\bf e} $ where ${\bf x}$ is an arbitrary vector with $\|{\bf x} \|_0 \leq s$ and $H_s({\bf x}) = {\bf x}^s$. Let $\hat{\bf \Phi}$ satisfies the restricted isometry property with $\hat{\alpha}_s$ and $\hat{\beta}_s$ with $s\leq m$. If the iterative hard thresholding algorithm is used at low precision and let $\hat{\Gamma}_{2s} = \hat{\beta}_{2s}/\hat{\alpha}_{2s} -1 \leq 1/16$ we have
+\begin{equation}\label{main_theorem}
 \begin{split}
         \mathbb{E}[\|\hat{{\bf x}}^{[n+1]}-{\bf x}^s\|_2]  
-        \leq &2^{-n}\|{\bf x}^{s}\|_2  + 10\epsilon_s + 5c\big ( \frac{\| {\bf x}^s\|_2}{2^{b_{\bf \Phi}-1}}+\frac{1}{2^{b_{\bf y}-1}} \big )
+        \leq &2^{-n}\|{\bf x}^{s}\|_2  + 10\epsilon_s + 5\epsilon_q
 \end{split}
 \end{equation}
 with 
@@ -263,21 +263,65 @@ with
 \end{equation}
 and
 \begin{equation}
-c = {\sqrt{m}}/{\hat{\beta}_{2s}}  
+\epsilon_q = \frac{\sqrt{m}}{\hat{\beta}_{2s}}\Big ( \frac{\| {\bf x}^s\|_2}{2^{b_{\bf \Phi}-1}}+\frac{1}{2^{b_{\bf y}-1}} \Big )
 \end{equation}
 where $b_{\bf \Phi}$ and $b_{\bf y}$ are the numbers of bits to represent ${\bf \Phi}$ and ${\bf y}$, respectively.
 \end{theorem}
 
-{\bf Optimality of the Result:}
-also stopping criteria
+A natural stopping criterion is $n^* = \lceil \log_2 (\|{\bf x}^s \|_2/\epsilon_s)\rceil$ where the algorithm compute a successive approximation to ${\bf x}^s$ with accuracy
+\begin{equation}
+    \mathbb{E}[\|{\bf x}^{[n^*]}-{\bf x}^s \|_2] \leq 11\epsilon_s + 5\epsilon_q.
+\end{equation}
+The error bound above is actually oversimplified, our proof in the supplementary material is slightly more delicate. Namely, the quantization operator introduces only $\frac{5}{\beta
+{2s}} \|{\bf e} \|_2$ into $8\epsilon_s$ in \ref{niht_error_bound}, which is tighter than $10\epsilon_s$ in~\ref{main_theorem}.
+
+We now examine the error bound presented in Theorem~\ref{main_theorem_TH}. The low precision iterative thresholding will asymptotically provide a sparse approximation of ${\bf x}$ up to the multiples of $\epsilon_s$ and $\epsilon_q$ involving noise term ${\bf e}$, the approximation error on how well ${\bf x}$ can be represented by a sparse vector ${\bf x}^s$ as well as the corruption introduced by the quantization operator. This makes intuitive sense yet still requires the understanding of our limits on the accuracy of results achievable at low precision. Here we highlight the main limitations.
+
+{\bf Condition on $\hat{\boldsymbol{\gamma}}_{2s}$:} In comparison to the unmodified algorithm, the condition under which the performance guarantee holds is stricter, i.e., $\hat{\gamma}_{2s}\leq 1/16$ where it was $\hat{\gamma}_{2s}\leq 1/8$ in the full precision setting. Unlike the traditional restricted isometry property, the non-symmetric version no longer requires that the measurement is nearly orthonormal when operating on sparse vectors, rather confines the interval of its scaling factor. The allowance interval is therefore tighter in low precision setting. Alternatively, a closer look into the derivation in the supplementary material reveals that there exists finite constants $c_1$ and $c_2$ such that $\mathbb{E}[\|{\bf x}^{n^*}-{\bf x}^s \|_2] \leq c_1\epsilon_s + c_2\epsilon_q$ when $\hat{\gamma}_{2s}\leq 1/8$. Therefore, the accurate approximation to ${\bf x}^s$ can still be recovered after sufficient number of iterations.
+
+We also monitor $\hat{\gamma}_{2s}$ by using the strategy described in ref.
+
+%can easily be verified in a computationally efficient manner
+{\bf Natural limitations on $\hat{\boldsymbol{\beta}}_{2s}$:} In both low and high precision settings, the measurement matrix is scale-invariant and rigorous theoretical guarantee is achievable provided its scaling onto sparse vectors is confined in certain intervals. As introduced in Remark, even this condition is met, there still remains a further limitation by the noise: ${\bf e}$. That is, the signal-to-noise ratio of $\|{\bf \Phi} {\bf x} \|_2/\|{\bf e} \|_2$ will be amplified upon a down-scaling of $\hat{\bf \Phi}$. Yet the low precision framework can potentially overcome this up to some level by the fact that the quantization operation enforces ${\bf y}$ to be confined in $[-1, 1]$.
+
+{\bf Further limitation on $\hat{\boldsymbol{\beta}}_{2s}$ due to quantization:} The recovery error bound satisfying \ref{main_theorem} depends on the error term of high precision iterative hard thresholding $\epsilon_s$ and the quantization error $\epsilon_q$ that is inversely proportional to $\hat{\beta}_{2s}$. For sufficiently large $\hat{\beta}_{2s}$ that compensates for $\sqrt{m} \|{\bf x}^s \|_2$, the low precision approach appears competitive with the unmodified algorithm where the recovery error is bounded by $9\epsilon_s$ in~\ref{niht_error_bound}. Furthermore, the scaling-invariant property of the measurement matrix $\hat{\bf \Phi}$ permits us to scale up $\hat{\beta}_{2s}$ by still retaining the strong recovery result similar to that of high precision algorithm. This however poses the following limitation. The condition that $\hat{\gamma}_{2s}\leq 1/16$ is not necessarily met for any arbitrary scaling of $\hat{\bf \Phi}$. Moreover, inherently from its definition, $\hat{\gamma}_{2s}$ is less likely to fall into $[0, 1/16]$ as $\hat{\bf \Phi}$ is scaled up. Therefore, the strong theoretical guarantee for the recovery holds if the low precision algorithm operates in a regime where both the condition of $\hat{\gamma}_{2s}\leq 1/16$ holds and $\epsilon_q$ is relatively small.
+
+From quantization point of view, re-scaling of the ${\bf y}$ and $\hat{\bf \Phi}$ has no necessity,
+otherwise the constant factor weighting $\epsilon_q$ will change. A small factor naturally reduces the quantization error yet imposes some mild conditions on $\hat{\beta}_{2s}$. Namely, $\hat{\beta}_{2s}$ can not arbitrarily be re-scaled even $\hat{\gamma}_{2s}\leq 1/16$ holds, instead is required to satisfy that all entries of ${\bf y}$ and $\hat{\bf \Phi}$ are confined in $[-1, 1]$.
+
+{\bf Comparison to other state-of-art methods:}
+
 \subsection{Application to Radio Astronomy}
+real life problems generally not known, whether the conditions are satisfied or not
+
+
+
 \subsection{FPGA Implementation}
+Field-Programmable Gate Arrays (FPGA) are an alternative to commonly used Graphics Processing Units (GPU) for accelerated processing of compute intensive machine learning workloads. The custom logic fabric of an FPGA enables the design of specialized compute units, which is very advantageous when working on extremely low-precision and irregular numeric formats, such as double sampled 2-bit numbers. Thanks to the microarchitectural flexibility advantage, it is possible to achieve near linear speed-up when lowering the precision of data that is read from the memory. This has been shown recently for stochastic gradient descent (SGD) when training linear models~\cite{zhang2017zipml, kara2017fpga}. In this work, we take the open-source FPGA implementation from the mentioned works and modify it to perform NIHT.
+
+In terms of the computation, we need to modify two parts of the design to convert it from performing SGD to NIHT: 1) Instead of updating the model after a mini-batch count is reached, we update it after all samples are processed and the true gradient is available. 2) After each epoch, we perform a binary search on the updated model to find the threshold value satisfying that only top $S$ values are larger than the determined threshold.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\columnwidth, angle=270]{figs/niht_fpga.eps}
+\caption{NIHT on an FPGA-based system.}
+\label{fig:fpga}
+\end{figure}
+
+
+{\bf Performance analysis:} The gradient computation unit as shown in Figure~\ref{fig:fpga} reads the measurement matrix ${\bf \Phi}$ and the measurements ${\bf y}$ from main memory and keeps {\bf x} in on-chip memory. It is able to process data from memory at ${\bf P}=12.8\,GB/s$. Thus, the design is bound on ${\bf P}$ for processing ${\bf \Phi}$ and ${\bf y}$. We achieve speed-up by quantizing ${\bf \Phi}$, because the time for each epoch is given by
+$T = size({\bf \Phi})/{\bf P}$, since $size({\bf y}) \ll size({\bf \Phi})$. The essential trick for achieving linear speed-up is keeping ${\bf P}$ constant as the precision of ${\bf \Phi}$ is lowered (${\bf P}\to \land \, size({\bf \Phi})\downarrow$), which leads to more values arriving within each line from main memory. ${\bf P}$ can be kept constant on an FPGA, because we can adapt the gradient computation unit's microarchitecture and increase its internal parallelism to handle more values per incoming line. This is like having the ability to change the width of a vectorized instruction, which on a fixed microarchitecture as in a CPU or GPU is not possible.
+
+
+
+
+
 
 \newpage
 \
 \newpage
-\section{Experiments}
-\subsection{Non-Gaussian Dense Matrices}
+\section{Experiments on a Real Telescope}
+(emp ev. sug.)
 \subsection{Large Scale Experiments}
 \section{Discussion}
 

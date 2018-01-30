@@ -1,0 +1,3330 @@
+%!PS-Adobe-3.0
+%%Title: 
+%%Creator: PScript5.dll Version 5.2.2
+%%CreationDate: 1/30/2018 13:17:41
+%%For: kkara
+%%BoundingBox: (atend)
+%%Pages: (atend)
+%%Orientation: Portrait
+%%PageOrder: Special
+%%DocumentNeededResources: (atend)
+%%DocumentSuppliedResources: (atend)
+%%DocumentData: Clean7Bit
+%%TargetDevice: () (52.3) 320
+%%LanguageLevel: 1
+%%EndComments
+
+%%BeginDefaults
+%%PageBoundingBox: 0 0 155 187
+%%ViewingOrientation: 1 0 0 1
+%%EndDefaults
+
+
+%%BeginProlog
+%%BeginResource: file Pscript_WinNT_ErrorHandler 5.0 0
+/currentpacking where{pop/oldpack currentpacking def/setpacking where{pop false
+setpacking}if}if/$brkpage 64 dict def $brkpage begin/prnt{dup type/stringtype
+ne{=string cvs}if dup length 6 mul/tx exch def/ty 10 def currentpoint/toy exch
+def/tox exch def 1 setgray newpath tox toy 2 sub moveto 0 ty rlineto tx 0
+rlineto 0 ty neg rlineto closepath fill tox toy moveto 0 setgray show}bind def
+/nl{currentpoint exch pop lmargin exch moveto 0 -10 rmoveto}def/=={/cp 0 def
+typeprint nl}def/typeprint{dup type exec}readonly def/lmargin 72 def/rmargin 72
+def/tprint{dup length cp add rmargin gt{nl/cp 0 def}if dup length cp add/cp
+exch def prnt}readonly def/cvsprint{=string cvs tprint( )tprint}readonly def
+/integertype{cvsprint}readonly def/realtype{cvsprint}readonly def/booleantype
+{cvsprint}readonly def/operatortype{(--)tprint =string cvs tprint(-- )tprint}
+readonly def/marktype{pop(-mark- )tprint}readonly def/dicttype{pop
+(-dictionary- )tprint}readonly def/nulltype{pop(-null- )tprint}readonly def
+/filetype{pop(-filestream- )tprint}readonly def/savetype{pop(-savelevel- )
+tprint}readonly def/fonttype{pop(-fontid- )tprint}readonly def/nametype{dup
+xcheck not{(/)tprint}if cvsprint}readonly def/stringtype{dup rcheck{(\()tprint
+tprint(\))tprint}{pop(-string- )tprint}ifelse}readonly def/arraytype{dup rcheck
+{dup xcheck{({)tprint{typeprint}forall(})tprint}{([)tprint{typeprint}forall(])
+tprint}ifelse}{pop(-array- )tprint}ifelse}readonly def/packedarraytype{dup
+rcheck{dup xcheck{({)tprint{typeprint}forall(})tprint}{([)tprint{typeprint}
+forall(])tprint}ifelse}{pop(-packedarray- )tprint}ifelse}readonly def/courier
+/Courier findfont 10 scalefont def end errordict/handleerror{systemdict begin
+$error begin $brkpage begin newerror{/newerror false store vmstatus pop pop 0
+ne{grestoreall}if errorname(VMerror)ne{showpage}if initgraphics courier setfont
+lmargin 720 moveto errorname(VMerror)eq{userdict/ehsave known{clear userdict
+/ehsave get restore 2 vmreclaim}if vmstatus exch pop exch pop PrtVMMsg}{
+(ERROR: )prnt errorname prnt nl(OFFENDING COMMAND: )prnt/command load prnt
+$error/ostack known{nl nl(STACK:)prnt nl nl $error/ostack get aload length{==}
+repeat}if}ifelse systemdict/showpage get exec(%%[ Error: )print errorname
+=print(; OffendingCommand: )print/command load =print( ]%%)= flush}if end end
+end}dup 0 systemdict put dup 4 $brkpage put bind readonly put/currentpacking
+where{pop/setpacking where{pop oldpack setpacking}if}if
+%%EndResource
+%%BeginProcSet: Pscript_Res_Emul 5.0 0
+/defineresource where{pop}{userdict begin/defineresource{userdict/Resources 2
+copy known{get begin}{15 dict dup begin put}ifelse exch readonly exch
+currentdict 1 index known not{dup 30 dict def}if load 3 -1 roll 2 index put
+end}bind readonly def/findresource{userdict/Resources get exch get exch get}
+bind readonly def/resourceforall{pop pop pop pop}bind readonly def
+/resourcestatus{userdict/Resources 2 copy known{get exch 2 copy known{get exch
+known{0 -1 true}{false}ifelse}{pop pop pop false}ifelse}{pop pop pop pop false}
+ifelse}bind readonly def end}ifelse
+%%EndProcSet
+userdict /Pscript_WinNT_Incr 230 dict dup begin put
+%%BeginResource: file Pscript_FatalError 5.0 0
+userdict begin/FatalErrorIf{{initgraphics findfont 1 index 0 eq{exch pop}{dup
+length dict begin{1 index/FID ne{def}{pop pop}ifelse}forall/Encoding
+{ISOLatin1Encoding}stopped{StandardEncoding}if def currentdict end
+/ErrFont-Latin1 exch definefont}ifelse exch scalefont setfont counttomark 3 div
+cvi{moveto show}repeat showpage quit}{cleartomark}ifelse}bind def end
+%%EndResource
+userdict begin/PrtVMMsg{vmstatus exch sub exch pop gt{[
+(This job requires more memory than is available in this printer.)100 500
+(Try one or more of the following, and then print again:)100 485
+(For the output format, choose Optimize For Portability.)115 470
+(In the Device Settings page, make sure the Available PostScript Memory is accurate.)
+115 455(Reduce the number of fonts in the document.)115 440
+(Print the document in parts.)115 425 12/Times-Roman showpage
+(%%[ PrinterError: Low Printer VM ]%%)= true FatalErrorIf}if}bind def end
+version cvi 2016 ge{/VM?{pop}bind def}{/VM? userdict/PrtVMMsg get def}ifelse
+105000 VM?
+%%BeginResource: file Pscript_Win_Basic 5.0 0
+/d/def load def/,/load load d/~/exch , d/?/ifelse , d/!/pop , d/`/begin , d/^
+/index , d/@/dup , d/+/translate , d/$/roll , d/U/userdict , d/M/moveto , d/-
+/rlineto , d/&/currentdict , d/:/gsave , d/;/grestore , d/F/false , d/T/true ,
+d/N/newpath , d/E/end , d/Ac/arc , d/An/arcn , d/A/ashow , d/D/awidthshow , d/C
+/closepath , d/V/div , d/O/eofill , d/L/fill , d/I/lineto , d/-c/curveto , d/-M
+/rmoveto , d/+S/scale , d/Ji/setfont , d/Lc/setlinecap , d/Lj/setlinejoin , d
+/Lw/setlinewidth , d/Lm/setmiterlimit , d/sd/setdash , d/S/show , d/LH/showpage
+, d/K/stroke , d/W/widthshow , d/R/rotate , d/L2? false/languagelevel where{pop
+languagelevel 2 ge{pop true}if}if d L2?{/xS/xshow , d/yS/yshow , d/zS/xyshow ,
+d}if/b{bind d}bind d/bd{bind d}bind d/xd{~ d}bd/ld{, d}bd/bn/bind ld/lw/Lw ld
+/lc/Lc ld/lj/Lj ld/sg/setgray ld/ADO_mxRot null d/self & d/OrgMx matrix
+currentmatrix d/reinitialize{: OrgMx setmatrix[/TextInit/GraphInit/UtilsInit
+counttomark{@ where{self eq}{F}?{cvx exec}{!}?}repeat cleartomark ;}b
+/initialize{`{/Pscript_Win_Data where{!}{U/Pscript_Win_Data & put}?/ADO_mxRot ~
+d/TextInitialised? F d reinitialize E}{U/Pscript_Win_Data 230 dict @ ` put
+/ADO_mxRot ~ d/TextInitialised? F d reinitialize}?}b/terminate{!{& self eq
+{exit}{E}?}loop E}b/suspend/terminate , d/resume{` Pscript_Win_Data `}b U `
+/lucas 21690 d/featurebegin{countdictstack lucas[}b/featurecleanup{stopped
+{cleartomark @ lucas eq{! exit}if}loop countdictstack ~ sub @ 0 gt{{E}repeat}
+{!}?}b E/snap{transform 0.25 sub round 0.25 add ~ 0.25 sub round 0.25 add ~
+itransform}b/dsnap{dtransform round ~ round ~ idtransform}b/nonzero_round{@ 0.5
+ge{round}{@ -0.5 lt{round}{0 ge{1}{-1}?}?}?}b/nonzero_dsnap{dtransform
+nonzero_round ~ nonzero_round ~ idtransform}b U<04>cvn{}put/rr{1 ^ 0 - 0 ~ -
+neg 0 - C}b/irp{4 -2 $ + +S fx 4 2 $ M 1 ^ 0 - 0 ~ - neg 0 -}b/rp{4 2 $ M 1 ^ 0
+- 0 ~ - neg 0 -}b/solid{[]0 sd}b/g{@ not{U/DefIf_save save put}if U/DefIf_bool
+2 ^ put}b/DefIf_El{if U/DefIf_bool get not @{U/DefIf_save get restore}if}b/e
+{DefIf_El !}b/UDF{L2?{undefinefont}{!}?}b/UDR{L2?{undefineresource}{! !}?}b
+/freeVM{/Courier findfont[40 0 0 -40 0 0]makefont Ji 2 vmreclaim}b/hfRedefFont
+{findfont @ length dict `{1 ^/FID ne{d}{! !}?}forall & E @ ` ~{/CharStrings 1
+dict `/.notdef 0 d & E d}if/Encoding 256 array 0 1 255{1 ^ ~/.notdef put}for d
+E definefont !}bind d/hfMkCIDFont{/CIDFont findresource @ length 2 add dict `{1
+^ @/FID eq ~ @/XUID eq ~/UIDBase eq or or{! !}{d}?}forall/CDevProc ~ d/Metrics2
+16 dict d/CIDFontName 1 ^ d & E 1 ^ ~/CIDFont defineresource ![~]composefont !}
+bind d
+%%EndResource
+%%BeginResource: file Pscript_Win_Utils_L1 5.0 0
+/rf{N rp L}b/fx{1 1 dtransform @ 0 ge{1 sub 1}{1 add -0.25}? 3 -1 $ @ 0 ge{1
+sub 1}{1 add -0.25}? 3 1 $ 4 1 $ idtransform 4 -2 $ idtransform}b/BZ{4 -2 $
+snap + +S fx rf}b/rs{N rp C K}b/rc{N rp clip N}b/UtilsInit{}b/setcolorspace{!}b
+/scol{[/setgray/setrgbcolor/setcolor/setcmykcolor/setcolor/setgray]~ get cvx
+exec}b/colspRefresh{}b/AddFontInfoBegin{/FontInfo 8 dict @ `}bind d/AddFontInfo
+{/GlyphNames2Unicode 16 dict d/GlyphNames2HostCode 16 dict d}bind d
+/AddFontInfoEnd{E d}bind d
+%%EndResource
+end
+%%EndProlog
+
+%%BeginSetup
+statusdict begin (%%[ ProductName: ) print product print ( ]%%)= flush end
+[ 1 0 0 1 0 0 ] false Pscript_WinNT_Incr dup /initialize get exec
+featurebegin{
+%%BeginNonPPDFeature: JobTimeout 0
+0 /languagelevel where{pop languagelevel}{1}ifelse 2 ge{1 dict dup/JobTimeout  4 -1 roll put setuserparams}{statusdict/setjobtimeout get exec}ifelse
+%%EndNonPPDFeature
+}featurecleanup
+
+featurebegin{
+%%BeginNonPPDFeature: WaitTimeout 300
+300 /languagelevel where{pop languagelevel}{1}ifelse 2 ge{1 dict dup/WaitTimeout 4 -1 roll put setuserparams}{statusdict/waittimeout 3 -1 roll put}ifelse
+%%EndNonPPDFeature
+}featurecleanup
+
+featurebegin{
+%%BeginFeature: *Resolution 600dpi
+
+%%EndFeature
+}featurecleanup
+featurebegin{
+%%BeginFeature: *CustomPageSize
+ 
+187 155 0 0 0 exch pop statusdict /setpageparams get exec
+%%EndFeature
+}featurecleanup
+1 setlinecap 1 setlinejoin
+/mysetup [ 72 600 V 0 0 -72 600 V 0 187.0866 ] def 
+%%EndSetup
+
+userdict begin /VMsave save def end
+%%Page: 1 1
+%%PageBoundingBox: 0 0 155 187
+%%EndPageComments
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_Win_GdiObject 5.0 0
+/SavedCTM null d/CTMsave{/SavedCTM SavedCTM currentmatrix d}b/CTMrestore
+{SavedCTM setmatrix}b/mp null d/ADO_mxRot null d/GDIHMatrix null d
+/GDIHPatternDict 22 dict d GDIHPatternDict `/PatternType 1 d/PaintType 2 d/Reps
+L2?{1}{5}? d/XStep 8 Reps mul d/YStep XStep d/BBox[0 0 XStep YStep]d/TilingType
+1 d/PaintProc{` 1 Lw[]0 sd PaintData , exec E}b/FGnd null d/BGnd null d
+/HS_Horizontal{horiz}b/HS_Vertical{vert}b/HS_FDiagonal{fdiag}b/HS_BDiagonal
+{biag}b/HS_Cross{horiz vert}b/HS_DiagCross{fdiag biag}b/MaxXYStep XStep YStep
+gt{XStep}{YStep}? d/horiz{Reps{0 4 M XStep 0 - 0 8 +}repeat 0 -8 Reps mul + K}b
+/vert{Reps{4 0 M 0 YStep - 8 0 +}repeat 0 -8 Reps mul + K}b/biag{Reps{0 0 M
+MaxXYStep @ - 0 YStep neg M MaxXYStep @ - 0 8 +}repeat 0 -8 Reps mul + 0 YStep
+M 8 8 - K}b/fdiag{Reps{0 0 M MaxXYStep @ neg - 0 YStep M MaxXYStep @ neg - 0 8
++}repeat 0 -8 Reps mul + MaxXYStep @ M 8 -8 - K}b E/makehatch{4 -2 $/yOrg ~ d
+/xOrg ~ d GDIHPatternDict/PaintData 3 -1 $ put CTMsave GDIHMatrix setmatrix
+GDIHPatternDict matrix xOrg yOrg + mp CTMrestore ~ U ~ 2 ^ put}b/h0{/h0
+/HS_Horizontal makehatch}b/h1{/h1/HS_Vertical makehatch}b/h2{/h2/HS_FDiagonal
+makehatch}b/h3{/h3/HS_BDiagonal makehatch}b/h4{/h4/HS_Cross makehatch}b/h5{/h5
+/HS_DiagCross makehatch}b/GDIBWPatternMx null d/pfprep{save 8 1 $
+/PatternOfTheDay 8 1 $ GDIBWPatternDict `/yOrg ~ d/xOrg ~ d/PaintData ~ d/yExt
+~ d/Width ~ d/BGnd ~ d/FGnd ~ d/Height yExt RepsV mul d/mx[Width 0 0 Height 0
+0]d E build_pattern ~ !}b/pfbf{/fEOFill ~ d pfprep hbf fEOFill{O}{L}? restore}b
+/GraphInit{GDIHMatrix null eq{/SavedCTM matrix d : ADO_mxRot concat 0 0 snap +
+: 0.48 @ GDIHPatternDict ` YStep mul ~ XStep mul ~ nonzero_dsnap YStep V ~
+XStep V ~ E +S/GDIHMatrix matrix currentmatrix readonly d ; : 0.24 -0.24 +S
+GDIBWPatternDict ` Width Height E nonzero_dsnap +S/GDIBWPatternMx matrix
+currentmatrix readonly d ; ;}if}b
+%%EndResource
+%%BeginResource: file Pscript_Win_GdiObject_L1 5.0 0
+/GDIBWPatternDict 25 dict @ `/PatternType 1 d/PaintType 2 d/RepsV 6 d/RepsH 5 d
+/BBox[0 0 RepsH 1]d/TilingType 1 d/XStep 1 d/YStep 1 d/Height 8 RepsV mul d
+/Width 8 d/mx[Width 0 0 Height neg 0 Height]d/FGnd null d/BGnd null d
+/SetBGndFGnd{}b/PaintProc{` SetBGndFGnd RepsH{Width Height F mx PaintData
+imagemask Width 0 +}repeat E}b E d/GDIpattfill{@ ` BGnd null ne PaintType 2 eq
+and{: BGnd aload ! scol fEOFill{O}{L}? ; FGnd aload ! U/iCol 2 ^ put @ 0 eq{!
+2}{@ 1 eq ~ 2 eq or{4}{5}?}? -1 $}if E @ patterncalc : 4 ^/PaintType get 2 eq
+{iCol 0 eq{6 -1 $}if iCol 1 eq iCol 2 eq or{8 -3 $}if iCol 3 eq iCol 4 eq or{9
+-4 $}if iCol scol}if fEOFill{eoclip}{clip}? N patternfill ; N}b/hbf
+{GDIpattfill}b/hfMain{/fEOFill ~ d ~/iCol ~ d GDIpattfill}b/hf{: hfMain ;}b
+/mpstr 1 string d/mp{~ @ length 12 add dict copy `/PatternCTM matrix
+currentmatrix d/PatternMatrix ~ d/PatWidth XStep mpstr length mul d/PatHeight
+YStep d/FontType 3 d/Encoding 256 array d 3 string 0 1 255{Encoding ~ @ 3 ^ cvs
+cvn put}for !/FontMatrix matrix d/FontBBox BBox d/BuildChar{! @ ` XStep 0
+FontBBox aload ! setcachedevice/PaintProc , E : exec ;}b & E ~ @ 3 -1 $
+definefont}b/build_pattern{: GDIBWPatternDict ` Width Height E dsnap +S
+/GDIBWPatternMx matrix currentmatrix d ; CTMsave GDIBWPatternMx setmatrix
+GDIBWPatternDict @ ` xOrg yOrg E matrix + mp CTMrestore}b/patterncalc{` :
+PatternCTM setmatrix PatternMatrix concat BBox aload ! ! ! + pathbbox ;
+PatHeight V ceiling 4 1 $ PatWidth V ceiling 4 1 $ PatHeight V floor 4 1 $
+PatWidth V floor 4 1 $ 2 ^ sub cvi abs ~ 3 ^ sub cvi abs ~ 4 2 $ PatHeight mul
+~ PatWidth mul ~ E}b/patternfill{5 -1 $ @ ` Ji PatternCTM setmatrix
+PatternMatrix concat 0 2 ^ 2 ^ M 0 1 mpstr length 1 sub{1 ^ mpstr 3 1 $ put}for
+! 2 ^{currentpoint 5 ^{mpstr S}repeat YStep add M}repeat ! ! ! ! E}b/pbf{: 14
+dict `/fGray ~ d/fEOFill ~ d/yOrg ~ d/xOrg ~ d/PaintData ~ d/OutputBPP ~ d
+/Height ~ d/Width ~ d/mx xOrg yOrg matrix + d fGray{/PaintProc{` Width Height
+OutputBPP mx PaintData image E}b}{/PaintProc{` Width Height 8 mx PaintData F
+OutputBPP 8 idiv colorimage E}b}? pathbbox fEOFill{eoclip}{clip}?/Top ~ d/Right
+~ d/Bottom ~ d/Left ~ d Top Height neg Bottom 1 sub{Left Width Right 1 sub{1 ^
+2 copy + & PaintProc neg ~ neg ~ +}bind for !}bind for E ;}b
+%%EndResource
+end reinitialize
+N 7 7 M 7 262 I 1288 262 I 1288 7 I 7 7 I C 
+1 1 1 1 scol  O 0 0 0 1 scol 1 Lj 1 Lc 20 Lw solid N 7 262 M 1288 262 I 1288 7 I 7 7 I 7 262 I C 
+: [ 0.223 0 0 0.223 0 0 ] concat K 
+; 51372 VM?
+Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_T3Hdr 5.0 0
+{version cvi 2016 ge{32/FontType resourcestatus{pop pop true}{false}ifelse}
+{false}ifelse}exec/Is2016andT32? exch def/T32DefSBCMap{/CIDInit/ProcSet
+findresource begin 10 dict begin begincmap/CIDSystemInfo 3 dict dup begin
+/Registry(Adobe)def/Ordering(Identity1)def/Supplement 0 def end def/CMapType 0
+def/WMode 0 def 1 begincodespacerange<00><ff>endcodespacerange 1 begincidrange
+<00><ff>0 endcidrange endcmap/DrvSBCMap currentdict/CMap defineresource pop end
+end}bind def Is2016andT32?{T32DefSBCMap}def/T32RsrcBegin{Is2016andT32?{
+/BitmapFontInit/ProcSet findresource begin}if}bind def/T32RsrcEnd{Is2016andT32?
+{end}if}bind def/AddT32Char{6 1 roll 0 get 7 1 roll pop pop 5 1 roll pop
+findfont/TT32R get addglyph}bind def/AddT3Char{findfont dup 5 2 roll 1 index
+length 0 gt{cvx 1 index exch 4 exch put dup(imagemask)cvx cvn 5 exch put cvx}
+{pop cvx}ifelse 3 -1 roll/CharProcs get 3 1 roll put dup/Encoding get 5 -1 roll
+4 index put/Metrics get 3 1 roll put}bind def/AddT3T32Char Is2016andT32?{
+/AddT32Char}{/AddT3Char}ifelse load def/GreNewFontT32{5 dict begin exch
+/FontMatrix exch def exch/FontBBox exch def exch pop exch pop/CIDFontType 4 def
+dup currentdict end/CIDFont defineresource 3 -1 roll dup/DrvSBCMap dup/CMap
+resourcestatus{pop pop}{T32DefSBCMap}ifelse 5 -1 roll[exch]composefont dup
+length dict copy dup/FID undef begin exch/TT32R exch def currentdict end
+definefont/BitmapFontInit/ProcSet findresource begin/TT32R get[14 0 0 0 0 0]<>0
+4 -1 roll addglyph end}bind def/GreNewFontT3{11 dict begin pop/FontType 3 def
+/FontMatrix exch def/FontBBox exch def/Encoding exch def/CharProcs 257 dict def
+CharProcs/.notdef{}put/Metrics 257 dict def Metrics/.notdef 3 -1 roll put
+AddFontInfoBegin AddFontInfo AddFontInfoEnd/BuildChar{userdict begin/char exch
+def dup/charname exch/Encoding get char get def dup/Metrics get charname 2 copy
+known{get aload pop}{pop/.notdef get aload pop}ifelse setcachedevice begin
+Encoding char get CharProcs exch 2 copy known{get}{pop/.notdef get}ifelse end
+exec end}def currentdict end definefont pop}bind def/GreNewFont{Is2016andT32?
+{GreNewFontT32}{GreNewFontT3}ifelse}bind def/UDF3{Is2016andT32?{/BitmapFontInit
+/ProcSet findresource begin dup/CIDFont findresource removeall/CIDFont
+undefineresource undefinefont end}{pop UDF}ifelse}bind def
+%%EndResource
+end reinitialize
+/TT15b00
+[82 0 0 0 0 0 ] 
+ 256 array 0 1 255 {1 index exch /.notdef put} for 
+[0 0 0 0 ] 
+[1 82 div 0 0 -1 82 div 0 0 ]
+/__TT15b00
+GreNewFont
+T32RsrcBegin
+
+1
+/M [68 0 9 -59 79 0 ] 
+/M [70 59 true [1 0 0 1 -9 59 ]  0 0]
+[<00001fc000000000fc
+00001fc000000001fc
+00001fc000000003f8
+00003fc000000007f8
+00003fe00000000ff8
+00003fe00000000ff0
+00007fe00000001ff0
+00007fe00000003ff0
+00007fe00000007fe0
+0000ffe0000000ffe0
+0000ffe0000000ffe0
+0000ffe0000001ffc0
+0001ffe0000003ffc0
+0001fff0000007ffc0
+0001fff000000fff80
+0003fff000000fdf80
+0003f7f000001fbf80
+0003f3f000003f3f00
+0007f3f000007f3f00
+0007e3f000007e7f00
+0007e3f00000fc7e00
+000fe3f80001f87e00
+000fc3f80003f0fe00
+000fc3f80007f0fc00
+001fc3f80007e0fc00
+001f81f8000fc1fc00
+001f81f8001f81f800
+003f81f8003f81f800
+003f01f8007f03f800
+003f01f8007e03f000
+007f01fc00fc03f000
+007e01fc01f807f000
+007e01fc03f807e000
+00fe01fc03f007e000
+00fc00fc07e00fe000
+00fc00fc0fc00fc000
+01fc00fc1f800fc000
+01f800fc3f801f8000
+01f800fe3f001f8000
+03f000fe7e001f8000
+03f000fefc003f0000
+03f000fff8003f0000
+07e0007ff8007f0000
+07e0007ff0007e0000
+0fe0007fe0007e0000
+0fc0007fc000fe0000
+0fc0007f8000fc0000
+1fc0007f8000fc0000
+1f80007f0001fc0000
+1f80007e0001f80000
+3f8000000001f80000
+3f0000000003f80000
+3f0000000003f00000
+7f0000000003f00000
+7e0000000007f00000
+7e0000000007e00000
+fe0000000007e00000
+fc000000000fe00000
+fc000000000fc00000
+>
+ ]
+/TT15b00 AddT3T32Char
+
+2
+/a [44 0 6 -41 51 1 ] 
+/a [45 42 true [1 0 0 1 -6 41 ]  0 0]
+[<000007ffe000
+00003ffffc00
+0000fffffe00
+0001ffffff00
+0007ffffff00
+000ff801ff80
+000fe0007f80
+000780003f80
+000300003f80
+000000001f80
+000000001f80
+000000003f80
+000000003f00
+000000003f00
+000000003f00
+000000007e00
+000000007e00
+000000007e00
+0003fffffc00
+001ffffffc00
+007ffffffc00
+00fffffff800
+01ff0001f800
+03f80001f800
+07e00003f000
+0fc00003f000
+1f800003f000
+1f800007e000
+1f000007e000
+3f00000fe000
+3f00000fc000
+3f00001fc000
+7f00003fc000
+7f00007f8000
+7f0000ff8000
+7fc007ff0000
+3fffffff0000
+3fffffbf0000
+1fffff7e0000
+0ffffc7e0000
+03fff07e0000
+000000000000
+>
+ ]
+/TT15b00 AddT3T32Char
+
+3
+/i [21 0 7 -59 34 0 ] 
+/i [27 59 true [1 0 0 1 -7 59 ]  0 0]
+[<00000fe0
+00000fc0
+00001fc0
+00001fc0
+00001f80
+00003f80
+00003f80
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+0003f000
+0003f000
+0003f000
+0007e000
+0007e000
+0007e000
+000fc000
+000fc000
+000fc000
+001f8000
+001f8000
+001f0000
+003f0000
+003f0000
+007e0000
+007e0000
+007e0000
+00fc0000
+00fc0000
+00fc0000
+01f80000
+01f80000
+01f80000
+03f00000
+03f00000
+03f00000
+07e00000
+07e00000
+07e00000
+0fc00000
+0fc00000
+0fc00000
+1f800000
+1f800000
+1f800000
+3f000000
+3f000000
+3f000000
+7e000000
+7e000000
+7e000000
+>
+ ]
+/TT15b00 AddT3T32Char
+
+4
+/n [47 0 7 -41 51 0 ] 
+/n [44 41 true [1 0 0 1 -7 41 ]  0 0]
+[<0003f03ff800
+0003f0fffe00
+0003f3ffff00
+0007efffff80
+0007ffffffc0
+0007ff80ffc0
+000ffc003fc0
+000ff8001fe0
+000ff0000fe0
+001fe0000fe0
+001fc0000fe0
+001f80000fc0
+003f00000fc0
+003f00000fc0
+007f00000fc0
+007e00001f80
+007e00001f80
+00fc00001f80
+00fc00003f00
+00fc00003f00
+01f800003f00
+01f800007e00
+01f800007e00
+03f000007e00
+03f00000fc00
+03f00000fc00
+07e00000fc00
+07e00001f800
+07e00001f800
+0fc00001f800
+0fc00003f000
+0fc00003f000
+1f800003e000
+1f800007e000
+1f800007e000
+3f00000fc000
+3f00000fc000
+3f00000fc000
+7e00001f8000
+7e00001f8000
+7e00001f8000
+>
+ ]
+/TT15b00 AddT3T32Char
+
+5
+/space [21 0 0 0 1 1 ] 
+/space [1 1 true [1 0 0 1 0 0 ]  0 0]
+[<00
+>
+ ]
+/TT15b00 AddT3T32Char
+
+6
+/e [44 0 9 -41 49 1 ] 
+/e [40 42 true [1 0 0 1 -9 41 ]  0 0]
+[<000007ff00
+00001fffe0
+00007ffff0
+0001fffff8
+0003fffff8
+0007f807fc
+001fe001fc
+001f8000fc
+003f0000fe
+007e00007e
+00fc00007e
+01f800007e
+01f800007e
+03f000007e
+03f00000fc
+07e00000fc
+07e00000fc
+0fc00000fc
+0ffffffff8
+0ffffffff8
+1ffffffff8
+1ffffffff0
+1f00000000
+3f00000000
+3f00000000
+3f00000000
+3f00000000
+7e00000000
+7e00000000
+7e00000000
+7f00000000
+7f00000000
+7f00001800
+3f80007c00
+3fc000fc00
+3fe007fe00
+1ffffff800
+1ffffff000
+0fffffc000
+03ffff0000
+00fff80000
+0000000000
+>
+ ]
+/TT15b00 AddT3T32Char
+
+7
+/m [73 0 7 -41 77 0 ] 
+/m [70 41 true [1 0 0 1 -7 41 ]  0 0]
+[<0003f03ff8000ffe00
+0003f0fffe007fff80
+0003f3ffff00ffffc0
+0007efffff83ffffe0
+0007ffffffc7fffff0
+0007ff80ffdfe01ff0
+000ffe003fff800ff8
+000ff8001ffe0007f8
+000ff0000ffc0003f8
+001fe0000ff80003f8
+001fc0000ff00003f8
+001f80000fe00003f8
+003f00000fe00003f0
+003f00000fc00003f0
+007f00000fc00003f0
+007e00001f800003f0
+007e00001f800007e0
+00fc00001f800007e0
+00fc00003f000007e0
+00fc00003f00000fc0
+01f800003f00000fc0
+01f800007e00000fc0
+01f800007e00001f80
+03f000007e00001f80
+03f00000fc00001f80
+03f00000fc00003f00
+07e00000fc00003f00
+07e00001f800003e00
+07e00001f800007e00
+0fc00001f800007e00
+0fc00003f00000fc00
+0fc00003f00000fc00
+1f800003f00000fc00
+1f800007e00001f800
+1f800007e00001f800
+3f000007e00001f800
+3f00000fc00003f000
+3f00000fc00003f000
+7e00000fc00003f000
+7e00001f800007e000
+7e00001f800007e000
+>
+ ]
+/TT15b00 AddT3T32Char
+
+8
+/o [44 0 8 -41 49 1 ] 
+/o [41 42 true [1 0 0 1 -8 41 ]  0 0]
+[<000003ff8000
+00000fffe000
+00003ffff800
+0000fffffc00
+0001fffffc00
+0007fe03fe00
+000ff001fe00
+001fe000fe00
+001f80007f00
+003f00007f00
+007e00003f00
+00fe00003f00
+00fc00003f00
+01f800007e00
+01f800007e00
+03f000007e00
+03f000007e00
+07e000007e00
+07e00000fc00
+07e00000fc00
+0fc00000fc00
+0fc00001f800
+0fc00001f800
+1f800001f800
+1f800003f000
+1f800003f000
+1f800007e000
+3f000007e000
+3f00000fc000
+3f00001fc000
+3f00001f8000
+3f80003f0000
+3f80007e0000
+3f8000fe0000
+1fc003fc0000
+1ff00ff80000
+0ffffff00000
+0fffffc00000
+07ffff800000
+03fffe000000
+00fff0000000
+000000000000
+>
+ ]
+/TT15b00 AddT3T32Char
+
+9
+/r [35 0 7 -41 47 0 ] 
+/r [40 41 true [1 0 0 1 -7 41 ]  0 0]
+[<0003f01ff8
+0003f0fffe
+0003f3ffff
+0007e7ffff
+0007fffffe
+0007ff80fc
+000ffe0070
+000ff80020
+000ff00000
+001fe00000
+001fc00000
+001f800000
+003f800000
+003f000000
+007f000000
+007e000000
+007e000000
+00fc000000
+00fc000000
+00fc000000
+01f8000000
+01f8000000
+01f8000000
+03f0000000
+03f0000000
+03f0000000
+07e0000000
+07e0000000
+07e0000000
+0fc0000000
+0fc0000000
+0fc0000000
+1f80000000
+1f80000000
+1f80000000
+3f00000000
+3f00000000
+3f00000000
+7e00000000
+7e00000000
+7e00000000
+>
+ ]
+/TT15b00 AddT3T32Char
+
+10
+/y [37 0 -2 -41 50 18 ] 
+/y [52 59 true [1 0 0 1 2 41 ]  0 0]
+[<00007e000007f0
+00007e000007e0
+00007e00000fc0
+00007e00001fc0
+00007e00001f80
+00007e00003f00
+00007e00007f00
+00007e00007e00
+00007e0000fc00
+00007e0001f800
+00007e0001f800
+00007e0003f000
+00007e0007e000
+00007e0007e000
+00007e000fc000
+00007e001f8000
+00007e001f8000
+00007e003f0000
+00007e007e0000
+00007e00fc0000
+00007e00fc0000
+00007e01f80000
+00007e03f00000
+00007e03f00000
+00007e07e00000
+00007e0fc00000
+00003e0f800000
+00003e1f800000
+00003e3f000000
+00003e3e000000
+00003e7e000000
+00003efc000000
+00003ef8000000
+00003ff8000000
+00003ff0000000
+00003fe0000000
+00003fc0000000
+00003fc0000000
+00003f80000000
+00003f00000000
+00003f00000000
+00007e00000000
+0000fc00000000
+0000f800000000
+0001f800000000
+0003f000000000
+0007e000000000
+0007e000000000
+000fc000000000
+001f8000000000
+003f0000000000
+007f0000000000
+00fe0000000000
+3ffc0000000000
+3ff80000000000
+7ff00000000000
+7fc00000000000
+7f000000000000
+e0000000000000
+>
+ ]
+/TT15b00 AddT3T32Char
+T32RsrcEnd
+Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_Text 5.0 0
+/TextInit{TextInitialised? not{/Pscript_Windows_Font & d/TextInitialised? T d
+/fM[1 0 0 1 0 0]d/mFM matrix d/iMat[1 0 0.212557 1 0 0]d}if}b/copyfont{1 ^
+length add dict `{1 ^/FID ne{d}{! !}?}forall & E}b/EncodeDict 11 dict d/bullets
+{{/bullet}repeat}b/rF{3 copyfont @ ` ~ EncodeDict ~ get/Encoding ~ 3 ^/0 eq{&
+/CharStrings known{CharStrings/Eth known not{! EncodeDict/ANSIEncodingOld get}
+if}if}if d E}b/mF{@ 7 1 $ findfont ~{@/Encoding get @ StandardEncoding eq{! T}{
+{ISOLatin1Encoding}stopped{! F}{eq}?{T}{@ ` T 32 1 127{Encoding 1 ^ get
+StandardEncoding 3 -1 $ get eq and}for E}?}?}{F}?{1 ^ ~ rF}{0 copyfont}? 6 -2 $
+! ! ~ !/pd_charset @ where{~ get 128 eq{@ FDV 2 copy get @ length array copy
+put pd_CoverFCRange}if}{!}? 2 ^ ~ definefont fM 5 4 -1 $ put fM 4 0 put fM
+makefont Pscript_Windows_Font 3 1 $ put}b/sLT{: Lw -M currentpoint snap M 0 - 0
+Lc K ;}b/xUP null d/yUP null d/uW null d/xSP null d/ySP null d/sW null d/sSU{N
+/uW ~ d/yUP ~ d/xUP ~ d}b/sU{xUP yUP uW sLT}b/sST{N/sW ~ d/ySP ~ d/xSP ~ d}b/sT
+{xSP ySP sW sLT}b/sR{: + R 0 0 M}b/sRxy{: matrix astore concat 0 0 M}b/eR/; , d
+/AddOrigFP{{&/FontInfo known{&/FontInfo get length 6 add}{6}? dict `
+/WinPitchAndFamily ~ d/WinCharSet ~ d/OrigFontType ~ d/OrigFontStyle ~ d
+/OrigFontName ~ d & E/FontInfo ~ d}{! ! ! ! !}?}b/mFS{makefont
+Pscript_Windows_Font 3 1 $ put}b/mF42D{0 copyfont `/FontName ~ d 2 copy ~ sub 1
+add dict `/.notdef 0 d 2 copy 1 ~{@ 3 ^ sub Encoding ~ get ~ d}for & E
+/CharStrings ~ d ! ! & @ E/FontName get ~ definefont}b/mF42{15 dict ` @ 4 1 $
+FontName ~ d/FontType 0 d/FMapType 2 d/FontMatrix[1 0 0 1 0 0]d 1 ^ 254 add 255
+idiv @ array/Encoding ~ d 0 1 3 -1 $ 1 sub{@ Encoding 3 1 $ put}for/FDepVector
+Encoding length array d/CharStrings 2 dict `/.notdef 0 d & E d 0 1 Encoding
+length 1 sub{@ @ 10 lt{! FontName length 1 add string}{100 lt{FontName length 2
+add string}{FontName length 3 add string}?}? @ 0 FontName @ length string cvs
+putinterval @ 3 -1 $ @ 4 1 $ 3 string cvs FontName length ~ putinterval cvn 1 ^
+256 mul @ 255 add 3 -1 $ 4 ^ findfont mF42D FDepVector 3 1 $ put}for & @ E
+/FontName get ~ definefont ! ! ! mF}b/mF_OTF_V{~ ! ~ ! 4 -1 $ ! findfont 2 ^ ~
+definefont fM @ @ 4 6 -1 $ neg put 5 0 put 90 matrix R matrix concatmatrix
+makefont Pscript_Windows_Font 3 1 $ put}b/mF_TTF_V{3{~ !}repeat 3 -1 $ !
+findfont 1 ^ ~ definefont Pscript_Windows_Font 3 1 $ put}b/UmF{L2?
+{Pscript_Windows_Font ~ undef}{!}?}b/UmF42{@ findfont/FDepVector get{/FontName
+get undefinefont}forall undefinefont}b
+%%EndResource
+end reinitialize
+F /F0 0 /0 F /TT15b00 mF 
+/F0S52 F0 [82.813 0 0 -82.813 0 0 ] mFS
+F0S52 Ji 
+395 162 M <01>S 
+464 162 M <02>S  507 162 M <03>S  529 162 M <04>S  576 162 M <05>S  598 162 M <01>S  666 162 M <06>S  713 162 M <07>S  786 162 M <08>S  829 162 M <09>S  865 162 M <0A>S  
+N 7 1540 M 1288 1540 I 1288 433 I 7 433 I 7 1540 I C 
+: [ 0.223 0 0 0.223 0 0 ] concat K 
+; 37749 VM?
+/TT16b00
+[82 0 0 0 0 0 ] 
+ 256 array 0 1 255 {1 index exch /.notdef put} for 
+[0 0 0 0 ] 
+[1 82 div 0 0 -1 82 div 0 0 ]
+/__TT16b00
+GreNewFont
+T32RsrcBegin
+
+1
+/g38 [38 0 3 -52 41 0 ] 
+/g38 [38 52 true [1 0 0 1 -3 52 ]  0 0]
+[<001ffffffc
+003ffffffc
+003ffffffc
+003ffffff8
+003ffffff8
+003f000000
+007f000000
+007f000000
+007f000000
+007f000000
+007e000000
+00fe000000
+00fe000000
+00fe000000
+00fe000000
+00fc000000
+01fc000000
+01fc000000
+01fc000000
+01fc000000
+01f8000000
+03f8000000
+03f8000000
+03ffffff00
+03ffffff00
+03ffffff00
+07ffffff00
+07fffffe00
+07fffffe00
+07f0000000
+0fe0000000
+0fe0000000
+0fe0000000
+0fe0000000
+0fe0000000
+1fc0000000
+1fc0000000
+1fc0000000
+1fc0000000
+1fc0000000
+3f80000000
+3f80000000
+3f80000000
+3f80000000
+3f80000000
+7f00000000
+7f00000000
+7f00000000
+7f00000000
+7f00000000
+fe00000000
+fe00000000
+>
+ ]
+/TT16b00 AddT3T32Char
+
+2
+/g87 [43 0 3 -52 43 0 ] 
+/g87 [40 52 true [1 0 0 1 -3 52 ]  0 0]
+[<001fffff00
+003fffffc0
+003ffffff0
+003ffffff8
+003ffffffc
+007f001ffe
+007f0003fe
+007f0001fe
+007f0000ff
+007f0000ff
+00fe00007f
+00fe00007f
+00fe00007f
+00fe00007f
+00fe00007f
+01fc0000ff
+01fc0000ff
+01fc0000fe
+01fc0000fe
+01fc0001fe
+03f80003fc
+03f80003fc
+03f80007f8
+03f8000ff8
+03f8003ff0
+07f000ffe0
+07ffffffc0
+07ffffff80
+07ffffff00
+07fffffc00
+0ffffff000
+0fffff0000
+0fe0000000
+0fe0000000
+0fe0000000
+1fc0000000
+1fc0000000
+1fc0000000
+1fc0000000
+1fc0000000
+3f80000000
+3f80000000
+3f80000000
+3f80000000
+3f80000000
+7f00000000
+7f00000000
+7f00000000
+7f00000000
+7f00000000
+7e00000000
+fe00000000
+>
+ ]
+/TT16b00 AddT3T32Char
+
+3
+/g39 [52 0 4 -53 52 1 ] 
+/g39 [48 54 true [1 0 0 1 -4 53 ]  0 0]
+[<0000003ffc00
+000003ffffc0
+00001ffffff0
+00007ffffffc
+0000fffffffe
+0003ffffffff
+0007ffc007ff
+000ffe0000ff
+001ff800003e
+003fe000000e
+007fc0000000
+00ff80000000
+01ff00000000
+01fe00000000
+03fc00000000
+07f800000000
+07f800000000
+0ff000000000
+0fe000000000
+1fe000000000
+1fc000000000
+1fc000000000
+3fc000000000
+3f8000000000
+3f8000ffffe0
+7f8000fffff0
+7f8001fffff0
+7f0001fffff0
+7f0001ffffe0
+7f0001ffffe0
+7f0000000fe0
+7f0000000fe0
+ff0000000fe0
+ff0000001fc0
+ff0000001fc0
+7f0000001fc0
+7f0000001fc0
+7f0000001fc0
+7f8000003f80
+7f8000003f80
+7f8000003f80
+3fc000003f80
+3fe000003f80
+3ff000007f00
+1ff800007f00
+0ffc0000ff00
+0fff0003ff00
+07fff07fff00
+03fffffffe00
+01fffffffc00
+007ffffff800
+001fffffc000
+0007fffe0000
+00003fc00000
+>
+ ]
+/TT16b00 AddT3T32Char
+
+4
+/g4 [48 0 -2 -53 43 0 ] 
+/g4 [45 53 true [1 0 0 1 2 53 ]  0 0]
+[<00000003f000
+0000000ff800
+0000001ff800
+0000001ff800
+0000003ffc00
+0000003ffc00
+0000007ffc00
+0000007ffc00
+000000fffc00
+000001fcfc00
+000001fcfc00
+000003f8fe00
+000003f8fe00
+000007f0fe00
+000007e0fe00
+00000fe0fe00
+00000fc07e00
+00001fc07f00
+00003f807f00
+00003f807f00
+00007f007f00
+00007f007f00
+0000fe003f00
+0000fe003f80
+0001fc003f80
+0001fc003f80
+0003f8003f80
+0007f0003f80
+0007f0003f80
+000fe0001fc0
+000fe0001fc0
+001fc0001fc0
+001fc0001fc0
+003f80001fc0
+007fffffffc0
+007fffffffe0
+00ffffffffe0
+00ffffffffe0
+01ffffffffe0
+01fc00000fe0
+03f800000fe0
+03f800000fe0
+07f0000007f0
+0ff0000007f0
+0fe0000007f0
+1fe0000007f0
+1fc0000007f0
+3fc0000007f0
+3f80000007f8
+7f80000003f8
+ff00000003f8
+ff00000003f8
+fe00000003f8
+>
+ ]
+/TT16b00 AddT3T32Char
+T32RsrcEnd
+F /F1 0 /0 F /TT16b00 mF 
+/F1S52 F1 [82.813 0 0 -82.813 0 0 ] mFS
+F1S52 Ji 
+557 1493 M <01>S 
+597 1493 M <02>S  640 1493 M <03>S  691 1493 M <04>S  
+N 92 603 M 92 1370 I 604 1370 I 604 603 I 92 603 I C 
+1 1 1 1 scol  O 0 0 0 1 scol N 92 1370 M 604 1370 I 604 603 I 92 603 I 92 1370 I C 
+: [ 0.223 0 0 0.223 0 0 ] concat K 
+; VMsave restore
+userdict begin /VMsave save def end
+mysetup concat colspRefresh
+/DeviceRGB dup setcolorspace /colspABC exch def
+0 0 0 1 scol 1 Lj 1 Lc 20 Lw Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_Text 5.0 0
+/TextInit{TextInitialised? not{/Pscript_Windows_Font & d/TextInitialised? T d
+/fM[1 0 0 1 0 0]d/mFM matrix d/iMat[1 0 0.212557 1 0 0]d}if}b/copyfont{1 ^
+length add dict `{1 ^/FID ne{d}{! !}?}forall & E}b/EncodeDict 11 dict d/bullets
+{{/bullet}repeat}b/rF{3 copyfont @ ` ~ EncodeDict ~ get/Encoding ~ 3 ^/0 eq{&
+/CharStrings known{CharStrings/Eth known not{! EncodeDict/ANSIEncodingOld get}
+if}if}if d E}b/mF{@ 7 1 $ findfont ~{@/Encoding get @ StandardEncoding eq{! T}{
+{ISOLatin1Encoding}stopped{! F}{eq}?{T}{@ ` T 32 1 127{Encoding 1 ^ get
+StandardEncoding 3 -1 $ get eq and}for E}?}?}{F}?{1 ^ ~ rF}{0 copyfont}? 6 -2 $
+! ! ~ !/pd_charset @ where{~ get 128 eq{@ FDV 2 copy get @ length array copy
+put pd_CoverFCRange}if}{!}? 2 ^ ~ definefont fM 5 4 -1 $ put fM 4 0 put fM
+makefont Pscript_Windows_Font 3 1 $ put}b/sLT{: Lw -M currentpoint snap M 0 - 0
+Lc K ;}b/xUP null d/yUP null d/uW null d/xSP null d/ySP null d/sW null d/sSU{N
+/uW ~ d/yUP ~ d/xUP ~ d}b/sU{xUP yUP uW sLT}b/sST{N/sW ~ d/ySP ~ d/xSP ~ d}b/sT
+{xSP ySP sW sLT}b/sR{: + R 0 0 M}b/sRxy{: matrix astore concat 0 0 M}b/eR/; , d
+/AddOrigFP{{&/FontInfo known{&/FontInfo get length 6 add}{6}? dict `
+/WinPitchAndFamily ~ d/WinCharSet ~ d/OrigFontType ~ d/OrigFontStyle ~ d
+/OrigFontName ~ d & E/FontInfo ~ d}{! ! ! ! !}?}b/mFS{makefont
+Pscript_Windows_Font 3 1 $ put}b/mF42D{0 copyfont `/FontName ~ d 2 copy ~ sub 1
+add dict `/.notdef 0 d 2 copy 1 ~{@ 3 ^ sub Encoding ~ get ~ d}for & E
+/CharStrings ~ d ! ! & @ E/FontName get ~ definefont}b/mF42{15 dict ` @ 4 1 $
+FontName ~ d/FontType 0 d/FMapType 2 d/FontMatrix[1 0 0 1 0 0]d 1 ^ 254 add 255
+idiv @ array/Encoding ~ d 0 1 3 -1 $ 1 sub{@ Encoding 3 1 $ put}for/FDepVector
+Encoding length array d/CharStrings 2 dict `/.notdef 0 d & E d 0 1 Encoding
+length 1 sub{@ @ 10 lt{! FontName length 1 add string}{100 lt{FontName length 2
+add string}{FontName length 3 add string}?}? @ 0 FontName @ length string cvs
+putinterval @ 3 -1 $ @ 4 1 $ 3 string cvs FontName length ~ putinterval cvn 1 ^
+256 mul @ 255 add 3 -1 $ 4 ^ findfont mF42D FDepVector 3 1 $ put}for & @ E
+/FontName get ~ definefont ! ! ! mF}b/mF_OTF_V{~ ! ~ ! 4 -1 $ ! findfont 2 ^ ~
+definefont fM @ @ 4 6 -1 $ neg put 5 0 put 90 matrix R matrix concatmatrix
+makefont Pscript_Windows_Font 3 1 $ put}b/mF_TTF_V{3{~ !}repeat 3 -1 $ !
+findfont 1 ^ ~ definefont Pscript_Windows_Font 3 1 $ put}b/UmF{L2?
+{Pscript_Windows_Font ~ undef}{!}?}b/UmF42{@ findfont/FDepVector get{/FontName
+get undefinefont}forall undefinefont}b
+%%EndResource
+end reinitialize
+38634 VM?
+38634 VM?
+Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_T3Hdr 5.0 0
+{version cvi 2016 ge{32/FontType resourcestatus{pop pop true}{false}ifelse}
+{false}ifelse}exec/Is2016andT32? exch def/T32DefSBCMap{/CIDInit/ProcSet
+findresource begin 10 dict begin begincmap/CIDSystemInfo 3 dict dup begin
+/Registry(Adobe)def/Ordering(Identity1)def/Supplement 0 def end def/CMapType 0
+def/WMode 0 def 1 begincodespacerange<00><ff>endcodespacerange 1 begincidrange
+<00><ff>0 endcidrange endcmap/DrvSBCMap currentdict/CMap defineresource pop end
+end}bind def Is2016andT32?{T32DefSBCMap}def/T32RsrcBegin{Is2016andT32?{
+/BitmapFontInit/ProcSet findresource begin}if}bind def/T32RsrcEnd{Is2016andT32?
+{end}if}bind def/AddT32Char{6 1 roll 0 get 7 1 roll pop pop 5 1 roll pop
+findfont/TT32R get addglyph}bind def/AddT3Char{findfont dup 5 2 roll 1 index
+length 0 gt{cvx 1 index exch 4 exch put dup(imagemask)cvx cvn 5 exch put cvx}
+{pop cvx}ifelse 3 -1 roll/CharProcs get 3 1 roll put dup/Encoding get 5 -1 roll
+4 index put/Metrics get 3 1 roll put}bind def/AddT3T32Char Is2016andT32?{
+/AddT32Char}{/AddT3Char}ifelse load def/GreNewFontT32{5 dict begin exch
+/FontMatrix exch def exch/FontBBox exch def exch pop exch pop/CIDFontType 4 def
+dup currentdict end/CIDFont defineresource 3 -1 roll dup/DrvSBCMap dup/CMap
+resourcestatus{pop pop}{T32DefSBCMap}ifelse 5 -1 roll[exch]composefont dup
+length dict copy dup/FID undef begin exch/TT32R exch def currentdict end
+definefont/BitmapFontInit/ProcSet findresource begin/TT32R get[14 0 0 0 0 0]<>0
+4 -1 roll addglyph end}bind def/GreNewFontT3{11 dict begin pop/FontType 3 def
+/FontMatrix exch def/FontBBox exch def/Encoding exch def/CharProcs 257 dict def
+CharProcs/.notdef{}put/Metrics 257 dict def Metrics/.notdef 3 -1 roll put
+AddFontInfoBegin AddFontInfo AddFontInfoEnd/BuildChar{userdict begin/char exch
+def dup/charname exch/Encoding get char get def dup/Metrics get charname 2 copy
+known{get aload pop}{pop/.notdef get aload pop}ifelse setcachedevice begin
+Encoding char get CharProcs exch 2 copy known{get}{pop/.notdef get}ifelse end
+exec end}def currentdict end definefont pop}bind def/GreNewFont{Is2016andT32?
+{GreNewFontT32}{GreNewFontT3}ifelse}bind def/UDF3{Is2016andT32?{/BitmapFontInit
+/ProcSet findresource begin dup/CIDFont findresource removeall/CIDFont
+undefineresource undefinefont end}{pop UDF}ifelse}bind def
+%%EndResource
+end reinitialize
+/TT17b00
+[72 0 0 0 0 0 ] 
+ 256 array 0 1 255 {1 index exch /.notdef put} for 
+[0 0 0 0 ] 
+[1 72 div 0 0 -1 72 div 0 0 ]
+/__TT17b00
+GreNewFont
+T32RsrcBegin
+
+1
+/G [47 0 5 -52 41 0 ] 
+/G [36 52 true [1 0 0 1 -5 52 ]  0 0]
+[<0001f80000
+000fff8000
+007ffff000
+00fffff800
+01fffffc00
+07ff07fe00
+0ff800ff00
+0fe0003f80
+1fc0001fc0
+3f80000fc0
+3f000007e0
+3f000007e0
+7e000003f0
+7e000003f0
+7e000001f0
+7c000001f0
+7c00000000
+7c00000000
+7c00000000
+7c00000000
+7c00000000
+7c00000000
+7c00000000
+fc00000000
+fc00000000
+fc003ffff0
+fc003ffff0
+fc003ffff0
+fc003ffff0
+fc003ffff0
+7c000001f0
+7c000001f0
+7c000001f0
+7c000001f0
+7c000001f0
+7c000001f0
+7c000001f0
+7c000001f0
+7e000003f0
+7e000003f0
+7e000003e0
+3f000007e0
+3f000007e0
+1f80000fc0
+1fc0001fc0
+0fe0003f80
+07f800ff00
+03ff9ffe00
+01fffffc00
+00fffff800
+003fffe000
+000fff8000
+>
+ ]
+/TT17b00 AddT3T32Char
+
+2
+/r [30 0 6 -36 30 0 ] 
+/r [24 36 true [1 0 0 1 -6 36 ]  0 0]
+[<000fe0
+fc3ff8
+fcfffe
+fdffff
+fffffe
+ffe03c
+ff8018
+ff0000
+fe0000
+fe0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+>
+ ]
+/TT17b00 AddT3T32Char
+
+3
+/a [38 0 4 -36 32 0 ] 
+/a [28 36 true [1 0 0 1 -4 36 ]  0 0]
+[<007fc000
+03fffc00
+0ffffe00
+1fffff80
+3fffffc0
+7f001fc0
+3e000fe0
+180007e0
+080003e0
+000003f0
+000003f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+01fffff0
+0ffffff0
+1ffffff0
+3ffffff0
+7f0001f0
+7c0001f0
+fc0001f0
+f80001f0
+f80001f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+fc0007f0
+7e000ff0
+7f807ff0
+3ffffff0
+1ffffdf0
+0ffff1f0
+03ffc1f0
+>
+ ]
+/TT17b00 AddT3T32Char
+
+4
+/d [39 0 5 -51 33 0 ] 
+/d [28 51 true [1 0 0 1 -5 51 ]  0 0]
+[<000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+007f01f0
+03ffe1f0
+07fff1f0
+0ffffdf0
+1ffffdf0
+3fc03ff0
+3f001ff0
+7e000ff0
+7e0007f0
+7c0007f0
+fc0003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+fc0003f0
+fc0007f0
+7c0007f0
+7e0007f0
+7f000ff0
+3f801ff0
+3fe0fff0
+1ffffdf0
+0ffff9f0
+07fff1f0
+01ffc1f0
+>
+ ]
+/TT17b00 AddT3T32Char
+
+5
+/i [18 0 6 -51 12 0 ] 
+/i [6 51 true [1 0 0 1 -6 51 ]  0 0]
+[<fc
+fc
+fc
+fc
+fc
+fc
+00
+00
+00
+00
+00
+00
+00
+00
+00
+00
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+>
+ ]
+/TT17b00 AddT3T32Char
+
+6
+/e [38 0 5 -36 34 0 ] 
+/e [29 36 true [1 0 0 1 -5 36 ]  0 0]
+[<001fc000
+00fff800
+03fffc00
+07ffff00
+0fffff80
+1fc03f80
+3f000fc0
+3e0007e0
+7e0003e0
+7c0003e0
+7c0001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f8
+fffffff8
+fffffff8
+fffffff8
+fffffff8
+f8000000
+f8000000
+f8000000
+f8000000
+f8000000
+fc000000
+7c000000
+7e000000
+7e000080
+3f0001c0
+1fc007e0
+1ff01fe0
+0fffffc0
+07ffff80
+01fffe00
+007ff800
+>
+ ]
+/TT17b00 AddT3T32Char
+
+7
+/n [41 0 6 -36 34 0 ] 
+/n [28 36 true [1 0 0 1 -6 36 ]  0 0]
+[<000fe000
+fc7ffc00
+fcffff00
+fdffff80
+ffffffc0
+ffc03fc0
+ff800fe0
+ff0007e0
+fe0003f0
+fc0003f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+>
+ ]
+/TT17b00 AddT3T32Char
+
+8
+/t [24 0 3 -46 20 0 ] 
+/t [17 46 true [1 0 0 1 -3 46 ]  0 0]
+[<0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+ffff80
+ffff80
+ffff80
+ffff80
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+07c000
+07e000
+07fc00
+03ff80
+01ff80
+00ff80
+003f80
+>
+ ]
+/TT17b00 AddT3T32Char
+T32RsrcEnd
+F /F0 0 /0 F /TT17b00 mF 
+/F0S47 F0 [71.875 0 0 -71.875 0 0 ] mFS
+F0S47 Ji 
+213 967 M <01>S 
+260 967 M <02>S  288 967 M <03>S  328 967 M <04>S  368 967 M <05>S  386 967 M <06>S  426 967 M <07>S  466 967 M <08>S  
+7272 VM?
+T32RsrcBegin
+
+9
+/C [46 0 5 -52 41 0 ] 
+/C [36 52 true [1 0 0 1 -5 52 ]  0 0]
+[<0001f80000
+000fff8000
+007ffff000
+00fffff800
+01fffffc00
+07fe07fe00
+0ff800ff00
+0fe0003f80
+1fc0001fc0
+3f80000fc0
+3f000007e0
+3f000007e0
+7e000003e0
+7e000003f0
+7e000003f0
+7c000001f0
+7c00000000
+7c00000000
+7c00000000
+7c00000000
+7c00000000
+7c00000000
+7c00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+7c00000000
+7c00000000
+7c00000000
+7c00000000
+7c00000000
+7c00000000
+7c00000000
+7c000001f0
+7e000003f0
+7e000003f0
+7e000003e0
+3f000007e0
+3f00000fe0
+1f80000fc0
+1fc0001f80
+0fe0007f80
+07f800ff00
+03ff9ffe00
+01fffffc00
+00fffff800
+003fffe000
+000fff8000
+>
+ ]
+/TT17b00 AddT3T32Char
+
+10
+/o [38 0 5 -36 34 0 ] 
+/o [29 36 true [1 0 0 1 -5 36 ]  0 0]
+[<001fc000
+00fff000
+03fffc00
+07ffff00
+0fffff80
+1fc03f80
+3f800fc0
+3f0007e0
+7e0007e0
+7c0003e0
+7c0003f0
+fc0001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f8
+f80001f8
+f80001f8
+f80001f8
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+fc0001f0
+7c0003f0
+7c0003e0
+7e0007e0
+3f000fc0
+3f801fc0
+1ff07f80
+0fffff00
+07fffe00
+01fffc00
+007fe000
+>
+ ]
+/TT17b00 AddT3T32Char
+
+11
+/m [64 0 6 -36 57 0 ] 
+/m [51 36 true [1 0 0 1 -6 36 ]  0 0]
+[<000fe0001fc000
+fc7ffc00fff800
+fcffff03fffc00
+fdffff87fffe00
+ffffffcfffff00
+ffe01fdf807f80
+ff800fff001fc0
+ff0007fe000fc0
+fe0003fc0007c0
+fe0003f80007e0
+fc0001f80003e0
+fc0001f80003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+fc0001f00003e0
+>
+ ]
+/TT17b00 AddT3T32Char
+
+12
+/p [39 0 6 -36 35 16 ] 
+/p [29 52 true [1 0 0 1 -6 36 ]  0 0]
+[<000fe000
+fc7ffc00
+fcfffe00
+fdffff80
+ffffff80
+ffe01fc0
+ff800fe0
+ff0007e0
+fe0003e0
+fe0003f0
+fe0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f8
+fc0001f8
+fc0001f8
+fc0001f8
+fc0001f8
+fc0001f8
+fc0001f8
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fe0003f0
+fe0003f0
+ff0007e0
+ff0007e0
+ffc00fc0
+fff07fc0
+ffffff80
+fdffff00
+fc7ffe00
+fc3ff800
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+>
+ ]
+/TT17b00 AddT3T32Char
+
+13
+/u [41 0 6 -35 34 0 ] 
+/u [28 35 true [1 0 0 1 -6 35 ]  0 0]
+[<f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+fc0003f0
+fc0003f0
+7c0003f0
+7e0007f0
+7f000ff0
+3f801ff0
+3fe07ff0
+1ffffdf0
+0ffff9f0
+07fff1f0
+01ffc1f0
+>
+ ]
+/TT17b00 AddT3T32Char
+T32RsrcEnd
+145 1054 M <09>S 
+192 1054 M <0A>S  228 1054 M <0B>S  293 1054 M <0C>S  333 1054 M <0D>S  373 1054 M <08>S  398 1054 M <03>S  434 1054 M <08>S  459 1054 M <05>S  478 1054 M <0A>S  517 1054 M <07>S  
+Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_Win_GdiObject 5.0 0
+/SavedCTM null d/CTMsave{/SavedCTM SavedCTM currentmatrix d}b/CTMrestore
+{SavedCTM setmatrix}b/mp null d/ADO_mxRot null d/GDIHMatrix null d
+/GDIHPatternDict 22 dict d GDIHPatternDict `/PatternType 1 d/PaintType 2 d/Reps
+L2?{1}{5}? d/XStep 8 Reps mul d/YStep XStep d/BBox[0 0 XStep YStep]d/TilingType
+1 d/PaintProc{` 1 Lw[]0 sd PaintData , exec E}b/FGnd null d/BGnd null d
+/HS_Horizontal{horiz}b/HS_Vertical{vert}b/HS_FDiagonal{fdiag}b/HS_BDiagonal
+{biag}b/HS_Cross{horiz vert}b/HS_DiagCross{fdiag biag}b/MaxXYStep XStep YStep
+gt{XStep}{YStep}? d/horiz{Reps{0 4 M XStep 0 - 0 8 +}repeat 0 -8 Reps mul + K}b
+/vert{Reps{4 0 M 0 YStep - 8 0 +}repeat 0 -8 Reps mul + K}b/biag{Reps{0 0 M
+MaxXYStep @ - 0 YStep neg M MaxXYStep @ - 0 8 +}repeat 0 -8 Reps mul + 0 YStep
+M 8 8 - K}b/fdiag{Reps{0 0 M MaxXYStep @ neg - 0 YStep M MaxXYStep @ neg - 0 8
++}repeat 0 -8 Reps mul + MaxXYStep @ M 8 -8 - K}b E/makehatch{4 -2 $/yOrg ~ d
+/xOrg ~ d GDIHPatternDict/PaintData 3 -1 $ put CTMsave GDIHMatrix setmatrix
+GDIHPatternDict matrix xOrg yOrg + mp CTMrestore ~ U ~ 2 ^ put}b/h0{/h0
+/HS_Horizontal makehatch}b/h1{/h1/HS_Vertical makehatch}b/h2{/h2/HS_FDiagonal
+makehatch}b/h3{/h3/HS_BDiagonal makehatch}b/h4{/h4/HS_Cross makehatch}b/h5{/h5
+/HS_DiagCross makehatch}b/GDIBWPatternMx null d/pfprep{save 8 1 $
+/PatternOfTheDay 8 1 $ GDIBWPatternDict `/yOrg ~ d/xOrg ~ d/PaintData ~ d/yExt
+~ d/Width ~ d/BGnd ~ d/FGnd ~ d/Height yExt RepsV mul d/mx[Width 0 0 Height 0
+0]d E build_pattern ~ !}b/pfbf{/fEOFill ~ d pfprep hbf fEOFill{O}{L}? restore}b
+/GraphInit{GDIHMatrix null eq{/SavedCTM matrix d : ADO_mxRot concat 0 0 snap +
+: 0.48 @ GDIHPatternDict ` YStep mul ~ XStep mul ~ nonzero_dsnap YStep V ~
+XStep V ~ E +S/GDIHMatrix matrix currentmatrix readonly d ; : 0.24 -0.24 +S
+GDIBWPatternDict ` Width Height E nonzero_dsnap +S/GDIBWPatternMx matrix
+currentmatrix readonly d ; ;}if}b
+%%EndResource
+%%BeginResource: file Pscript_Win_GdiObject_L1 5.0 0
+/GDIBWPatternDict 25 dict @ `/PatternType 1 d/PaintType 2 d/RepsV 6 d/RepsH 5 d
+/BBox[0 0 RepsH 1]d/TilingType 1 d/XStep 1 d/YStep 1 d/Height 8 RepsV mul d
+/Width 8 d/mx[Width 0 0 Height neg 0 Height]d/FGnd null d/BGnd null d
+/SetBGndFGnd{}b/PaintProc{` SetBGndFGnd RepsH{Width Height F mx PaintData
+imagemask Width 0 +}repeat E}b E d/GDIpattfill{@ ` BGnd null ne PaintType 2 eq
+and{: BGnd aload ! scol fEOFill{O}{L}? ; FGnd aload ! U/iCol 2 ^ put @ 0 eq{!
+2}{@ 1 eq ~ 2 eq or{4}{5}?}? -1 $}if E @ patterncalc : 4 ^/PaintType get 2 eq
+{iCol 0 eq{6 -1 $}if iCol 1 eq iCol 2 eq or{8 -3 $}if iCol 3 eq iCol 4 eq or{9
+-4 $}if iCol scol}if fEOFill{eoclip}{clip}? N patternfill ; N}b/hbf
+{GDIpattfill}b/hfMain{/fEOFill ~ d ~/iCol ~ d GDIpattfill}b/hf{: hfMain ;}b
+/mpstr 1 string d/mp{~ @ length 12 add dict copy `/PatternCTM matrix
+currentmatrix d/PatternMatrix ~ d/PatWidth XStep mpstr length mul d/PatHeight
+YStep d/FontType 3 d/Encoding 256 array d 3 string 0 1 255{Encoding ~ @ 3 ^ cvs
+cvn put}for !/FontMatrix matrix d/FontBBox BBox d/BuildChar{! @ ` XStep 0
+FontBBox aload ! setcachedevice/PaintProc , E : exec ;}b & E ~ @ 3 -1 $
+definefont}b/build_pattern{: GDIBWPatternDict ` Width Height E dsnap +S
+/GDIBWPatternMx matrix currentmatrix d ; CTMsave GDIBWPatternMx setmatrix
+GDIBWPatternDict @ ` xOrg yOrg E matrix + mp CTMrestore}b/patterncalc{` :
+PatternCTM setmatrix PatternMatrix concat BBox aload ! ! ! + pathbbox ;
+PatHeight V ceiling 4 1 $ PatWidth V ceiling 4 1 $ PatHeight V floor 4 1 $
+PatWidth V floor 4 1 $ 2 ^ sub cvi abs ~ 3 ^ sub cvi abs ~ 4 2 $ PatHeight mul
+~ PatWidth mul ~ E}b/patternfill{5 -1 $ @ ` Ji PatternCTM setmatrix
+PatternMatrix concat 0 2 ^ 2 ^ M 0 1 mpstr length 1 sub{1 ^ mpstr 3 1 $ put}for
+! 2 ^{currentpoint 5 ^{mpstr S}repeat YStep add M}repeat ! ! ! ! E}b/pbf{: 14
+dict `/fGray ~ d/fEOFill ~ d/yOrg ~ d/xOrg ~ d/PaintData ~ d/OutputBPP ~ d
+/Height ~ d/Width ~ d/mx xOrg yOrg matrix + d fGray{/PaintProc{` Width Height
+OutputBPP mx PaintData image E}b}{/PaintProc{` Width Height 8 mx PaintData F
+OutputBPP 8 idiv colorimage E}b}? pathbbox fEOFill{eoclip}{clip}?/Top ~ d/Right
+~ d/Bottom ~ d/Left ~ d Top Height neg Bottom 1 sub{Left Width Right 1 sub{1 ^
+2 copy + & PaintProc neg ~ neg ~ +}bind for !}bind for E ;}b
+%%EndResource
+end reinitialize
+N 775 1200 M 775 1370 I 1117 1370 I 1117 1200 I 775 1200 I C 
+1 1 1 1 scol  O 0 0 0 1 scol solid N 775 1370 M 1117 1370 I 1117 1200 I 775 1200 I 775 1370 I C 
+: [ 0.223 0 0 0.223 0 0 ] concat K 
+; : 923 982 53 577 rc 18900 VM?
+11 dict begin
+/FontName /TT18o00 def
+/FontMatrix [1 2048 div 0 0 1 2048 div 0 0 ] def
+/Encoding  256 array 0 1 255 {1 index exch /.notdef put} for  def
+/PaintType 0 def
+/FontType 1 def
+/FontBBox { 0 0 0 0 } def
+AddFontInfoBegin
+AddFontInfo
+AddFontInfoEnd
+currentdict
+end
+
+currentfile eexec
+9e67edc6f3ddb54d987dfb0ad4392351758f10eff40ef287a1387512b853
+046f6e589e2c97d48fdb38d54b68757f1dc48a239a5da408c2bfd473eac0
+3ab6b0025b87770e5f3b06904c282a51ee189ce871258447b47d83c5fad2
+326aa26e4c7f0ff21a841a463c859f102729802bbfa6ac0c2766f6b09317
+a247f37b339b99b7588bee2e861ed9de7a8990c512001ce21da50f4516f7
+553cc5df31ac42402c2b4e2b106773ccdac45a8dee89d3d35ce4f9afb022
+79592359efd5293f35df57216c84236a1347e922a61c45691be2c137b65f
+08f4b3113b88e58dce4bd559387db7a00fe16460e5ab8fc835ea6ed9b938
+610bff26bc7ddabb1ad5fea0233d3af62bf496c6008ba1b136a515544017
+4074f903b667477e9a22829e00d363377cdeb9485bc561f4e17c3c4c78dc
+60557540bcfc8f4bbdf80a0cf58204857a14e4544aa57b15bffff3335d20
+a1d60cc59ccc29cd1138d17ea59cf14882cf07ab25e6a8bb3d3412bd4f0f
+11c9bd726c16fa3acfc7037e7efcce1e61466a47c07c9b3d0fb472674088
+dd435a8fe4db29ff1abe8d87faa30dca519802e07a08580a33673647a505
+2281f0e1fce9340445ce25e308678e6ed426f2e8221a8adef404676b5ed4
+0273c534d58f92b39194ef5d64030c2e94c53c54b9501febf3a47934e1a4
+5ea6fd6c81093c0ebd21de35c7966e79f1c03f87aa036eb217b5c145787f
+9ce629d7a865e9f78f6c5f3763983d8b4c57594c26634035642453cd2ad2
+4696e086d14038feec0f66d2e7649fc57a6396a480935be9cb7c54ec8701
+69c9015319087600df0641a82b40a22027afeddda47bba399c0806855a23
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+/TT18o00 findfont /Encoding get
+dup 1 /g154 put
+pop
+F /F1 0 /0 F /TT18o00 mF 
+/F1S6CYFFFFFF93 F1 [108.43 0 0 -108.191 0 0 ] mFS
+F1S6CYFFFFFF93 Ji 
+923 1319 M <01>S 
+; N 775 603 M 775 774 I 1117 774 I 1117 603 I 775 603 I C 
+1 1 1 1 scol  O 0 0 0 1 scol N 775 774 M 1117 774 I 1117 603 I 775 603 I 775 774 I C 
+: [ 0.223 0 0 0.223 0 0 ] concat K 
+; F1S6CYFFFFFF93 Ji 
+911 723 M <01>S 
+18900 VM?
+11 dict begin
+/FontName /TT19o00 def
+/FontMatrix [1 2048 div 0 0 1 2048 div 0 0 ] def
+/Encoding  256 array 0 1 255 {1 index exch /.notdef put} for  def
+/PaintType 0 def
+/FontType 1 def
+/FontBBox { 0 0 0 0 } def
+AddFontInfoBegin
+AddFontInfo
+AddFontInfoEnd
+currentdict
+end
+
+currentfile eexec
+9e67edc6f3ddb54d987dfb0ad4392351758f10eff40ef287a1387512b853
+046f6e589e2c97d48fdb38d54b68757f1dc48a239a5da408c2bfd473eac0
+3ab6b0025b87770e5f3b06904c282a51ee189ce871258447b47d83c5fad2
+326aa26e4c7f0ff21a841a463c859f102729802bbfa6ac0c2766f6b09317
+a247f37b339b99b7588bee2e861ed9de7a8990c512001ce21da50f4516f7
+553cc5df31ac42402c2b4e2b106773ccdac45a8dee89d3d35ce4f9afb022
+79592359efd5293f35df57216c84236a1347e922a61c45691be2c137b65f
+08f4b3113b88e58dce4bd559387db7a00fe16460e5ab8fc835ea6ed9b938
+610bff26bc7ddabb1ac7ebb8984a54b445b82e1d183f919f4af10d355823
+e9efc3084c8ec1f951c67a10907f873cdfb6eadacad04459e97796cbfac5
+036be5e1647509cea98e2c0b08f8d7a34987cf78ccf40ad0a06af97bd743
+756c8d6366f1ed77db88aa4327d626e8291d668c6d8c478d844611c573ba
+641b7fb65abf064fd57f155617d194a9e9012f9b98a2ee55fe8adb357bde
+2e3b5977033916c9379ada0b0bcf091c942592ede84902926f91c6005e17
+1e11272ce049e9e2b5be850546e42d22a7380c6d0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+/TT19o00 findfont /Encoding get
+dup 1 /uni2019 put
+pop
+F /F2 0 /0 F /TT19o00 mF 
+/F2S6CYFFFFFF93 F2 [108.43 0 0 -108.191 0 0 ] mFS
+F2S6CYFFFFFF93 Ji 
+962 723 M <01>S 
+0.754 0 0 1 scol 40 Lw N 263 262 M 263 537 I : [ 0.223 0 0 0.223 0 0 ] concat K 
+; N 287 531 M 263 603 I 239 531 I 287 531 I C 
+ O 0 0 0 1 scol : 194 0 66 409 rc ; VMsave restore
+userdict begin /VMsave save def end
+mysetup concat colspRefresh
+/DeviceRGB dup setcolorspace /colspABC exch def
+0 0 0 1 scol 1 Lj 1 Lc 40 Lw Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_Text 5.0 0
+/TextInit{TextInitialised? not{/Pscript_Windows_Font & d/TextInitialised? T d
+/fM[1 0 0 1 0 0]d/mFM matrix d/iMat[1 0 0.212557 1 0 0]d}if}b/copyfont{1 ^
+length add dict `{1 ^/FID ne{d}{! !}?}forall & E}b/EncodeDict 11 dict d/bullets
+{{/bullet}repeat}b/rF{3 copyfont @ ` ~ EncodeDict ~ get/Encoding ~ 3 ^/0 eq{&
+/CharStrings known{CharStrings/Eth known not{! EncodeDict/ANSIEncodingOld get}
+if}if}if d E}b/mF{@ 7 1 $ findfont ~{@/Encoding get @ StandardEncoding eq{! T}{
+{ISOLatin1Encoding}stopped{! F}{eq}?{T}{@ ` T 32 1 127{Encoding 1 ^ get
+StandardEncoding 3 -1 $ get eq and}for E}?}?}{F}?{1 ^ ~ rF}{0 copyfont}? 6 -2 $
+! ! ~ !/pd_charset @ where{~ get 128 eq{@ FDV 2 copy get @ length array copy
+put pd_CoverFCRange}if}{!}? 2 ^ ~ definefont fM 5 4 -1 $ put fM 4 0 put fM
+makefont Pscript_Windows_Font 3 1 $ put}b/sLT{: Lw -M currentpoint snap M 0 - 0
+Lc K ;}b/xUP null d/yUP null d/uW null d/xSP null d/ySP null d/sW null d/sSU{N
+/uW ~ d/yUP ~ d/xUP ~ d}b/sU{xUP yUP uW sLT}b/sST{N/sW ~ d/ySP ~ d/xSP ~ d}b/sT
+{xSP ySP sW sLT}b/sR{: + R 0 0 M}b/sRxy{: matrix astore concat 0 0 M}b/eR/; , d
+/AddOrigFP{{&/FontInfo known{&/FontInfo get length 6 add}{6}? dict `
+/WinPitchAndFamily ~ d/WinCharSet ~ d/OrigFontType ~ d/OrigFontStyle ~ d
+/OrigFontName ~ d & E/FontInfo ~ d}{! ! ! ! !}?}b/mFS{makefont
+Pscript_Windows_Font 3 1 $ put}b/mF42D{0 copyfont `/FontName ~ d 2 copy ~ sub 1
+add dict `/.notdef 0 d 2 copy 1 ~{@ 3 ^ sub Encoding ~ get ~ d}for & E
+/CharStrings ~ d ! ! & @ E/FontName get ~ definefont}b/mF42{15 dict ` @ 4 1 $
+FontName ~ d/FontType 0 d/FMapType 2 d/FontMatrix[1 0 0 1 0 0]d 1 ^ 254 add 255
+idiv @ array/Encoding ~ d 0 1 3 -1 $ 1 sub{@ Encoding 3 1 $ put}for/FDepVector
+Encoding length array d/CharStrings 2 dict `/.notdef 0 d & E d 0 1 Encoding
+length 1 sub{@ @ 10 lt{! FontName length 1 add string}{100 lt{FontName length 2
+add string}{FontName length 3 add string}?}? @ 0 FontName @ length string cvs
+putinterval @ 3 -1 $ @ 4 1 $ 3 string cvs FontName length ~ putinterval cvn 1 ^
+256 mul @ 255 add 3 -1 $ 4 ^ findfont mF42D FDepVector 3 1 $ put}for & @ E
+/FontName get ~ definefont ! ! ! mF}b/mF_OTF_V{~ ! ~ ! 4 -1 $ ! findfont 2 ^ ~
+definefont fM @ @ 4 6 -1 $ neg put 5 0 put 90 matrix R matrix concatmatrix
+makefont Pscript_Windows_Font 3 1 $ put}b/mF_TTF_V{3{~ !}repeat 3 -1 $ !
+findfont 1 ^ ~ definefont Pscript_Windows_Font 3 1 $ put}b/UmF{L2?
+{Pscript_Windows_Font ~ undef}{!}?}b/UmF42{@ findfont/FDepVector get{/FontName
+get undefinefont}forall undefinefont}b
+%%EndResource
+end reinitialize
+: 194 0 66 409 rc 52632 VM?
+52632 VM?
+Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_T3Hdr 5.0 0
+{version cvi 2016 ge{32/FontType resourcestatus{pop pop true}{false}ifelse}
+{false}ifelse}exec/Is2016andT32? exch def/T32DefSBCMap{/CIDInit/ProcSet
+findresource begin 10 dict begin begincmap/CIDSystemInfo 3 dict dup begin
+/Registry(Adobe)def/Ordering(Identity1)def/Supplement 0 def end def/CMapType 0
+def/WMode 0 def 1 begincodespacerange<00><ff>endcodespacerange 1 begincidrange
+<00><ff>0 endcidrange endcmap/DrvSBCMap currentdict/CMap defineresource pop end
+end}bind def Is2016andT32?{T32DefSBCMap}def/T32RsrcBegin{Is2016andT32?{
+/BitmapFontInit/ProcSet findresource begin}if}bind def/T32RsrcEnd{Is2016andT32?
+{end}if}bind def/AddT32Char{6 1 roll 0 get 7 1 roll pop pop 5 1 roll pop
+findfont/TT32R get addglyph}bind def/AddT3Char{findfont dup 5 2 roll 1 index
+length 0 gt{cvx 1 index exch 4 exch put dup(imagemask)cvx cvn 5 exch put cvx}
+{pop cvx}ifelse 3 -1 roll/CharProcs get 3 1 roll put dup/Encoding get 5 -1 roll
+4 index put/Metrics get 3 1 roll put}bind def/AddT3T32Char Is2016andT32?{
+/AddT32Char}{/AddT3Char}ifelse load def/GreNewFontT32{5 dict begin exch
+/FontMatrix exch def exch/FontBBox exch def exch pop exch pop/CIDFontType 4 def
+dup currentdict end/CIDFont defineresource 3 -1 roll dup/DrvSBCMap dup/CMap
+resourcestatus{pop pop}{T32DefSBCMap}ifelse 5 -1 roll[exch]composefont dup
+length dict copy dup/FID undef begin exch/TT32R exch def currentdict end
+definefont/BitmapFontInit/ProcSet findresource begin/TT32R get[14 0 0 0 0 0]<>0
+4 -1 roll addglyph end}bind def/GreNewFontT3{11 dict begin pop/FontType 3 def
+/FontMatrix exch def/FontBBox exch def/Encoding exch def/CharProcs 257 dict def
+CharProcs/.notdef{}put/Metrics 257 dict def Metrics/.notdef 3 -1 roll put
+AddFontInfoBegin AddFontInfo AddFontInfoEnd/BuildChar{userdict begin/char exch
+def dup/charname exch/Encoding get char get def dup/Metrics get charname 2 copy
+known{get aload pop}{pop/.notdef get aload pop}ifelse setcachedevice begin
+Encoding char get CharProcs exch 2 copy known{get}{pop/.notdef get}ifelse end
+exec end}def currentdict end definefont pop}bind def/GreNewFont{Is2016andT32?
+{GreNewFontT32}{GreNewFontT3}ifelse}bind def/UDF3{Is2016andT32?{/BitmapFontInit
+/ProcSet findresource begin dup/CIDFont findresource removeall/CIDFont
+undefineresource undefinefont end}{pop UDF}ifelse}bind def
+%%EndResource
+end reinitialize
+/TT1Ab00
+[82 0 0 0 0 0 ] 
+ 256 array 0 1 255 {1 index exch /.notdef put} for 
+[0 0 0 0 ] 
+[1 82 div 0 0 -1 82 div 0 0 ]
+/__TT1Ab00
+GreNewFont
+T32RsrcBegin
+
+1
+/g560 [66 0 5 -56 62 0 ] 
+/g560 [57 56 true [1 0 0 1 -5 56 ]  0 0]
+[<00001ffff8000000
+00001ffff8000000
+00001ffff8000000
+00000ffff8000000
+000003ffc0000000
+000001ff80000000
+000001ff80000000
+000001ff80000000
+000000ff80000000
+000007fffc000000
+0001ffffffe00000
+001ffffffffc0000
+007fffffffff8000
+01ffffffffffc000
+03fff0ff83fff000
+0fff80ff80fff800
+0ffe00ff803ffc00
+1ffc00ff801ffc00
+3ff800ff800ffe00
+7ff000ff8007fe00
+7fe000ff8007ff00
+7fe000ff8003ff00
+ffe000ff8003ff00
+ffc000ff8003ff80
+ffc000ff8003ff80
+ffc000ff8001ff80
+ffc000ff8001ff80
+ffc000ff8001ff80
+ffc000ff8001ff80
+ffc000ff8001ff80
+ffc000ff8003ff80
+ffc000ff8003ff00
+ffc000ff8003ff00
+ffc000ff8003ff00
+ffe000ff8007ff00
+7fe000ff8007fe00
+7ff000ff800ffe00
+3ff800ff801ffc00
+3ff800ff803ff800
+1ffe00ff807ff800
+0fff00ff81fff000
+07ffe0ff8fffc000
+03ffffffffff8000
+00fffffffffe0000
+001ffffffff00000
+0003ffffff000000
+000001ff80000000
+000000ff80000000
+000001ff80000000
+000001ff80000000
+000001ff80000000
+000003ffc0000000
+000007fff0000000
+00001ffff8000000
+00001ffff8000000
+00001ffff8000000
+>
+ ]
+/TT1Ab00 AddT3T32Char
+T32RsrcEnd
+F /F0 0 /0 F /TT1Ab00 mF 
+/F0S52 F0 [82.813 0 0 -82.813 0 0 ] mFS
+F0S52 Ji 
+194 205 M <01>S 
+; : 259 0 37 409 rc 51264 VM?
+T32RsrcBegin
+
+2
+/g481 [18 0 1 -10 15 11 ] 
+/g481 [14 21 true [1 0 0 1 -1 10 ]  0 0]
+[<0ffc
+0ffc
+07fc
+07fc
+07fc
+07fc
+07fc
+07fc
+07fc
+0ffc
+0ff8
+0ff8
+0ff0
+1ff0
+1fe0
+3fc0
+7f80
+ff00
+fe00
+7c00
+3800
+>
+ ]
+/TT1Ab00 AddT3T32Char
+
+3
+/g3 [19 0 0 0 1 1 ] 
+/g3 [1 1 true [1 0 0 1 0 0 ]  0 0]
+[<00
+>
+ ]
+/TT1Ab00 AddT3T32Char
+T32RsrcEnd
+F0S52 Ji 
+259 205 M <02>S 
+277 205 M <03>S  
+; : 294 0 44 409 rc 25632 VM?
+T32RsrcBegin
+
+4
+/g155 [43 0 1 -39 43 18 ] 
+/g155 [42 57 true [1 0 0 1 -1 39 ]  0 0]
+[<ffffc07fffc0
+ffffc07fffc0
+ffffc07fffc0
+3fff000fff00
+1ffc0007fe00
+0ffc0007fc00
+0ffc0003fc00
+07fc0007f800
+07fc0007f800
+07fe0007f000
+03fe000ff000
+03fe000ff000
+03ff000fe000
+01ff001fe000
+01ff801fc000
+00ff803fc000
+00ff803f8000
+00ffc03f8000
+007fc07f0000
+007fc07f0000
+007fe0ff0000
+003fe0fe0000
+003fe1fe0000
+003ff1fc0000
+001ff1fc0000
+001ff3f80000
+000ffbf80000
+000ffff00000
+000ffff00000
+0007fff00000
+0007ffe00000
+0007ffe00000
+0003ffc00000
+0003ffc00000
+0001ff800000
+0001ff800000
+0001ff000000
+0000ff000000
+0000ff000000
+0000fe000000
+0000fe000000
+0001fc000000
+0001fc000000
+0003f8000000
+0007f8000000
+0007f0000000
+000ff0000000
+fc1fe0000000
+fc3fe0000000
+fe7fc0000000
+ffff80000000
+ffff80000000
+ffff00000000
+fffe00000000
+fffc00000000
+fff000000000
+0f0000000000
+>
+ ]
+/TT1Ab00 AddT3T32Char
+T32RsrcEnd
+F0S52 Ji 
+294 205 M <04>S 
+Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_Win_GdiObject 5.0 0
+/SavedCTM null d/CTMsave{/SavedCTM SavedCTM currentmatrix d}b/CTMrestore
+{SavedCTM setmatrix}b/mp null d/ADO_mxRot null d/GDIHMatrix null d
+/GDIHPatternDict 22 dict d GDIHPatternDict `/PatternType 1 d/PaintType 2 d/Reps
+L2?{1}{5}? d/XStep 8 Reps mul d/YStep XStep d/BBox[0 0 XStep YStep]d/TilingType
+1 d/PaintProc{` 1 Lw[]0 sd PaintData , exec E}b/FGnd null d/BGnd null d
+/HS_Horizontal{horiz}b/HS_Vertical{vert}b/HS_FDiagonal{fdiag}b/HS_BDiagonal
+{biag}b/HS_Cross{horiz vert}b/HS_DiagCross{fdiag biag}b/MaxXYStep XStep YStep
+gt{XStep}{YStep}? d/horiz{Reps{0 4 M XStep 0 - 0 8 +}repeat 0 -8 Reps mul + K}b
+/vert{Reps{4 0 M 0 YStep - 8 0 +}repeat 0 -8 Reps mul + K}b/biag{Reps{0 0 M
+MaxXYStep @ - 0 YStep neg M MaxXYStep @ - 0 8 +}repeat 0 -8 Reps mul + 0 YStep
+M 8 8 - K}b/fdiag{Reps{0 0 M MaxXYStep @ neg - 0 YStep M MaxXYStep @ neg - 0 8
++}repeat 0 -8 Reps mul + MaxXYStep @ M 8 -8 - K}b E/makehatch{4 -2 $/yOrg ~ d
+/xOrg ~ d GDIHPatternDict/PaintData 3 -1 $ put CTMsave GDIHMatrix setmatrix
+GDIHPatternDict matrix xOrg yOrg + mp CTMrestore ~ U ~ 2 ^ put}b/h0{/h0
+/HS_Horizontal makehatch}b/h1{/h1/HS_Vertical makehatch}b/h2{/h2/HS_FDiagonal
+makehatch}b/h3{/h3/HS_BDiagonal makehatch}b/h4{/h4/HS_Cross makehatch}b/h5{/h5
+/HS_DiagCross makehatch}b/GDIBWPatternMx null d/pfprep{save 8 1 $
+/PatternOfTheDay 8 1 $ GDIBWPatternDict `/yOrg ~ d/xOrg ~ d/PaintData ~ d/yExt
+~ d/Width ~ d/BGnd ~ d/FGnd ~ d/Height yExt RepsV mul d/mx[Width 0 0 Height 0
+0]d E build_pattern ~ !}b/pfbf{/fEOFill ~ d pfprep hbf fEOFill{O}{L}? restore}b
+/GraphInit{GDIHMatrix null eq{/SavedCTM matrix d : ADO_mxRot concat 0 0 snap +
+: 0.48 @ GDIHPatternDict ` YStep mul ~ XStep mul ~ nonzero_dsnap YStep V ~
+XStep V ~ E +S/GDIHMatrix matrix currentmatrix readonly d ; : 0.24 -0.24 +S
+GDIBWPatternDict ` Width Height E nonzero_dsnap +S/GDIBWPatternMx matrix
+currentmatrix readonly d ; ;}if}b
+%%EndResource
+%%BeginResource: file Pscript_Win_GdiObject_L1 5.0 0
+/GDIBWPatternDict 25 dict @ `/PatternType 1 d/PaintType 2 d/RepsV 6 d/RepsH 5 d
+/BBox[0 0 RepsH 1]d/TilingType 1 d/XStep 1 d/YStep 1 d/Height 8 RepsV mul d
+/Width 8 d/mx[Width 0 0 Height neg 0 Height]d/FGnd null d/BGnd null d
+/SetBGndFGnd{}b/PaintProc{` SetBGndFGnd RepsH{Width Height F mx PaintData
+imagemask Width 0 +}repeat E}b E d/GDIpattfill{@ ` BGnd null ne PaintType 2 eq
+and{: BGnd aload ! scol fEOFill{O}{L}? ; FGnd aload ! U/iCol 2 ^ put @ 0 eq{!
+2}{@ 1 eq ~ 2 eq or{4}{5}?}? -1 $}if E @ patterncalc : 4 ^/PaintType get 2 eq
+{iCol 0 eq{6 -1 $}if iCol 1 eq iCol 2 eq or{8 -3 $}if iCol 3 eq iCol 4 eq or{9
+-4 $}if iCol scol}if fEOFill{eoclip}{clip}? N patternfill ; N}b/hbf
+{GDIpattfill}b/hfMain{/fEOFill ~ d ~/iCol ~ d GDIpattfill}b/hf{: hfMain ;}b
+/mpstr 1 string d/mp{~ @ length 12 add dict copy `/PatternCTM matrix
+currentmatrix d/PatternMatrix ~ d/PatWidth XStep mpstr length mul d/PatHeight
+YStep d/FontType 3 d/Encoding 256 array d 3 string 0 1 255{Encoding ~ @ 3 ^ cvs
+cvn put}for !/FontMatrix matrix d/FontBBox BBox d/BuildChar{! @ ` XStep 0
+FontBBox aload ! setcachedevice/PaintProc , E : exec ;}b & E ~ @ 3 -1 $
+definefont}b/build_pattern{: GDIBWPatternDict ` Width Height E dsnap +S
+/GDIBWPatternMx matrix currentmatrix d ; CTMsave GDIBWPatternMx setmatrix
+GDIBWPatternDict @ ` xOrg yOrg E matrix + mp CTMrestore}b/patterncalc{` :
+PatternCTM setmatrix PatternMatrix concat BBox aload ! ! ! + pathbbox ;
+PatHeight V ceiling 4 1 $ PatWidth V ceiling 4 1 $ PatHeight V floor 4 1 $
+PatWidth V floor 4 1 $ 2 ^ sub cvi abs ~ 3 ^ sub cvi abs ~ 4 2 $ PatHeight mul
+~ PatWidth mul ~ E}b/patternfill{5 -1 $ @ ` Ji PatternCTM setmatrix
+PatternMatrix concat 0 2 ^ 2 ^ M 0 1 mpstr length 1 sub{1 ^ mpstr 3 1 $ put}for
+! 2 ^{currentpoint 5 ^{mpstr S}repeat YStep add M}repeat ! ! ! ! E}b/pbf{: 14
+dict `/fGray ~ d/fEOFill ~ d/yOrg ~ d/xOrg ~ d/PaintData ~ d/OutputBPP ~ d
+/Height ~ d/Width ~ d/mx xOrg yOrg matrix + d fGray{/PaintProc{` Width Height
+OutputBPP mx PaintData image E}b}{/PaintProc{` Width Height 8 mx PaintData F
+OutputBPP 8 idiv colorimage E}b}? pathbbox fEOFill{eoclip}{clip}?/Top ~ d/Right
+~ d/Bottom ~ d/Left ~ d Top Height neg Bottom 1 sub{Left Width Right 1 sub{1 ^
+2 copy + & PaintProc neg ~ neg ~ +}bind for !}bind for E ;}b
+%%EndResource
+end reinitialize
+; solid N 434 518 M 434 537 I : [ 0.223 0 0 0.223 0 0 ] concat K 
+; N 458 531 M 434 603 I 410 531 I 458 531 I C 
+ O N 946 518 M 434 518 I : [ 0.223 0 0 0.223 0 0 ] concat K 
+; N 946 603 M 946 518 I : [ 0.223 0 0 0.223 0 0 ] concat K 
+; N 709 1285 M 604 1285 I : [ 0.223 0 0 0.223 0 0 ] concat K 
+; N 703 1261 M 775 1285 I 703 1309 I 703 1261 I C 
+ O N 690 859 M 690 1114 I 1202 1114 I 1202 859 I 690 859 I C 
+1 1 1 1 scol  O 0 0 0 1 scol 20 Lw N 690 1114 M 1202 1114 I 1202 859 I 690 859 I 690 1114 I C 
+: [ 0.223 0 0 0.223 0 0 ] concat K 
+; 34272 VM?
+/TT17b00
+[72 0 0 0 0 0 ] 
+ 256 array 0 1 255 {1 index exch /.notdef put} for 
+[0 0 0 0 ] 
+[1 72 div 0 0 -1 72 div 0 0 ]
+/__TT17b00
+GreNewFont
+T32RsrcBegin
+
+14
+/H [50 0 7 -51 43 0 ] 
+/H [36 51 true [1 0 0 1 -7 51 ]  0 0]
+[<fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fffffffff0
+fffffffff0
+fffffffff0
+fffffffff0
+fffffffff0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+fc000003f0
+>
+ ]
+/TT17b00 AddT3T32Char
+
+3
+/a [38 0 4 -36 32 0 ] 
+/a [28 36 true [1 0 0 1 -4 36 ]  0 0]
+[<007fc000
+03fffc00
+0ffffe00
+1fffff80
+3fffffc0
+7f001fc0
+3e000fe0
+180007e0
+080003e0
+000003f0
+000003f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+01fffff0
+0ffffff0
+1ffffff0
+3ffffff0
+7f0001f0
+7c0001f0
+fc0001f0
+f80001f0
+f80001f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+fc0007f0
+7e000ff0
+7f807ff0
+3ffffff0
+1ffffdf0
+0ffff1f0
+03ffc1f0
+>
+ ]
+/TT17b00 AddT3T32Char
+
+2
+/r [30 0 6 -36 30 0 ] 
+/r [24 36 true [1 0 0 1 -6 36 ]  0 0]
+[<000fe0
+fc3ff8
+fcfffe
+fdffff
+fffffe
+ffe03c
+ff8018
+ff0000
+fe0000
+fe0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+>
+ ]
+/TT17b00 AddT3T32Char
+
+4
+/d [39 0 5 -51 33 0 ] 
+/d [28 51 true [1 0 0 1 -5 51 ]  0 0]
+[<000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+000001f0
+007f01f0
+03ffe1f0
+07fff1f0
+0ffffdf0
+1ffffdf0
+3fc03ff0
+3f001ff0
+7e000ff0
+7e0007f0
+7c0007f0
+fc0003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+fc0003f0
+fc0007f0
+7c0007f0
+7e0007f0
+7f000ff0
+3f801ff0
+3fe0fff0
+1ffffdf0
+0ffff9f0
+07fff1f0
+01ffc1f0
+>
+ ]
+/TT17b00 AddT3T32Char
+
+15
+/space [18 0 0 0 1 1 ] 
+/space [1 1 true [1 0 0 1 0 0 ]  0 0]
+[<00
+>
+ ]
+/TT17b00 AddT3T32Char
+T32RsrcEnd
+F /F1 0 /0 F /TT17b00 mF 
+/F1S47 F1 [71.875 0 0 -71.875 0 0 ] mFS
+F1S47 Ji 
+869 967 M <0E>S 
+920 967 M <03>S  956 967 M <02>S  988 967 M <04>S  1028 967 M <0F>S  
+13089 VM?
+T32RsrcBegin
+
+16
+/T [40 0 2 -51 37 0 ] 
+/T [35 51 true [1 0 0 1 -2 51 ]  0 0]
+[<ffffffffe0
+ffffffffe0
+ffffffffe0
+ffffffffe0
+ffffffffe0
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+0001f00000
+>
+ ]
+/TT17b00 AddT3T32Char
+
+17
+/h [41 0 6 -51 34 0 ] 
+/h [28 51 true [1 0 0 1 -6 51 ]  0 0]
+[<fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc0fe000
+fc7ffc00
+fcffff00
+fdffff80
+ffffffc0
+ffc01fc0
+ff800fe0
+ff0007e0
+fe0003f0
+fc0003f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+>
+ ]
+/TT17b00 AddT3T32Char
+
+6
+/e [38 0 5 -36 34 0 ] 
+/e [29 36 true [1 0 0 1 -5 36 ]  0 0]
+[<001fc000
+00fff800
+03fffc00
+07ffff00
+0fffff80
+1fc03f80
+3f000fc0
+3e0007e0
+7e0003e0
+7c0003e0
+7c0001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f8
+fffffff8
+fffffff8
+fffffff8
+fffffff8
+f8000000
+f8000000
+f8000000
+f8000000
+f8000000
+fc000000
+7c000000
+7e000000
+7e000080
+3f0001c0
+1fc007e0
+1ff01fe0
+0fffffc0
+07ffff80
+01fffe00
+007ff800
+>
+ ]
+/TT17b00 AddT3T32Char
+
+18
+/s [36 0 3 -36 32 0 ] 
+/s [29 36 true [1 0 0 1 -3 36 ]  0 0]
+[<001fe000
+00fffe00
+03ffff80
+07ffffe0
+0fffffe0
+1fc007c0
+3f000180
+3e000000
+3e000000
+3e000000
+3e000000
+3e000000
+3e000000
+3f000000
+3f800000
+1ff00000
+0ffffc00
+07ffff00
+03ffffc0
+007fffe0
+00003ff0
+000003f0
+000001f8
+000000f8
+000000f8
+000000f8
+000000f8
+000000f8
+100001f8
+380001f0
+7e0007f0
+ffc01fe0
+7fffffc0
+1fffff80
+07ffff00
+01fff800
+>
+ ]
+/TT17b00 AddT3T32Char
+
+10
+/o [38 0 5 -36 34 0 ] 
+/o [29 36 true [1 0 0 1 -5 36 ]  0 0]
+[<001fc000
+00fff000
+03fffc00
+07ffff00
+0fffff80
+1fc03f80
+3f800fc0
+3f0007e0
+7e0007e0
+7c0003e0
+7c0003f0
+fc0001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f8
+f80001f8
+f80001f8
+f80001f8
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+f80001f0
+fc0001f0
+7c0003f0
+7c0003e0
+7e0007e0
+3f000fc0
+3f801fc0
+1ff07f80
+0fffff00
+07fffe00
+01fffc00
+007fe000
+>
+ ]
+/TT17b00 AddT3T32Char
+
+19
+/l [21 0 6 -51 19 0 ] 
+/l [13 51 true [1 0 0 1 -6 51 ]  0 0]
+[<fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+fc00
+7c00
+7e00
+7f80
+3ff8
+1ff8
+0ff8
+03f8
+>
+ ]
+/TT17b00 AddT3T32Char
+
+5
+/i [18 0 6 -51 12 0 ] 
+/i [6 51 true [1 0 0 1 -6 51 ]  0 0]
+[<fc
+fc
+fc
+fc
+fc
+fc
+00
+00
+00
+00
+00
+00
+00
+00
+00
+00
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+>
+ ]
+/TT17b00 AddT3T32Char
+
+7
+/n [41 0 6 -36 34 0 ] 
+/n [28 36 true [1 0 0 1 -6 36 ]  0 0]
+[<000fe000
+fc7ffc00
+fcffff00
+fdffff80
+ffffffc0
+ffc03fc0
+ff800fe0
+ff0007e0
+fe0003f0
+fc0003f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+fc0001f0
+>
+ ]
+/TT17b00 AddT3T32Char
+
+20
+/g [39 0 5 -36 33 16 ] 
+/g [28 52 true [1 0 0 1 -5 36 ]  0 0]
+[<007f0000
+03ffe3f0
+07fff3f0
+0ffffbf0
+1ffffff0
+3fc03ff0
+3f001ff0
+7e000ff0
+7e0007f0
+7c0007f0
+fc0007f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+f80003f0
+fc0007f0
+7c0007f0
+7e0007f0
+7e000ff0
+3f001ff0
+3fc03ff0
+1ffffff0
+0ffffbf0
+07fff3f0
+03ffe3f0
+007f03f0
+000003f0
+000003f0
+000003f0
+000003e0
+000003e0
+000003e0
+000007e0
+000007c0
+08000fc0
+1c001fc0
+3e003f80
+7fc1ff00
+3ffffe00
+1ffffc00
+07fff000
+01ffc000
+>
+ ]
+/TT17b00 AddT3T32Char
+T32RsrcEnd
+737 1054 M <10>S 
+777 1054 M <11>S  816 1054 M <02>S  849 1054 M <06>S  885 1054 M <12>S  921 1054 M <11>S  961 1054 M <0A>S  1001 1054 M <13>S  1022 1054 M <04>S  1062 1054 M <05>S  1080 1054 M <07>S  1120 1054 M <14>S  
+40 Lw N 946 1181 M 946 1200 I : [ 0.223 0 0 0.223 0 0 ] concat K 
+; N 922 1187 M 946 1114 I 970 1187 I 922 1187 I C 
+ O N 946 840 M 946 859 I : [ 0.223 0 0 0.223 0 0 ] concat K 
+; N 922 846 M 946 774 I 970 846 I 922 846 I C 
+ O 0.754 0 0 1 scol 5817 VM?
+T32RsrcBegin
+
+21
+/P [46 0 7 -51 42 0 ] 
+/P [35 51 true [1 0 0 1 -7 51 ]  0 0]
+[<ffffff8000
+fffffff000
+fffffff800
+fffffffe00
+ffffffff00
+fc0000ff00
+fc00003f80
+fc00001fc0
+fc00000fc0
+fc000007e0
+fc000007e0
+fc000007e0
+fc000003e0
+fc000003e0
+fc000003e0
+fc000003e0
+fc000003e0
+fc000003e0
+fc000007e0
+fc000007e0
+fc00000fc0
+fc00000fc0
+fc00001fc0
+fc00007f80
+fc0001ff00
+fffffffe00
+fffffffc00
+fffffff800
+ffffffe000
+ffffff0000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+fc00000000
+>
+ ]
+/TT17b00 AddT3T32Char
+
+22
+/c [35 0 5 -36 32 0 ] 
+/c [27 36 true [1 0 0 1 -5 36 ]  0 0]
+[<000fe000
+00fffc00
+01ffff00
+07ffff80
+0fffffc0
+1fe01fe0
+1f8007c0
+3f000380
+7e000100
+7e000000
+7c000000
+fc000000
+f8000000
+f8000000
+f8000000
+f8000000
+f8000000
+f8000000
+f8000000
+f8000000
+f8000000
+f8000000
+f8000000
+f8000000
+f8000000
+fc000000
+7c000000
+7e000000
+3f000100
+3f800380
+1fc00fc0
+0ff03fe0
+07ffffc0
+03ffff00
+01fffe00
+003ff800
+>
+ ]
+/TT17b00 AddT3T32Char
+
+23
+/R [47 0 7 -51 43 0 ] 
+/R [36 51 true [1 0 0 1 -7 51 ]  0 0]
+[<ffffffc000
+fffffff000
+fffffffc00
+fffffffe00
+ffffffff00
+fc0000ff80
+fc00003f80
+fc00001fc0
+fc00000fc0
+fc000007e0
+fc000007e0
+fc000003e0
+fc000003e0
+fc000003e0
+fc000003e0
+fc000003e0
+fc000003e0
+fc000007e0
+fc000007e0
+fc00000fc0
+fc00000fc0
+fc00003f80
+fc00007f80
+ffffffff00
+fffffffe00
+fffffffc00
+fffffff000
+ffffff8000
+fc003f8000
+fc001f8000
+fc001fc000
+fc000fc000
+fc000fe000
+fc0007e000
+fc0007f000
+fc0003f000
+fc0003f800
+fc0001f800
+fc0001fc00
+fc0000fc00
+fc0000fe00
+fc00007e00
+fc00003f00
+fc00003f00
+fc00001f80
+fc00001f80
+fc00000fc0
+fc00000fc0
+fc000007e0
+fc000007e0
+fc000003f0
+>
+ ]
+/TT17b00 AddT3T32Char
+
+8
+/t [24 0 3 -46 20 0 ] 
+/t [17 46 true [1 0 0 1 -3 46 ]  0 0]
+[<0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+ffff80
+ffff80
+ffff80
+ffff80
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+07c000
+07e000
+07fc00
+03ff80
+01ff80
+00ff80
+003f80
+>
+ ]
+/TT17b00 AddT3T32Char
+T32RsrcEnd
+289 414 M <15>S 
+336 414 M <02>S  365 414 M <0A>S  405 414 M <16>S  437 414 M <06>S  477 414 M <12>S  513 414 M <12>S  550 414 M <05>S  568 414 M <07>S  607 414 M <14>S  647 414 M <0F>S  665 414 M <17>S  712 414 M <03>S  752 414 M <08>S  774 414 M <06>S  813 414 M <0F>S  
+28487 VM?
+/TT1Bb00
+[72 0 0 0 0 0 ] 
+ 256 array 0 1 255 {1 index exch /.notdef put} for 
+[0 0 0 0 ] 
+[1 72 div 0 0 -1 72 div 0 0 ]
+/__TT1Bb00
+GreNewFont
+T32RsrcBegin
+
+1
+/P [47 0 7 -52 44 0 ] 
+/P [37 52 true [1 0 0 1 -7 52 ]  0 0]
+[<fffffe0000
+fffffff000
+fffffffc00
+fffffffe00
+ffffffff00
+ffffffff80
+ff0007ffc0
+ff0000ffe0
+ff00003fe0
+ff00001ff0
+ff00000ff0
+ff00000ff0
+ff000007f8
+ff000007f8
+ff000007f8
+ff000007f8
+ff000007f8
+ff000007f8
+ff000007f8
+ff000007f0
+ff00000ff0
+ff00000ff0
+ff00001ff0
+ff00003fe0
+ff0000ffe0
+ffffffffc0
+ffffffff80
+ffffffff00
+fffffffe00
+fffffff800
+ffffffc000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+>
+ ]
+/TT1Bb00 AddT3T32Char
+T32RsrcEnd
+F /F2 0 /0 F /TT1Bb00 mF 
+/F2S47 F2 [71.875 0 0 -71.875 0 0 ] mFS
+F2S47 Ji 
+831 414 M <01>S 
+LH
+(%%[Page: 1]%%) = 
+%%PageTrailer
+
+%%Trailer
+%%BoundingBox: 0 0 155 187
+%%DocumentNeededResources: 
+%%DocumentSuppliedResources: 
+%%+ procset Pscript_WinNT_ErrorHandler 5.0 0
+%%+ procset Pscript_FatalError 5.0 0
+%%+ procset Pscript_Win_Basic 5.0 0
+%%+ procset Pscript_Win_Utils_L1 5.0 0
+%%+ procset Pscript_Win_GdiObject 5.0 0
+%%+ procset Pscript_Win_GdiObject_L1 5.0 0
+%%+ procset Pscript_T3Hdr 5.0 0
+%%+ procset Pscript_Text 5.0 0
+Pscript_WinNT_Incr dup /terminate get exec
+VMsave restore
+%%Pages: 1
+(%%[LastPage]%%) = 
+%%EOF
+
