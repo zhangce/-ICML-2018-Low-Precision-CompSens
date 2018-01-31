@@ -335,8 +335,6 @@ $T = size({\bf \Phi})/{\bf P}$, since $size({\bf y}) \ll size({\bf \Phi})$. The 
 
 
 
-\newpage
-
 \section{Experiments on a Real Telescope}
 We assess the empirical performance of our algorithm solving imaging problem in radio astronomy on a real telescope: the LOw Frequency ARray (LOFAR) in Netherlands.
 \subsection{Accuracy of Sky Recovery}
@@ -352,30 +350,28 @@ This empirical evidence is powerful yet not surprising. Mathematically, the meas
 
 \subsubsection{Empirical comparison to the state-of-art methods}
 
-The thread that binds all of these approaches is their capability of good sparse support recovery. For this particular formulation of the interferometric imaging problem, they can iteratively build up an estimate of sky map ${\bf x}$.
+We now present numerical comparisons of low precision IHT to the high precision IHT and other state-of-art methods, namely CoSaMP, CLEAN, $\ell_1$-based approach. The thread that binds all of these approaches in this experiment is their capability of good sparse support recovery. For this particular formulation of the interferometric imaging problem, they can iteratively build up an estimate of sky map ${\bf x}$. In order to avoid creating bias towards any algorithm, we implement these algorithms in a fair setting.
 
-The key measure of how well the imaging algorithm performs is the detection of sources in the recovered image. Here, we approach the performance evaluation from two perspectives: the exact sky support recovery, and exact source support recovery. Namely, how well the locations of non-zero components and location of sources itself are captures. The difference here is that we do not need to recover the support entirely to capture the sky sources. This is illustrated in Figure. This implies that we have relatively higher error tolerance in radio astronomy. In fact, the current techniques are far beyond recovering the exact support precisely.
+In radio interferometry, it is customary to use number of celestial sources resolved in the recovered image as a performance metric, i.e., true-positive findings. As such, we approach the evaluation of the algorithms here from two perspectives: (1) the exact sky recovery, (2) exact source recovery. That is, the performance of an algorithm is no longer described by its ability to recover support entirely but the sky objects, which possess higher error tolerance. This is illustrated in Figure. In fact, the current techniques are far beyond recovering the exact support precisely.
 
-In Figure x, we compare the low precision IHT to other state-of-art method, namely CoSaMP, l1-minimization, CLEAN etc. 
+We demonstrate in Figure that IHT outperforms its alternatives in terms of its source resolution capability even at the low precision setting and at various SNR levels. The empirical results suggest that the celestial sources can still be recovered by dramatically compressing the measurement matrix.
 
-comment on the performance
-
-
+Recall from the former discussions that noise in receivers is far stronger than the weak incoming signals thus low SNR at the antenna level results, i.e., usually ranged from -5 to 5 dB. The robustness of those alternative approaches to the noise is also depicted in Figure. Clearly, the CLEAN algorithm notably underperforms in the presence of significant noise. This undesirable property is yet not surprising. A careful look into the the algorithmic steps, it apparently matches also to the noise artefacts in the image considering them as a point source. The performance of IHT and CoSaMP remain good, illustrates by Figure x.
 
 
-This experiment is informative merely on the accuracy of the results obtained implementing these alternative algorithms. A fair comparison involves the analysis of different properties such as speed and storage requirements, flexibility and ease of implementation. Capsulizing briefly, CoSaMP has strong theoretical guarantee when the least squares solution is supplied and requires the solution to an inverse problem at each iteration, which is costly in general and demands better storage capability niht8. On the other hand, IHT is shown to outperform CoSaMP and have significant speed advantage refbooks. The empirical evidence further suggest that IHT performs nearly as well as the $\ell_1$-based approach. Finally, the CLEAN requires a 2D Fourier inversion and deconvolution per iteration thus the operational expense of the method is relatively higher compared to those of IHT and CoSaMP -13tez. Sharing similar performance guarantees with the high precision IHT, low precision approach thus seems powerful considering all these aspects. This is evident in Figure.
+{\it Discussions on these results:} This experiment is informative merely on the accuracy of the results obtained implementing these alternative algorithms. A fair comparison involves the analysis of different properties such as speed and storage requirements, flexibility and ease of implementation. Capsulizing briefly, CoSaMP has strong theoretical guarantee when the least squares solution is supplied and requires the solution to an inverse problem at each iteration, which is costly in general and demands better storage capability niht8. On the other hand, IHT is shown to outperform CoSaMP and have significant speed advantage refbooks. The empirical evidence further suggest that IHT performs nearly as well as the $\ell_1$-based approach. Finally, the CLEAN requires a 2D Fourier inversion and deconvolution per iteration thus the operational expense of the method is relatively higher compared to those of IHT and CoSaMP -13tez. Sharing similar performance guarantees with the high precision IHT, low precision approach thus seems powerful considering all these aspects. This is evident in Figure.
 
- In a series of paper refs, CoSaMP is shown to perform markedly worse when the RIP condition fails. IHT, however, still preserves its near-optimal recoveries far beyond the region of RIP. While this favors IHT over CoSaMP, there is no rigid assumption imposed on the CLEAN and $\ell_1$-based approach. 
+In real-life problems usually lack of traditional restricted isometry property. The scale-invariant feature of the measurement matrix used in normalized IHT however alleviates the RIP condition and imposes a fairly mild constraint in ref-eqn. The choice of the algorithm is thus desired to satisfy refeq with high probability. In a series of paper refs, CoSaMP is shown to perform markedly worse when the RIP condition fails. IHT, however, still preserves its near-optimal recoveries far beyond the region of RIP. While this favors IHT over CoSaMP, there is no rigid assumption imposed on the CLEAN and $\ell_1$-based approach. 
+ 
 
 
-
-% The performance remains food, illustrated by the residual.., which is vastly superior to the resitual in...
+% \., which is vastly superior to the resitual in...
 % This suggest we can drastically reduce bidi bidi
 % Such a result has potentially profound consequences for the power consumption.
-\subsubsection{Robustness to noise}
+
 
 \subsubsection{Monitoring RIP and recovery error}
-Using the strategy introduced in [], we monitor the restricted isometry constants $\gamma_{2s}$ and $\hat{\gamma}_{2s}$ and the recovery error in order to investigate (1) if the RIP condition fails more easily, (2) how the condition and recovery performance are related to each other, in the low precision setting compared to the high precision IHT.
+Using the strategy introduced in [], we monitor the restricted isometry constants $\gamma_{2s}$ and $\hat{\gamma}_{2s}$ and the recovery error in order to investigate (1) if the RIP condition is more sensitive, (2) how the condition and recovery performance are related to each other, in the low precision setting compared to the high precision IHT.
 
 Figure. demonstrates that ...
 
@@ -390,23 +386,6 @@ Figure. demonstrates that ...
 
 
 
-
-% (emp ev. sug.)
-% 1- Real sky images (clean, dirty, gt, hp iht lp iht) vs. real data: lp nin state of arttan ve hp ile ayni yaptigini
-
-% 2- exact recovery per epoch vs source recovery per epoch for all algorithms to justify iht is good
-
-% 3- exact recovery vs. k/m for both simulated and real data (using hp-lp) vs source recovery
-
-% 3- monitoring rip? and error? for hp and lp case?
-
-
-% 4- speed up on fpga for synthetic and real data
-
-
-
-
-\newpage
 \section{Discussion}
 
 
@@ -415,7 +394,7 @@ Figure. demonstrates that ...
 
 
 
-
+\newpage
 \cite{iht}
 \cite{niht}
 \cite{greedy_algorithms}
@@ -429,14 +408,3 @@ Figure. demonstrates that ...
 
 \end{document} 
 
-
-% This document was modified from the file originally made available by
-% Pat Langley and Andrea Danyluk for ICML-2K. This version was
-% created by Lise Getoor and Tobias Scheffer, it was slightly modified  
-% from the 2010 version by Thorsten Joachims & Johannes Fuernkranz, 
-% slightly modified from the 2009 version by Kiri Wagstaff and 
-% Sam Roweis's 2008 version, which is slightly modified from 
-% Prasad Tadepalli's 2007 version which is a lightly 
-% changed version of the previous year's version by Andrew Moore, 
-% which was in turn edited from those of Kristian Kersting and 
-% Codrina Lauth. Alex Smola contributed to the algorithmic style files.  
