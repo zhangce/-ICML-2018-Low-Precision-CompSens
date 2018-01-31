@@ -274,7 +274,7 @@ otherwise the constant factor weighting $\epsilon_q$ will change. A small factor
 
 These algorithm however offer near optimal recoveries under conditions on the RIP. 
 
-
+We use a simple toy problem: 
 
 
 
@@ -292,9 +292,15 @@ These algorithm however offer near optimal recoveries under conditions on the RI
 
 
 \subsection{Application to Radio Astronomy}
-Radio interferometers at various locations on the ground record radio waves emitted by the celestial sources over a certain time interval, then store and process it all in order to deduce a sky image. Interferometers first estimate the cross-correlation between the time series measurements that is called visibilities, and sky image is estimated by the so-called {\it CLEAN} algorithm []. {\it CLEAN} is a deconvolution algorithm that takes the inverse Fourier transform of the visibilities and outputs a sky map by iteratively removing a fraction of the highest peak convolved with an instrument based point spread function.
+Radio interferometers at various locations on the ground record radio waves emitted by the celestial sources over a certain time interval, then store and process it all in order to deduce a sky image. Interferometers first estimate the cross-correlation between the time series measurements that is called visibilities, and sky image is estimated by the so-called {\it CLEAN} algorithm []. {\it CLEAN} is a greedy pursuit technique(5-greedy), deconvolution algorithm that takes the inverse Fourier transform of the visibilities and outputs a sky map by iteratively removing a fraction of the highest peak convolved with an instrument based point spread function.
 
-Let the sky be observed by employing $L$ antennas over a stationary time interval (STI) $T$ where the earth rotation is negligible. Also, we denote the vectorized sky image by ${\bf x} \in \mathbb{R}^{r^2}$ where $r$ is the resolution of images, i.e., height and width of the image in pixels. We formulate the interferometer pipeline as a compressive sensing problem such that ${\bf y} = {\bf \Phi} {\bf x} + {\bf e}$ where ${\bf \Phi} \in \mathbb{C}^{m\times r^2}$ is the measurement matrix where the entries are complex exponential with exponent of antenna and pixel locations, ${\bf y} \in \mathbb{C}^{m}$ is the visibilities where $m=L^2$, and ${\bf e} \in \mathbb{C}^m$ is the noise vector. The reader is referred to the supplementary material for detailed derivations. Based on this modeling, we have the following results.
+Let the sky be observed by employing $L$ antennas over a stationary time interval (STI) $T$ where the earth rotation is negligible. Also, we denote the vectorized sky image by ${\bf x} \in \mathbb{R}^{r^2}$ where $r$ is the resolution of images, i.e., height and width of the image in pixels. We formulate the interferometer pipeline as a compressive sensing problem such that ${\bf y} = {\bf \Phi} {\bf x} + {\bf e}$ where ${\bf \Phi} \in \mathbb{C}^{m\times r^2}$ is the measurement matrix where the entries are complex exponential with exponent of antenna and pixel locations, ${\bf y} \in \mathbb{C}^{m}$ is the visibilities where $m=L^2$, and ${\bf e} \in \mathbb{C}^m$ is the noise vector. The reader is referred to the supplementary material for detailed derivations. 
+
+
+{\bf Why iterative hard thresholding?} According to our formulation, the measurement vector ${\bf y}$ represents the cross-correlations between the antenna measurements: the visibilities. The naive method to map from ${\bf y}$ to a vectorized sky image ${\bf x}$ is the Fourier inversion followed by the CLEAN algorithm. Alternatively, A(W)-projection algorithm initially makes corrections on the visibilities then deduce a sky image. Still, forming a sky map using the non-uniform samples of visibility function recorded by finite number of antennas is naturally inaccurate. Furthermore, the thermal noise introduced by the electronic instruments embedded in RF antenna receivers heavily corrupts the weak incoming signal, therefore poses a further challenge for these imaging algorithms. To date, the current techniques revolve around carrying out noise reduction by collecting many data so that the noise can be circumvented.
+
+
+Based on this modeling, we have the following results.
 
 \begin{lemma}\label{beta_for_ra}
     Let the restricted isometry property in \ref{low_precision_iht} holds for ${\bf \Phi}$. Then the quantized ${\bf \Phi}$ satisfies $\hat{\beta}_{2s} = \sqrt{2sm}$.
@@ -329,11 +335,78 @@ $T = size({\bf \Phi})/{\bf P}$, since $size({\bf y}) \ll size({\bf \Phi})$. The 
 
 
 
-
+\newpage
 
 \section{Experiments on a Real Telescope}
-(emp ev. sug.)
-\subsection{Large Scale Experiments}
+We assess the empirical performance of our algorithm solving imaging problem in radio astronomy on a real telescope: the LOw Frequency ARray (LOFAR) in Netherlands.
+\subsection{Accuracy of Sky Recovery}
+We image the full sky by employing 30 low-band antennas of LOFAR CS302 station that operates in 15-80 MHz frequency band where the sky is populated with 50 strong sources with signal-to-noise ratio of 0 dB at the antenna level, i.e., {\bf y}. 
+\subsubsection{Improving the least square estimates}
+Figure x provides an example of sky recoveries: (1) a least square estimate of underlying sky (or dirty image in the nomenclature of radio astronomy), (2) the ground truth estimated over 12 hours of observation, (3) 32-bits and (4) 2- bits iterative hard thresholding estimates using 10 seconds telescope data. This experiment indicates that low precision IHT captures the sky sources successively even when only 2-bits are used to compress its dense measurement matrix. This suggest that we can drastically reduce the observation time yet still estimate the sky precisely.
+
+
+
+This empirical evidence is powerful yet not surprising. Mathematically, the measurement matrix we formed here hints on the distance between the antennas hence the phase relations. That is, each time a bit flips, we approximately know the change in x and y directions on the ground, which in turn permits us to form the phase relation at lower precision but still informative enough. 
+
+%The reader might argue that, besides being on its most possible realistic setting, the above experiment does not fully capture the performance of low precision iht especially when only 2-bits are used to represent a dense measurement matrix. 
+
+\subsubsection{Empirical comparison to the state-of-art methods}
+
+The thread that binds all of these approaches is their capability of good sparse support recovery. For this particular formulation of the interferometric imaging problem, they can iteratively build up an estimate of sky map ${\bf x}$.
+
+The key measure of how well the imaging algorithm performs is the detection of sources in the recovered image. Here, we approach the performance evaluation from two perspectives: the exact sky support recovery, and exact source support recovery. Namely, how well the locations of non-zero components and location of sources itself are captures. The difference here is that we do not need to recover the support entirely to capture the sky sources. This is illustrated in Figure. This implies that we have relatively higher error tolerance in radio astronomy. In fact, the current techniques are far beyond recovering the exact support precisely.
+
+In Figure x, we compare the low precision IHT to other state-of-art method, namely CoSaMP, l1-minimization, CLEAN etc. 
+
+comment on the performance
+
+
+
+
+This experiment is informative merely on the accuracy of the results obtained implementing these alternative algorithms. A fair comparison involves the analysis of different properties such as speed and storage requirements, flexibility and ease of implementation. Capsulizing briefly, CoSaMP has strong theoretical guarantee when the least squares solution is supplied and requires the solution to an inverse problem at each iteration, which is costly in general and demands better storage capability niht8. On the other hand, IHT is shown to outperform CoSaMP and have significant speed advantage refbooks. The empirical evidence further suggest that IHT performs nearly as well as the $\ell_1$-based approach. Finally, the CLEAN requires a 2D Fourier inversion and deconvolution per iteration thus the operational expense of the method is relatively higher compared to those of IHT and CoSaMP -13tez. Sharing similar performance guarantees with the high precision IHT, low precision approach thus seems powerful considering all these aspects. This is evident in Figure.
+
+ In a series of paper refs, CoSaMP is shown to perform markedly worse when the RIP condition fails. IHT, however, still preserves its near-optimal recoveries far beyond the region of RIP. While this favors IHT over CoSaMP, there is no rigid assumption imposed on the CLEAN and $\ell_1$-based approach. 
+
+
+
+% The performance remains food, illustrated by the residual.., which is vastly superior to the resitual in...
+% This suggest we can drastically reduce bidi bidi
+% Such a result has potentially profound consequences for the power consumption.
+\subsubsection{Robustness to noise}
+
+\subsubsection{Monitoring RIP and recovery error}
+Using the strategy introduced in [], we monitor the restricted isometry constants $\gamma_{2s}$ and $\hat{\gamma}_{2s}$ and the recovery error in order to investigate (1) if the RIP condition fails more easily, (2) how the condition and recovery performance are related to each other, in the low precision setting compared to the high precision IHT.
+
+Figure. demonstrates that ...
+
+
+
+
+
+
+\subsection{Speed-up on FPGA}
+
+
+
+
+
+
+% (emp ev. sug.)
+% 1- Real sky images (clean, dirty, gt, hp iht lp iht) vs. real data: lp nin state of arttan ve hp ile ayni yaptigini
+
+% 2- exact recovery per epoch vs source recovery per epoch for all algorithms to justify iht is good
+
+% 3- exact recovery vs. k/m for both simulated and real data (using hp-lp) vs source recovery
+
+% 3- monitoring rip? and error? for hp and lp case?
+
+
+% 4- speed up on fpga for synthetic and real data
+
+
+
+
+\newpage
 \section{Discussion}
 
 
