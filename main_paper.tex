@@ -17,6 +17,9 @@
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage{mathtools}
+\usepackage{lipsum}% http://ctan.org/pkg/lipsum
+\usepackage{multicol}% http://ctan.org/pkg/multicols
+\usepackage{graphicx}% http://ctan.org/pkg/graphicx
 %\usepackage{algorithm2e}
 % For algorithms
 \usepackage{algorithm}
@@ -82,7 +85,7 @@ Iterative Hard Thresholding (IHT) algorithm offers near optimal recovery of comp
 \section{Introduction}
 The Square Kilometre Array (SKA) will form, when fully deployed, the largest, the most sensitive and the fastest radio telescope ever built with thousands of dishes and over a square kilometres of collecting area. The most powerful radio telescope on Earth that has ever known, the SKA combines thousands of antennas at various locations spread over an extensive area on the ground. The data collected by the antennas is immense to be efficiently processed further in the operational chain. The estimated raw data throughput by mid 2020s is 62 exabytes: 20 times higher than the global email traffic. The SKA thus demands advanced functional and operational capabilities such as engineering, algorithms, instrument calibration, storage and many others~\cite{hu, rik2016ska}. 
 
-This work proposes to lower the precision of data representation by reducing the bit widths, hence enabling more information transfer and processed at the Central Signal Processor \cite{rik2016ska}. We first linearize image acquisition process by formulating the problem in compressive sensing framework, and under certain constraints, derive near-optimal guarantees for precise sky recovery. Our approach is a general framework and can facilitate further sparse reconstruction problems demanding high processing capability in practice. We demonstrate the power of our proposal on a real telescope: LOw Frequency ARray (LOFAR) in Netherland, where we achieve significant practical speedup.
+This work proposes to reduce the precision of floating-point representations by reducing the bit widths, hence enabling more information transfer and processed at the Central Signal Processor \cite{rik2016ska}. We first linearize image acquisition process by formulating the problem in compressive sensing framework, and under certain constraints, derive near-optimal guarantees for precise sky recovery. Our approach is a general framework and can facilitate further sparse reconstruction problems demanding high processing capability in practice. We demonstrate the power of our proposal on a real telescope: LOw Frequency ARray (LOFAR) in Netherland, where we achieve significant practical speedup.
 %radio interferometry encounters the task of inferring from measured information
 
 
@@ -96,10 +99,19 @@ In mathematical terms, the standard CS problem is formulated as follows. Let a s
 \end{equation}
 where ${\bf e}$ is the observation noise and $M < N$.
 
-The CS algorithms iteratively build up a sparse estimate ${\bf x}$ such that ${\bf \Phi}  {\bf x}$ well approximates ${\bf y}$, that is,  $\| {\bf y}- {\bf \Phi}  {\bf x} \|_2$ is small. The sparsity constrain imposed on ${\bf x}$ radically overcomes this ill-posed problem yet computationally NP-hard due to its combinatorial nature. Hence CS is often synonymous to convex relaxation of $\ell_0$-based optimization, or a collection of thresholding and greedy methods such as Iterative Hard Thresholding (IHT) \cite{blumensath2008iht, blumensath2009iht} and Compressive Sampling Matching Pursuit (CoSaMP) \cite{needel2008cosamp}. The past decade has seen an explosion of discoveries on CoSaMP and IHT and avalanche of results obtained by~\cite{liu2017dualiht, yuan2014ht, yuan2016htp, blumensath2013cs, needel2008cosamp} and the references therein. There, a comprehensive analysis is performed to derive the provable performance guarantees of such sparsity-constrained minimization methods, namely, the convergence to fixed points of $\ell_0$ regularized cost functions and the optimality of such approximation. They however face several challenges when applied to real-life problems: for provable guarantees (1) the measurement matrix ${\bf \Phi}$ is required to satisfy the Restricted Isometry Property (RIP)~\cite{candes2008rip, chartrand2008rip} when operating onto sparse vectors, (2) the sparsity level has to be chosen appropriately. A simple yet effective strategy is suggested by \cite{blumensath2010niht} that massively relieves the limitations listed above: a step size parameter is introduced to the traditional IHT~\cite{blumensath2008iht}. This simple refinement alleviates the RIP condition imposed on ${\bf \Phi}$ hence enabling rigorous guarantees for a broader class of problems in practice. Besides its efficient and scalable nature, this gradient-descent based strategy possess a linear convergence speed governed by excessive amount of compute operations required by large scale problems. 
+The CS algorithms iteratively build up a sparse estimate ${\bf x}$ such that ${\bf \Phi}  {\bf x}$ well approximates ${\bf y}$, that is,  $\| {\bf y}- {\bf \Phi}  {\bf x} \|_2$ is small. The sparsity constrain imposed on ${\bf x}$ radically overcomes this ill-posed problem yet computationally NP-hard due to its combinatorial nature. Hence CS is often synonymous to convex relaxation of $\ell_0$-based optimization, or a collection of thresholding and greedy methods such as Iterative Hard Thresholding (IHT) \cite{blumensath2008iht, blumensath2009iht} and Compressive Sampling Matching Pursuit (CoSaMP) \cite{needel2008cosamp}. The past decade has seen an explosion of discoveries on CoSaMP and IHT and avalanche of results obtained by~\cite{liu2017dualiht, yuan2014ht, yuan2016htp, blumensath2013cs, needel2008cosamp} and the references therein. There, a comprehensive analysis is performed to derive the provable performance guarantees of such sparsity-constrained minimization methods, namely, the convergence to fixed points of $\ell_0$ regularized cost functions and the optimality of such approximation. They however face several challenges when applied to real-life problems: for provable guarantees (1) the measurement matrix ${\bf \Phi}$ is required to satisfy the Restricted Isometry Property (RIP)~\cite{candes2008rip, chartrand2008rip} when operating onto sparse vectors, (2) the sparsity level has to be chosen appropriately. A simple yet effective strategy is suggested by \cite{blumensath2010niht} that massively relieves the limitations listed above: a step size parameter is introduced to the traditional IHT~\cite{blumensath2008iht}. This simple refinement alleviates the RIP condition imposed on ${\bf \Phi}$ hence enabling rigorous guarantees for a broader class of problems in practice. 
+\subsection{Technical contributions}
+%QSGD~\cite{alistarh2016qsgd} the data consisting of floating point values undergoes a stochastic rounding process to a small set of integer levels
 \subsection{Related work}
+The current studies predominantly revolve around "low precision SGD" covering a spectrum of machine learning tasks and models. Quantizing gradients, Buckwild!~\cite{desa2015hogwild} established convergence guarantees of low precision SGD achieving significant speedup on CPU when solving convex problems. \cite{alistarh2016qsgd}, which mainly focuses on the trade-off between communication and convergence, refines this to quantized non-convex cases. A follow-up, \cite{zhang2017zipml} further extends this framework to an {\it end-to-end} quantization scheme that governs all data components. \cite{seide2014sgd1bit, hubara2016qsnn, rastegari2016binarycnn,zhou2016cnn, miyashita2016cnn, li2016twn, gupta2015dl} mainly concerns of generalization of {\it end-to-end} quantization to training deep learning models. 
+
+Recently, there emerge a wave of studies that has successive attempts applying the low precision framework to compressive sensing problems.~\cite{boufounos20091bitcs} demonstrate the sparse signals can be recovered with a scale factor when measurements preserve only sign information.~\cite{ai20121bitcs, davenport20121bit} exhibits that approximately sparse signals can be robustly recovered from single-bit measurements sampled with a sub-gaussian distribution.~\cite{jacques20111bit, laska20111bitcs} study the similar setting with a Gaussian measurement matrix the so called Binary IHT. \cite{plan20111bitcs, plan20121bitcs} propose a computationally tractable and optimal recovery of 1-bit compressive sensing problem. \cite{recht20121bitcs, gopi20131bitcs} present provable theoretical guarantees to identify support recovery of high dimensional sparse signals for 1-bit measurements. Multi-level quantization of measurement for CS problems, therefore, exhibit a great empirical success. The analysis of such heuristics is yet challenging. In this paper, a successive application of low precision framework to CS, particularly IHT, is shown to possess rigorous theoretical guaratees, potentially allowing more efficient information processing in large scale applications. To distinct from the prior proposals listed above, we achieve this by quantizing not only measurements but also measurement matrix.
+
+Another line of research on concerns accelerating the sparse recovery algorithms \cite{blumensath2011aiht, wei2015fiht, blanchard2013iht, cevher2011ht, liu2017dualiht}. 
 
 
+
+{\bf Paper overview. }
 \section{Preliminaries}
 In this section, we review the preliminary results on the normalized Iterative Hard Thresholding (IHT) algorithm introduced by [refs].
 \subsection{Terminology and Notation}
@@ -352,6 +364,14 @@ Figure x provides an example of sky recoveries: (1) a least square estimate of u
 
 
 
+
+% \begin{figure*}
+%   \centering
+%     \includegraphics[width=1.02\textwidth]{figs/sky_images.pdf}
+%   \caption{Sky images}
+%   \label{fig:sky_images}
+% \end{figure*}
+
 This empirical evidence is powerful yet not surprising. Mathematically, the measurement matrix we formed here hints on the distance between the antennas hence the phase relations. That is, each time a bit flips, we approximately know the change in x and y directions on the ground, which in turn permits us to form the phase relation at lower precision but still informative enough. 
 
 %The reader might argue that, besides being on its most possible realistic setting, the above experiment does not fully capture the performance of low precision iht especially when only 2-bits are used to represent a dense measurement matrix. 
@@ -408,8 +428,9 @@ Figure. demonstrates that ...
 % \cite{blumensath2011aiht}
 % In the unusual situation where you want a paper to appear in the
 % references without citing it in the main text, use \nocite
-\nocite{langley00}
-
+\newpage
+\
+\newpage
 \bibliography{references}
 \bibliographystyle{icml2018}
 
