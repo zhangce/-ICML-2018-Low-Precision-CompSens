@@ -101,8 +101,10 @@ where ${\bf e}$ is the observation noise and $M < N$.
 
 The CS algorithms iteratively build up a sparse estimate ${\bf x}$ such that ${\bf \Phi}  {\bf x}$ well approximates ${\bf y}$, that is,  $\| {\bf y}- {\bf \Phi}  {\bf x} \|_2$ is small. The sparsity constrain imposed on ${\bf x}$ radically overcomes this ill-posed problem yet computationally NP-hard due to its combinatorial nature. Hence CS is often synonymous to convex relaxation of $\ell_0$-based optimization, or a collection of thresholding and greedy methods such as Iterative Hard Thresholding (IHT) \cite{blumensath2008iht, blumensath2009iht} and Compressive Sampling Matching Pursuit (CoSaMP) \cite{needel2008cosamp}. The past decade has seen an explosion of discoveries on CoSaMP and IHT and avalanche of results obtained by~\cite{liu2017dualiht, yuan2014ht, yuan2016htp, blumensath2013cs, needel2008cosamp} and the references therein. There, a comprehensive analysis is performed to derive the provable performance guarantees of such sparsity-constrained minimization methods, namely, the convergence to fixed points of $\ell_0$ regularized cost functions and the optimality of such approximation. They however face several challenges when applied to real-life problems: for provable guarantees (1) the measurement matrix ${\bf \Phi}$ is required to satisfy the Restricted Isometry Property (RIP)~\cite{candes2008rip, chartrand2008rip} when operating onto sparse vectors, (2) the sparsity level has to be chosen appropriately. A simple yet effective strategy is suggested by \cite{blumensath2010niht} that massively relieves the limitations listed above: a step size parameter is introduced to the traditional IHT~\cite{blumensath2008iht}. This simple refinement alleviates the RIP condition imposed on ${\bf \Phi}$ hence enabling rigorous guarantees for a broader class of problems in practice. 
 \subsection{Technical contributions}
-%QSGD~\cite{alistarh2016qsgd} the data consisting of floating point values undergoes a stochastic rounding process to a small set of integer levels
-\subsection{Related work}
+ the data consisting of floating point values undergoes a stochastic rounding process to a small set of integer levels
+ 
+{\bf Paper overview. }
+\section{Related work}
 The current studies predominantly revolve around "low precision SGD" covering a spectrum of machine learning tasks and models. Quantizing gradients, Buckwild!~\cite{desa2015hogwild} established convergence guarantees of low precision SGD achieving significant speedup on CPU when solving convex problems. \cite{alistarh2016qsgd}, which mainly focuses on the trade-off between communication and convergence, refines this to quantized non-convex cases. A follow-up, \cite{zhang2017zipml} further extends this framework to an {\it end-to-end} quantization scheme that governs all data components. \cite{seide2014sgd1bit, hubara2016qsnn, rastegari2016binarycnn,zhou2016cnn, miyashita2016cnn, li2016twn, gupta2015dl} mainly concerns of generalization of {\it end-to-end} quantization to training deep learning models. 
 
 Recently, there emerge a wave of studies that has successive attempts applying the low precision framework to compressive sensing problems.~\cite{boufounos20091bitcs} demonstrate the sparse signals can be recovered with a scale factor when measurements preserve only sign information.~\cite{ai20121bitcs, davenport20121bit} exhibits that approximately sparse signals can be robustly recovered from single-bit measurements sampled with a sub-gaussian distribution.~\cite{jacques20111bit, laska20111bitcs} study the similar setting with a Gaussian measurement matrix the so called Binary IHT. \cite{plan20111bitcs, plan20121bitcs} propose a computationally tractable and optimal recovery of 1-bit compressive sensing problem. \cite{recht20121bitcs, gopi20131bitcs} present provable theoretical guarantees to identify support recovery of high dimensional sparse signals for 1-bit measurements. Multi-level quantization of measurement for CS problems, therefore, exhibit a great empirical success. The analysis of such heuristics is yet challenging. In this paper, a successive application of low precision framework to CS, particularly IHT, is shown to possess rigorous theoretical guaratees, potentially allowing more efficient information processing in large scale applications. To distinct from the prior proposals listed above, we achieve this by quantizing not only measurements but also measurement matrix.
@@ -111,14 +113,37 @@ Another line of research on concerns accelerating the sparse recovery algorithms
 
 
 
-{\bf Paper overview. }
-\section{Preliminaries}
-In this section, we review the preliminary results on the normalized Iterative Hard Thresholding (IHT) algorithm introduced by [refs].
-\subsection{Terminology and Notation}
-Scalars are denoted by italics, vectors by bold lower-case and matrices by bold upper-case. For all ${\bf x}= (x_1, \hdot, x_n) \in \mathbb{R}^n$, we denote by $\|{\bf x}\|_p = (\sum_{i=1}^n x_n^p)^{1/p}$ the standard ${\ell}_p$-norm and by
+
+
+
+
+
+
+
+
+
+
+
+
+{\it Notation:} Scalars are denoted by italics, vectors by bold lower-case and matrices by bold upper-case. For all ${\bf x}= (x_1, \hdot, x_n) \in \mathbb{R}^n$, we denote by $\|{\bf x}\|_p = (\sum_{i=1}^n x_n^p)^{1/p}$ the standard ${\ell}_p$-norm and by
 where $H_s({\bf x}): \mathbb{C}^n \rightarrow \mathbb{C}^n$ the nonlinear operator that preserves the largest $s$ (in magnitude) entries of {\bf x} and sets the remaining to zero. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Preliminaries}
+In this section, we review the preliminary results on the normalized IHT algorithm introduced by~\cite{blumensath2010niht, blumensath2012greedy}.
 \subsection{Iterative Hard Thresholding} 
-Let ${\bf x}^{[0]} = 0$, the normalized IHT$_s$ has the following update rule per iteration
+Let ${\bf x}^{[0]} = 0$, the normalized IHT has the following update rule per iteration
 \begin{equation}\label{iht_update_rule}
 {\bf x}^{[n+1]} = H_s({\bf x}^{[n]} + \mu^{[n]}{\bf \Phi}({\bf y}-{\bf \Phi}{\bf x}^{[n]})),
 \end{equation}
@@ -129,76 +154,62 @@ where $\mu^{[n]}>0$ is the adaptive step size parameter. %Under certain conditio
 %\end{equation}
 
 \subsection{Convergence} 
-The analysis of the heavily relies on the scaling properties of ${\bf \Phi}$. More precisely, the converge to a local minimum of the cost function $\|{\bf y}-{\bf \Phi x} \|_2$ was proven under certain conditions on the measurement matrix: ${\bf \Phi}$ as well as the performance guarantees. To be more concrete on these conditions, one must often deal with non-symmetric Restricted Isometry Property (RIP), namely, a matrix ${\bf \Phi}$ satisfies non-symmetric RIP if
+The analysis of hard thresholding algorithms heavily relies on the scaling properties of ${\bf \Phi}$. More precisely, the convergence to a local minimum of the cost function \ref{cost_function} as well as the quality of such approximation were proven under certain conditions on ${\bf \Phi}$. To be more concrete on these conditions, one must often deal with non-symmetric Restricted Isometry Property (RIP), namely, a matrix ${\bf \Phi}$ satisfies non-symmetric RIP if
 \begin{equation}\label{rip}
 \alpha_{s} \leq \frac{\|{\bf \Phi} {\bf x}\|_2}{\|{\bf x}\|_2} \leq \beta_{s}
 \end{equation}
 for all ${\bf x}: \|{\bf x}\|_0 \leq s$, and some $\alpha_s, \beta_s \in \mathbb{R}$ such that $0<\alpha_s\leq \beta_s$. the so-called Restricted Isometric Constants (RICs).
-\begin{remark}
-The convergence of normalized IHT depends conditionally on the step size parameter $\mu^{[n]}$ unlike the traditional IHT approach where $\mu^{[n]}=1$. While the traditional approach merely requires a re-scaling of measurement matrix such that $\|{\bf \Phi}\|_2 <1$ to ensure convergence, introducing a step size parameter to compensate for this re-scaling avoids undesirable amplification of noise, i.e., the ratio of $\|{\bf \Phi x}\|_2/\|{\bf e}\|_2$ remains unchanged. 
+\begin{remark}\label{remark_noise_amp}
+The convergence of normalized IHT depends conditionally on the step size parameter $\mu^{[n]}$ unlike the traditional IHT approach where $\mu^{[n]}=1$.
+While the traditional approach requires a re-scaling of measurement matrix such that $\|{\bf \Phi}\|_2 <1$ to ensure convergence, introducing a step size parameter enables the arbitrary scaling of ${\bf \Phi}$ hence relaxing the bounds of its norm. The role of $\mu^{[n]}$ here is to compensate for this re-scaling by accordingly avoiding undesirable amplification of noise, i.e., the ratio of $\|{\bf \Phi x}\|_2/\|{\bf e}\|_2$ remains unchanged. 
 \end{remark}
-
-The main convergence result an be stated as follows. Proof can be found in, for example, [ref].
-
+The main convergence result can be stated as follows.
 \begin{theorem}
-{\rm{\cite{niht}}}\\ 
-Let ${\bf \Phi}$ is of full rank and $s\leq m$. If $\beta_{2s}\leq\mu^{-1}$, then normalized IHT converges to a local minimum of ref{costfunc}.
+{\rm{\cite{blumensath2012greedy}}}\\ 
+Let ${\bf \Phi}$ is of full rank and $s\leq m$. If $\beta_{2s}\leq\mu^{-1}$, then normalized IHT converges to a local minimum of \ref{costfunc}.
 \end{theorem}
-
 \subsection{Step Size Determination} 
-While setting the step size parameter, the condition that $\beta_{2s}\leq\mu^{-1}$ ensuring convergence poses the following challenge. To date, there is no universal strategy known to check if the RIP holds for an arbitrary measurement matrix in a computationally efficient manner. Similar discussion holds for attaining the RICs, i.e., ${\beta_s}$ and $\alpha_s$, associated with the measurement matrix ${\bf \Phi}$. It could however be shown that, under certain conditions, ran-
-domly constructed measurement matrices can satisfy
-the RIP with high probability []. Still, it remains a bottleneck for a more general class of
+While setting the step size parameter, the condition that $\beta_{2s}\leq\mu^{-1}$ ensuring convergence poses the following challenge. To date, there is no universal strategy known to check if the RIP holds for an arbitrary measurement matrix in a computationally efficient manner. Similar discussion holds for attaining the RICs, i.e., ${\beta_s}$ and $\alpha_s$, associated with the measurement matrix ${\bf \Phi}$. It could however be shown that, under certain conditions, randomly constructed measurement matrices can satisfy
+the RIP with high probability~\cite{candes2008rip, chartrand2008rip}. Still, it remains a bottleneck for a more general class of
 measurement matrices. Without losing the main track, here we intend to review a more generic strategy for step size determination.
 
-If the support is fixed, a natural strategy to set the step size adaptively is []
+If the support is fixed, a natural strategy to set the step size adaptively is~\cite{blumensath2010niht}
 \begin{equation}\label{step_size}
    \mu^{[n]} = \frac{{\bf g}^T_{\Gamma^{[n]}}{\bf g}_{\Gamma^{[n]}}}{{\bf g}^T_{\Gamma^{[n]}}{\bf \Phi}^T_{\Gamma^{[n]}}{\bf \Phi}_{\Gamma^{[n]}}{\bf g}_{\Gamma^{[n]}}}
 \end{equation}
-where ${\bf g}^{[n]} = {\bf \Phi}^T({\bf y}-{\bf \Phi x}^{[n]})$. Clearly, the maximal reduction in cost function can then be attained. However, if the support of ${\bf x}^{[n+1]}$ differs than that of ${\bf x}^{[n]}$, the sufficient condition to guarantee convergence is [ref44ofgreedy]
+where ${\bf g}^{[n]} = {\bf \Phi}^T({\bf y}-{\bf \Phi x}^{[n]})$. Clearly, the maximal reduction in cost function can then be attained. However, if the support of ${\bf x}^{[n+1]}$ differs than that of ${\bf x}^{[n]}$, the sufficient condition to guarantee convergence 
 \begin{equation}
     \mu^{[n]} \leq(1-c) \frac{\|{\bf x}^{[n+1]}-{\bf x}^{[n]} \|_2^2}{\|{\bf \Phi}({\bf x}^{[n+1]}-{\bf x}^{[n]}) \|_2^2},
 \end{equation}
 for any small constant $c$.
 
 If the above condition is not met, a new proposal for ${\bf x}^{[n+1]}$ can be calculated by using $\mu^{[n]}\leftarrow{\mu^{[n]}/(k(1-c))}$, where $k$ is a shrinkage parameter such that $k>1/(1-c)$.
-
-This adaptive setting of step size parameter is shown to provide RIP-invariant convergence result by [ref] as follows.
-\begin{theorem}
-{\rm{\cite{niht}}}\\
-If rank({${\bf \Phi}$}) = m and rank(${\bf \Phi}$_{\Gamma}) = s \ $\forall \Gamma:\ |\Gamma| = s$, then the so-called normalized IHT algorithm converges to a local minimum of the cost function ref.
-\end{theorem}
-\subsection{Recovery Performance.} 
- In a series of papers [...], extensive research effors have been made and strong theoretical guarantees were derived. Here we state the most refined recovery error bounds.
-\begin{theorem}
-{\rm{\cite{niht}}}\\
-Consider a noisy observation ${\bf y} = {\bf \Phi x} + {\bf e}$ with an arbitrary vector {\bf x}. Also, assume ${\bf \Phi}}$ is non-symmetric RIP$_{2s}$ and let $\gamma_{2s} = \beta_{2s}/\alpha_{2s}-1$. If $\gamma_{2s} \leq {1}/{8}$, then
+% In a series of papers [...], extensive research effors have been made and strong theoretical guarantees were derived. Here we state the most refined recovery error bounds.
+This adaptive setting of step size parameter is shown to provide RIP-invariant convergence result as follows.
+\begin{theorem}\label{guarantee_niht}
+{\rm{\cite{blumensath2010niht}}}\\
+Consider a noisy observation ${\bf y} = {\bf \Phi x} + {\bf e}$ with an arbitrary vector {\bf x}. If rank({${\bf \Phi}$}) = m and rank(${\bf \Phi}$_{\Gamma}) = s \ $\forall \Gamma:\ |\Gamma| = s$, then the normalized IHT algorithm converges to a local minimum of the cost function~\ref{cost_function}. Also, assume ${\bf \Phi}}$ is non-symmetric RIP$_{2s}$ and let $\gamma_{2s} = \beta_{2s}/\alpha_{2s}-1$. If $\gamma_{2s} \leq {1}/{8}$, then
 \begin{equation}
     \| {\bf x}-{\bf x}^n\|_2 \leq 2^{-n}\| {\bf x}^s\|_2 + 8\tilde{{\bf \epsilon}_s}\label{niht_error_bound}
 \end{equation} where \begin{equation}
     \tilde{{\bf \epsilon}_s} =  \| {\bf x}-{\bf x}^s\|_2 + \frac{\| {\bf x}-{\bf x}^s\|_1}{\sqrt{s}}+\frac{1}{\beta_{2s}}\|{\bf e} \|_2.
 \end{equation}
-
-Remarkably, after at most $n^*=\log_2(\|{\bf x}^s\|_2/\tilde{\bf \epsilon}_s)$ iterations, the recovery error bound in \ref{niht_error_bound} can be further simplified to
+After at most $n^*=\log_2(\|{\bf x}^s\|_2/\tilde{\bf \epsilon}_s)$ iterations, the recovery error bound in \ref{niht_error_bound} can be further simplified to
 \begin{equation}
    \| {\bf x}-{\bf x}^n\|_2 \leq 9\tilde{{\bf \epsilon}_s}.
 \end{equation}
 \end{theorem}
-The above result suggests that, after a sufficiently large number of IHT runs, the reconstruction error is induced only by the noise ${\bf e}$ and that ${\bf x}$ is not exactly s-sparse.
-
-
-
-
+The above result suggests that, after a sufficiently large number of executions, the reconstruction error is induced only by the noise ${\bf e}$ and that ${\bf x}$ is not exactly s-sparse.
 \section{Low Precision Iterative Thresholding}
-In this section, we present the proposed accelerated Iterative Hard Thresholding and establish rigorous performance guarantee for sparse signal recovery. The key development here is that, by reducing the bit widths used to represent the dense measurement matrices as well as measurements, we still obtain near-optimal recoveries. 
+In this section, we present the proposed approach and establish rigorous guarantee for signal recovery performance. The key development here is that, by reducing the bit widths of the data points, we still obtain near-optimal recoveries. 
 
 Let ${\bf x}^{[0]} = 0$ and use iteration
 \begin{equation} \label{modified_update_rule}
-  {\bf x}^{[n+1]} = H_s\big({\bf x}^{[n]}+\mu Q_b(\boldsymbol{\Phi})(Q_b({\bf y})-Q_b(\boldsymbol{\Phi}){\bf x}^{[n]})\big)  
+  {\bf x}^{[n+1]} = H_s\big({\bf x}^{[n]}+\hat{\mu}^{[n]} Q_b(\boldsymbol{\Phi})(Q_b({\bf y})-Q_b(\boldsymbol{\Phi}){\bf x}^{[n]})\big)  
 \end{equation}
 where $Q(\cdot)$ is the quantization function that maps single-precision floating-point onto a codomain where each element has $b$-bits precision.
 
-{\bf Quantization Scheme:} We employ a stochastic quantization function denoted with $Q_b({\bf v})$, where ${\bf v}=(v_1, v_2, .., v_d) \in \mathbb{R}^d$ is an arbitrary vector and $b$ is the total number of bits used to represent it. {\bf v} can then be quantized into $l=2^b$ levels as follows. Let $\ell_i$, $i\in \{1, 2, ..., l-1 \}$ denote $l$ equally spaced points on $[\min({\bf v}), \max({\bf v})]$ such that $\ell_1=\min({\bf v})$, $\ell_l=\max({\bf v})$ and $\ell_1\leq\ell_2 \leq ... \leq \ell_l$, also $v_j$ for $j\in \{1, 2, ..., d \}$ fall into the interval $[\ell_i, \ell_{i+1}]$. Then we assign the probabilities to the nearest levels as
+{\bf Quantization Scheme:} We employ a stochastic quantization function denoted with $Q_b({\bf v})$, where ${\bf v}=(v_1, v_2, .., v_d) \in \mathbb{R}^d$ is an arbitrary vector and $b$ is the total number of bits used to represent it. {\bf v} can then be quantized into $l=2^b$ levels as follows. Let $\ell_i$, $i\in \{1, 2, ..., l-1 \}$ denote $l$ equally spaced points on $[-1, 1]$ such that $\ell_1= -1$, $\ell_l= +1$ and $\ell_1\leq\ell_2 \leq ... \leq \ell_l$, also $v_j$ for $j\in \{1, 2, ..., d \}$ fall into the interval $[\ell_i, \ell_{i+1}]$. Then we assign the probabilities to the nearest levels as
 \[
     Q_b(v_j) = \left\{\begin{array}{lr}
         \ell_i, & \textrm{with probability} \ \frac{\ell_{i+1}-v_j}{\ell_{i+1}-\ell_i}\\
@@ -206,24 +217,25 @@ where $Q(\cdot)$ is the quantization function that maps single-precision floatin
         \end{array}
 \]
   
-Remark that the above equation yields that the quantization operation $Q(\cdot)$ is unbiased, i.e., $\mathbb{E}[Q_b({\bf v})] = {\bf v}$. Also, let $\hat{{\bf v}}$ represent the quantized ${\bf v}$ and drop $Q(\cdot)$ to simplify notational burden. The detailed steps of the algorithm is then given in Algorithm \ref{low_precision_iht}.
-
-
-
+Remark that the above equation yields that the quantization operation $Q(\cdot)$ is unbiased, i.e., $\mathbb{E}[Q_b({\bf v})] = {\bf v}$. Also, let $\hat{{\bf v}}$ represent the quantized ${\bf v}$ and drop $Q_(\cdot)$ to simplify notational burden. The detailed steps of the algorithm is then given in Algorithm \ref{low_precision_iht}.
 \begin{algorithm}[h!]
-   \caption{Low Precision Iterative Hard Thresholding}
+   \caption{Low Precision Iterative Thresholding}
    \label{low_precision_iht}
 \begin{algorithmic}
-   \STATE {\bfseries Input:} Measurement matrix ${\bf \Phi}$, measurements ${\bf y}$, sparsity parameter $s$, number of iterations $n^*$, $b_{\bf \Phi}$ and $b_{\bf y}$ 
+   \STATE {\bfseries Input:} The set of low precision measurement matrices $\{ \hat{\bf \Phi}_1, \hat{\bf \Phi}_2, ...\hat{\bf \Phi}_{2n^*}\}$, measurements $\hat{\bf y}$, sparsity parameter $s$, number of iterations $n^*$ 
    \REPEAT
-   \STATE Initialize ${\bf x} = 0$, $\mu = $.
-   \FOR{$i=1$ {\bfseries to} $n-1$}
-   \STATE ${\bf g}^{[i]} = Q^{\dagger}_{b_{\bf \Phi}}({\bf \Phi}) \big(Q_{b_{\bf y}}({\bf y})-Q^{\dagger}_{b_{\bf \Phi}}{\bf x}^{[i]}\big)$
-   \STATE ${\bf x}^{[i+1]} = H_s({\bf x}^{[i]} + \mu {\bf g}^{[i]})$
+   \STATE Initialize ${\bf x} = 0$, $\Gamma^{[1]} = \rm{supp}\big (H_s(\hat{\bf \Phi}_1^{\dagger}{\hat{\bf y}})\big)$.
+   \FOR{$n=1$ {\bfseries to} $n^*$}
+   \STATE ${\bf g}^{[n]} = {\hat{\bf \Phi}}_{2n-1} \big(\hat{{\bf y}}-{\hat{\bf \Phi}}_{2n}{\bf x}^{[n]}\big)$
+   \STATE $\hat{\bf \mu}^{[n]} = ({\bf g}^{\dagger}_{\Gamma^{[n]}}{\bf g}_{\Gamma^{[n]}})/({\bf g}^{\dagger}_{\Gamma^{[n]}}{\bf \Phi}^{\dagger}_{\Gamma^{[n]}}{\bf \Phi}_{\Gamma^{[n]}}{\bf g}_{\Gamma^{[i]}})$
+   \STATE ${\bf x}^{[n+1]} = H_s({\bf x}^{[n]} + \hat{\bf \mu}^{[n]} {\bf g}^{[n]})$
+   \STATE $\Gamma^{[n+1]} = \rm{supp}({\bf x}^{[n+1]})$
+   \STATE tbc
    \ENDFOR
    \UNTIL $n = n^*$
 \end{algorithmic}
 \end{algorithm}
+
 {\bf Convergence:} The modified algorithm attains a local minimum of the cost function $\mathbb{E} [ \| \hat{\bf y} - \hat{\bf \Phi}{\bf x}\|_2^2]$ such that $\|{\bf x}\|_0 \leq s$. This can be majorized by the following surrogate objective function 
 \begin{equation*}
     \begin{split}
@@ -232,39 +244,40 @@ Remark that the above equation yields that the quantization operation $Q(\cdot)$
     - \|\mu^{0.5}\hat{\bf \Phi}({\bf x}- {\bf x}^{[n]}) \|_2^2] 
     \end{split}
 \end{equation*}
-whenever $\| \mu^{0.5}\hat{\bf \Phi}\|_2^2 <1$. If this condition is met, the minimizer of the above surrogate objective: ${\bf x}^{[n+1]}$ ensures that $\| \hat{\bf y} - \hat{\bf \Phi}{\bf x}^{[n+1]}\|_2^2 \leq \| \hat{\bf y} - \hat{\bf \Phi}{\bf x}^{[n]}\|_2^2$. Moreover, by using the arguments of [], \ref{modified_update_rule} can be shown to minimize the expected cost $\mathbb{E} [ \| \hat{\bf y} - \hat{\bf \Phi}{\bf x}\|_2^2]$.
+whenever $\| \mu^{0.5}\hat{\bf \Phi}\|_2^2 <1$. If this condition is met, the minimizer of the above surrogate objective: ${\bf x}^{[n+1]}$ ensures that $\mathbb{E} [\| \hat{\bf y} - \hat{\bf \Phi}{\bf x}^{[n+1]}\|_2^2] \leq \mathbb{E}[ \| \hat{\bf y} - \hat{\bf \Phi}{\bf x}^{[n]}\|_2^2]$. Moreover, by using the arguments of~\cite{blumensath2008iht}, \ref{modified_update_rule} can be shown to minimize the expected cost $\mathbb{E} [ \| \hat{\bf y} - \hat{\bf \Phi}{\bf x}\|_2^2]$.
 
-{\bf Computational Complexity:} The iterative thresholding algorithm involves two vector additions and two dense matrix multiplication as well as thresholding operation per iteration. Low precision approach thus alleviates the computations by blabla and reduces memory requirements to store the dense measurement matrix ${\bf \Phi}$. (we need to improve here)
+{\bf Computational Complexity:} The iterative thresholding algorithm involves two vector additions and two dense matrix multiplication as well as a thresholding operation per iteration, and this is doubled due to step size search. Low precision approach however reduces memory requirements significantly. (we need to improve here)
  
-{\bf Conditions on $\hat{\Phi}$:} Unlike the traditional approach, the normalized iterative hard thresholding algorithm where $\mu$ is no longer unity enables the arbitrary scaling of measurement matrix by relaxing the bounds of the norm of $\hat{{\bf \Phi}}$. The restricted isometry property holds for the quantized measurement if
+{\bf Conditions on ${\Phi}$:} The restricted isometry property holds for the quantized measurement if
 \begin{equation}
     \hat{\alpha}_{s} \leq \frac{\|\hat{{\bf \Phi}} {\bf x}\|_2}{\|{\bf x}\|_2} \leq \hat{\beta}_{s}
 \end{equation}
-$\forall {\bf x}: \| {\bf x}\|_0 \leq s$. The resctricted isometry constants $\hat{\alpha}_s$ and $\hat{\beta}_s$ can therefore be re-scaled accordingly with $\hat{\bf \Phi}$.
+$\forall {\bf x}: \| {\bf x}\|_0 \leq s$. Furthermore, the RICs: $\hat{\alpha}_s$ and $\hat{\beta}_s$ can be re-scaled accordingly with $\hat{\bf \Phi}$.
 
-{\bf Step Size Determination:} The step size $\mu$ is required to counteract the scaling of $\hat{{\bf \Phi}}$ such that $\|\mu^{0.5} \hat{\bf\Phi}\|_2^2 <1$ to ensure the convergence. This yields the trivial bound on $\mu$ as
-\begin{equation}
-    1/\hat{\beta}_s^2 < \mu < 1/\hat{\alpha}_s^2.
-\end{equation}
-Moreover, using \ref{step_size} in the low precision setting, we can initially determine $\mu$ to guarantee the convergence without requiring the knowledge of the restricted isometry constants.
-
- \subsection{Performance Guarantees}
- Convergence is necessary to guarantee the existence of a stable scheme for sparse signal recovery. However, the recovery performance of such algorithms is of our primary interest. The following theorem states the recovery error by explicitly exhibiting the component introduced by the quantization.
+%{\bf Bounds of $\$:} 
+%The step size $\hat{\mu}^{[n]}$ is required to counteract the scaling of $\hat{{\bf \Phi}}$ such that $\|\hat{\mu}^{0.5} \hat{\bf\Phi}\|_2^2 <1$ to ensure the convergence. 
+%This adaptive step size setting yields the trivial bound on $\mu$ as~\cite{blumensath2012greedy}
+%\begin{equation}
+ %  1/\hat{\beta}_{2s}^2\leq  1/\hat{\beta}_s^2 < \hat{\mu}^{[n]} < 1/\hat{\alpha}_s^2 \leq 1/\hat{\alpha}_{2s}^2.
+%\end{equation}
+%Moreover, using \ref{step_size} in the low precision setting, we can initially determine $\hat{\mu}^{[n]}$ to guarantee the convergence without requiring the knowledge of the restricted isometry constants.
+\subsection{Performance Guarantees}
+Convergence is necessary to guarantee the existence of a stable scheme. However, the recovery performance of such algorithms is of our primary interest. The following theorem states the recovery error by explicitly exhibiting the component introduced by the quantization.
 \begin{theorem}\label{main_theorem_TH}
-Given a noisy observation ${\bf y} = {\bf \Phi x}+{\bf e} $ where ${\bf x}$ is an arbitrary vector with $\|{\bf x} \|_0 \leq s$ and $H_s({\bf x}) = {\bf x}^s$. Let $\hat{\bf \Phi}$ satisfies the restricted isometry property with $\hat{\alpha}_s$ and $\hat{\beta}_s$ with $s\leq m$. If the iterative hard thresholding algorithm is used at low precision and let $\hat{\Gamma}_{2s} = \hat{\beta}_{2s}/\hat{\alpha}_{2s} -1 \leq 1/16$ we have
+Given a noisy observation ${\bf y} = {\bf \Phi x}+{\bf e} $ where ${\bf x}$ is an arbitrary vector with $\|{\bf x} \|_0 \leq s$ and let $H_s({\bf x}) = {\bf x}^s$ with $s\leq m$. Let $\hat{\bf \Phi}$ satisfies the nonsymmetric RIP with $\hat{\alpha}_s$ and $\hat{\beta}_s$ where $\hat{\gamma}_{2s} = \hat{\beta}_{2s}/\hat{\alpha}_{2s} -1 \leq 1/16$. If the normalized IHT algorithm is used at low precision we have
 \begin{equation}\label{main_theorem}
 \begin{split}
         \mathbb{E}[\|\hat{{\bf x}}^{[n+1]}-{\bf x}^s\|_2]  
-        \leq &2^{-n}\|{\bf x}^{s}\|_2  + 10\epsilon_s + 5\epsilon_q
+        \leq &2^{-n}\|{\bf x}^{s}\|_2  + 10\tilde{\epsilon}_s + 5\tilde{\epsilon}_q
 \end{split}
 \end{equation}
 with 
 \begin{equation}
-\epsilon_s = \frac{1}{\beta_{2s}}\|{\bf e} \|_2 +\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg]    
+\tilde{\epsilon}_s = \frac{1}{\beta_{2s}}\|{\bf e} \|_2 +\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg]    
 \end{equation}
 and
 \begin{equation}
-\epsilon_q = \frac{\sqrt{m}}{\hat{\beta}_{2s}}\Big ( \frac{\| {\bf x}^s\|_2}{2^{b_{\bf \Phi}-1}}+\frac{1}{2^{b_{\bf y}-1}} \Big )
+\tilde{\epsilon}_q = \frac{\sqrt{m}}{\hat{\beta}_{2s}}\Big ( \frac{\| {\bf x}^s\|_2}{2^{b_{\bf \Phi}-1}}+\frac{1}{2^{b_{\bf y}-1}} \Big )
 \end{equation}
 where $b_{\bf \Phi}$ and $b_{\bf y}$ are the numbers of bits to represent ${\bf \Phi}$ and ${\bf y}$, respectively.
 \end{theorem}
@@ -274,27 +287,29 @@ A natural stopping criterion is $n^* = \lceil \log_2 (\|{\bf x}^s \|_2/\epsilon_
     \mathbb{E}[\|{\bf x}^{[n^*]}-{\bf x}^s \|_2] \leq 11\epsilon_s + 5\epsilon_q.
 \end{equation}
 The error bound above is actually oversimplified, our proof in the supplementary material is slightly more delicate. Namely, the quantization operator introduces only $\frac{5}{\beta
-{2s}} \|{\bf e} \|_2$ into $8\epsilon_s$ in \ref{niht_error_bound}, which is tighter than $10\epsilon_s$ in~\ref{main_theorem}.
+{2s}} \|{\bf e} \|_2$ into $8\tilde{\epsilon}_s$ in \ref{niht_error_bound}, which is tighter than $10\tilde{\epsilon}_s$ in~\ref{main_theorem}.
 
-We now examine the error bound presented in Theorem~\ref{main_theorem_TH}. The low precision iterative thresholding will asymptotically provide a sparse approximation of ${\bf x}$ up to the multiples of $\epsilon_s$ and $\epsilon_q$ involving noise term ${\bf e}$, the approximation error on how well ${\bf x}$ can be represented by a sparse vector ${\bf x}^s$ as well as the corruption introduced by the quantization operator. This makes intuitive sense yet still requires the understanding of our limits on the accuracy of results achievable at low precision. Here we highlight the main limitations.
+We now examine the error bound presented in Theorem~\ref{main_theorem_TH}. The low precision IHT will asymptotically provide a sparse approximation of ${\bf x}$ up to the multiples of $\epsilon_s$ and $\epsilon_q$ involving the noise term ${\bf e}$, the approximation error on how well ${\bf x}$ can be represented by a sparse vector ${\bf x}^s$ and the corruption introduced by the quantization operator. This makes intuitive sense yet still requires the understanding of our limits on the accuracy of results achievable at low precision. Here we highlight the main limitations.
 
-{\bf Condition on $\hat{\boldsymbol{\gamma}}_{2s}$:} In comparison to the unmodified algorithm, the condition under which the performance guarantee holds is stricter, i.e., $\hat{\gamma}_{2s}\leq 1/16$ where it was $\hat{\gamma}_{2s}\leq 1/8$ in the full precision setting. Unlike the traditional restricted isometry property, the non-symmetric version no longer requires that the measurement is nearly orthonormal when operating on sparse vectors, rather confines the interval of its scaling factor. The allowance interval is therefore tighter in low precision setting. Alternatively, a closer look into the derivation in the supplementary material reveals that there exists finite constants $c_1$ and $c_2$ such that $\mathbb{E}[\|{\bf x}^{n^*}-{\bf x}^s \|_2] \leq c_1\epsilon_s + c_2\epsilon_q$ when $\hat{\gamma}_{2s}\leq 1/8$. Therefore, the accurate approximation to ${\bf x}^s$ can still be recovered after sufficient number of iterations.
+{\bf Condition on $\hat{\boldsymbol{\gamma}}_{2s}$:} In comparison to the unmodified algorithm, the condition under which the performance guarantee holds is stricter in our approach, i.e., $\hat{\gamma}_{2s}\leq 1/16$ where it was ${\gamma}_{2s}\leq 1/8$ in Theorem \ref{guarantee_niht}. In practice, this can be altered with a suitable re-scaling of $\hat{\bf \Phi}$ such that $\hat{\gamma}_{2s}\leq 1/16$ is satisfied. Alternatively, a closer look into the derivation in the supplementary material reveals that there exists finite constants $c_1$ and $c_2$ such that $\mathbb{E}[\|{\bf x}^{n^*}-{\bf x}^s \|_2] \leq c_1\epsilon_s + c_2\epsilon_q$ when $\hat{\gamma}_{2s}\leq 1/8$. Therefore, the accurate approximation to ${\bf x}^s$ can still be recovered after sufficient number of iterations.
+%One might argue that it can potentially amplify noise yet from changing $\gamma_{2s}$ from $1/8$ to $1/16$ 
 
-We also monitor $\hat{\gamma}_{2s}$ by using the strategy described in ref.
+%We also monitor $\hat{\gamma}_{2s}$ by using the strategy described in ref.
 
 %can easily be verified in a computationally efficient manner
-{\bf Natural limitations on $\hat{\boldsymbol{\beta}}_{2s}$:} In both low and high precision settings, the measurement matrix is scale-invariant and rigorous theoretical guarantee is achievable provided its scaling onto sparse vectors is confined in certain intervals. As introduced in Remark, even this condition is met, there still remains a further limitation by the noise: ${\bf e}$. That is, the signal-to-noise ratio of $\|{\bf \Phi} {\bf x} \|_2/\|{\bf e} \|_2$ will be amplified upon a down-scaling of $\hat{\bf \Phi}$. Yet the low precision framework can potentially overcome this up to some level by the fact that the quantization operation enforces ${\bf y}$ to be confined in $[-1, 1]$.
+{\bf Natural limitations on $\hat{\boldsymbol{\beta}}_{2s}$:} In both low and high precision settings, the measurement matrix ${\bf \Phi}$ is scale-invariant and rigorous theoretical guarantee is achievable provided its scaling onto sparse vectors is confined in certain intervals, i.e., $\hat{\gamma}_{2s}\in [0, 1/16]$. As introduced in Remark \ref{remark_noise_amp}, even this condition is met, there still remains a further limitation by the noise: ${\bf e}$. That is, the signal-to-noise ratio of $\|\hat{\bf \Phi} {\bf x} \|_2/\|{\bf e} \|_2$ will be amplified upon a down-scaling of $\hat{\bf \Phi}$. Yet the low precision framework can potentially overcome this up to some level by the fact that the quantization operation enforces ${\bf y}$ to be confined in $[-1, 1]$.
 
-{\bf Further limitation on $\hat{\boldsymbol{\beta}}_{2s}$ due to quantization:} The recovery error bound satisfying \ref{main_theorem} depends on the error term of high precision iterative hard thresholding $\epsilon_s$ and the quantization error $\epsilon_q$ that is inversely proportional to $\hat{\beta}_{2s}$. For sufficiently large $\hat{\beta}_{2s}$ that compensates for $\sqrt{m} \|{\bf x}^s \|_2$, the low precision approach appears competitive with the unmodified algorithm where the recovery error is bounded by $9\epsilon_s$ in~\ref{niht_error_bound}. Furthermore, the scaling-invariant property of the measurement matrix $\hat{\bf \Phi}$ permits us to scale up $\hat{\beta}_{2s}$ by still retaining the strong recovery result similar to that of high precision algorithm. This however poses the following limitation. The condition that $\hat{\gamma}_{2s}\leq 1/16$ is not necessarily met for any arbitrary scaling of $\hat{\bf \Phi}$. Moreover, inherently from its definition, $\hat{\gamma}_{2s}$ is less likely to fall into $[0, 1/16]$ as $\hat{\bf \Phi}$ is scaled up. Therefore, the strong theoretical guarantee for the recovery holds if the low precision algorithm operates in a regime where both the condition of $\hat{\gamma}_{2s}\leq 1/16$ holds and $\epsilon_q$ is relatively small.
+{\bf Further limitation on $\hat{\boldsymbol{\beta}}_{2s}$ due to quantization:} The recovery error bound satisfying \ref{main_theorem} depends on the error term of high precision IHT $\tilde{\epsilon_s}$ and the quantization error $\tilde{\epsilon}_q$ that is inversely proportional to $\hat{\beta}_{2s}$. For sufficiently large $\hat{\beta}_{2s}$ that compensates for $\sqrt{m} \|{\bf x}^s \|_2$, the low precision approach appears competitive with the unmodified algorithm where the recovery error is bounded by $9\epsilon_s$ in~\ref{niht_error_bound}. Furthermore, the scaling-invariant property of the measurement matrix $\hat{\bf \Phi}$ permits us to scale up $\hat{\beta}_{2s}$ by still retaining the strong recovery result similar to that of high precision algorithm. This however poses the following limitation. The condition that $\hat{\gamma}_{2s}\leq 1/16$ is not necessarily met for any arbitrary scaling of $\hat{\bf \Phi}$. Moreover, inherently from its definition, $\hat{\gamma}_{2s}$ is less likely to fall into $[0, 1/16]$ as $\hat{\bf \Phi}$ is scaled up. Therefore, the strong theoretical guarantee for the recovery holds if the low precision algorithm operates in a regime where both the condition of $\hat{\gamma}_{2s}\leq 1/16$ holds and $\tilde{\epsilon}_q$ is relatively small.
 
 From quantization point of view, re-scaling of the ${\bf y}$ and $\hat{\bf \Phi}$ has no necessity,
-otherwise the constant factor weighting $\epsilon_q$ will change. A small factor naturally reduces the quantization error yet imposes some mild conditions on $\hat{\beta}_{2s}$. Namely, $\hat{\beta}_{2s}$ can not arbitrarily be re-scaled even $\hat{\gamma}_{2s}\leq 1/16$ holds, instead is required to satisfy that all entries of ${\bf y}$ and $\hat{\bf \Phi}$ are confined in $[-1, 1]$.
+otherwise the constant factor weighting $\tilde{\epsilon}_q$ will change. A small factor naturally reduces the quantization error yet imposes some mild conditions on $\hat{\beta}_{2s}$. Namely, $\hat{\beta}_{2s}$ can not arbitrarily be re-scaled even $\hat{\gamma}_{2s}\leq 1/16$ holds, instead is required to satisfy that all entries of ${\bf y}$ and $\hat{\bf \Phi}$ are contained in $[-1, 1]$.
 
-{\bf Comparison to other state-of-art methods:} Compressive sensing literature covers a range algorithms such as $\ell_1$ minimization, greedy and thresholding-based methods that have certain properties weighted against each other. In ref, CoSaMP, IHT and $\ell_1$-minimization exhibit similar empirical performance when applied to the problems with dense Gaussian matrices. Moreover, after a simple modification of step size parameter, IHT has became compatible with these powerful methods what possess similar performance guarantees ref. 
+%\subsection{An Alternative Proposal}
+%The normalized IHT offers an adaptive step size tuning to ensure maximal reduction in the cost function at each iteration, yet doubling the computational cost. We instead propose using a constant step size that guarantees the convergence, that is, $\hat{\mu}=\frac{k}{\|{\bf \Phi} \|_{\mathcal{F}}}$ with $0<k<1$. This modification might increase the convergence time but counteracts the additional cost of tuning ${\mu}^{[n]}$ iteratively.
 
-These algorithm however offer near optimal recoveries under conditions on the RIP. 
+{\bf Comparison to other state-of-art methods:} Compressive sensing literature covers a range algorithms such as $\ell_1$-minimization, greedy and thresholding-based methods that have certain properties weighted against each other. In~\cite{blumensath2010niht}, CoSaMP, normalized IHT and $\ell_1$-minimization exhibit similar empirical performance when applied to the problems with dense Gaussian matrices. Moreover, after a simple modification of step size parameter, IHT has became compatible with these powerful methods with similar provable guarantees~\cite{blumensath2012greedy}. 
 
-We use a simple toy problem: 
+We test empirical performance of normalized IHT on a simple toy example using a Gaussian ${\bf \Phi}$. 
 
 
 
@@ -312,16 +327,14 @@ We use a simple toy problem:
 
 
 \subsection{Application to Radio Astronomy}
-Radio interferometers at various locations on the ground record radio waves emitted by the celestial sources over a certain time interval, then store and process it all in order to deduce a sky image. Interferometers first estimate the cross-correlation between the time series measurements that is called visibilities, and sky image is estimated by the so-called {\it CLEAN} algorithm []. {\it CLEAN} is a greedy pursuit technique(5-greedy), deconvolution algorithm that takes the inverse Fourier transform of the visibilities and outputs a sky map by iteratively removing a fraction of the highest peak convolved with an instrument based point spread function.
+Radio interferometers at various locations on the ground record radio waves emitted by the celestial sources over a certain time interval, then store and process it all in order to deduce a sky image. Interferometers first estimate the cross-correlation between the time series measurements that is called visibilities, and sky image is estimated by the so-called {\it CLEAN} algorithm~\cite{hogbom1974clean}. {\it CLEAN} is a greedy pursuit technique, deconvoluting the inverse Fourier transform of visibilities and forming a sky map by iteratively removing a fraction of the highest peak convolved with an instrument based point spread function. {\it CLEAN} is a simple and easy-to-implement imaging technique, yet radio interferometers are formed as a CS problem, for example, by~\cite{wiaux2009csforra, wenger2010csforra, li2011deconvolution} inspired by its recovery success in noisy environments.
 
-Let the sky be observed by employing $L$ antennas over a stationary time interval (STI) $T$ where the earth rotation is negligible. Also, we denote the vectorized sky image by ${\bf x} \in \mathbb{R}^{r^2}$ where $r$ is the resolution of images, i.e., height and width of the image in pixels. We formulate the interferometer pipeline as a compressive sensing problem such that ${\bf y} = {\bf \Phi} {\bf x} + {\bf e}$ where ${\bf \Phi} \in \mathbb{C}^{m\times r^2}$ is the measurement matrix where the entries are complex exponential with exponent of antenna and pixel locations, ${\bf y} \in \mathbb{C}^{m}$ is the visibilities where $m=L^2$, and ${\bf e} \in \mathbb{C}^m$ is the noise vector. The reader is referred to the supplementary material for detailed derivations. 
+Let sky be observed by employing $L$ antennas over a stationary time interval (STI) where the earth rotation is negligible. Also, we denote the vectorized sky image by ${\bf x} \in \mathbb{R}^{r^2}$ where $r$ is the resolution of images, i.e., height and width of the image in pixels. We formulate the interferometer pipeline as a compressive sensing problem such that ${\bf y} = {\bf \Phi} {\bf x} + {\bf e}$ where ${\bf \Phi} \in \mathbb{C}^{m\times r^2}$ is the measurement matrix with complex entries as a function of inner product between antenna and pixel locations, ${\bf y} \in \mathbb{C}^{m}$ is the visibilities where $m=L^2$, and ${\bf e} \in \mathbb{C}^m$ is the noise vector. The reader is referred to the supplementary material for detailed derivations. 
 
 
-{\bf Why iterative hard thresholding?} According to our formulation, the measurement vector ${\bf y}$ represents the cross-correlations between the antenna measurements: the visibilities. The naive method to map from ${\bf y}$ to a vectorized sky image ${\bf x}$ is the Fourier inversion followed by the CLEAN algorithm. Alternatively, A(W)-projection algorithm initially makes corrections on the visibilities then deduce a sky image. Still, forming a sky map using the non-uniform samples of visibility function recorded by finite number of antennas is naturally inaccurate. Furthermore, the thermal noise introduced by the electronic instruments embedded in RF antenna receivers heavily corrupts the weak incoming signal, therefore poses a further challenge for these imaging algorithms. To date, the current techniques revolve around carrying out noise reduction by collecting many data so that the noise can be circumvented.
-
+{\bf Why iterative hard thresholding?} According to our formulation, the measurement vector ${\bf y}$ represents the cross-correlations between the antenna measurements: the visibilities. The naive method to map from ${\bf y}$ to a vectorized sky image ${\bf x}$ is the Fourier inversion followed by the {\it CLEAN} algorithm. Alternatively, {\it A(W)-projection} algorithm initially makes corrections on the visibilities then deduce a sky image. Still, forming a sky map using the non-uniform samples of visibility function recorded by finite number of antennas is naturally inaccurate. Furthermore, the thermal noise introduced by the electronic instruments embedded in RF antenna receivers heavily corrupts the weak incoming signal, therefore poses a further challenge for these imaging algorithms. To date, the current techniques revolve around carrying out noise reduction by collecting many data so that the noise can be circumvented.
 
 Based on this modeling, we have the following results.
-
 \begin{lemma}\label{beta_for_ra}
     Let the restricted isometry property in \ref{low_precision_iht} holds for ${\bf \Phi}$. Then the quantized ${\bf \Phi}$ satisfies $\hat{\beta}_{2s} = \sqrt{2sm}$.
 \end{lemma}
