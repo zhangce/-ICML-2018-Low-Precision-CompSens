@@ -1,49 +1,23 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% ICML 2017 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 % Use the following line _only_ if you're still using LaTeX 2.09.
 %\documentstyle[icml2013,epsf,natbib]{article}
 % If you rely on Latex2e packages, like most moden people use this:
 \documentclass{article}
-
-% For figures
 \usepackage{graphicx} % more modern
 %\usepackage{epsfig} % less modern
 \usepackage{subfigure} 
-
-% For citations
 \usepackage{natbib}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amsthm}
-
-
-
-% For algorithms
 \usepackage{algorithm}
 \usepackage{algorithmic}
-
-% As of 2011, we use the hyperref package to produce hyperlinks in the
-% resulting PDF.  If this breaks your system, please commend out the
-% following usepackage line and replace \usepackage{icml2013} with
-% \usepackage[nohyperref]{icml2013} above.
 \usepackage{hyperref}
-
-% Packages hyperref and algorithmic misbehave sometimes.  We can fix
-% this with the following command.
 \newcommand{\theHalgorithm}{\arabic{algorithm}}
-
-% Employ the following version of the ``usepackage'' statement for
-% submitting the draft version of the paper for review.  This will set
-% the note in the first column to ``Under review.  Do not distribute.''
-
 \usepackage{icml2013} 
-% Employ this version of the ``usepackage'' statement after the paper has
-% been accepted, when creating the final version.  This will set the
-% note in the first column to ``Proceedings of the...''
-% \usepackage[accepted]{icml2013}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
 %\newtheorem{proof}{Proof}
@@ -51,13 +25,12 @@
 \newtheorem{proposition}{Proposition}
 \newtheorem{corollary}{Corollary}
 \newtheorem*{proof*}{Proof}
-
-% The \icmltitle you define below is probably too long as a header.
-% Therefore, a short form for the running title is supplied here:
 \onecolumn
-
-\icmltitlerunning{Iterative Hard Thresholding for Low Precision Compressed Sensing}
-%\icmltitle{SUPPLEMENTARIES}
+%\icmltitlerunning{Compressive Sensing with Low Precision Data Representation: Radio Astronomy and Beyond}
+\title{SUPPLEMENTARIES}
+	\usepackage{fancyheadings}
+	\pagestyle{fancy}
+	\rhead{Compressive Sensing with Low Precision Data Representation: Radio Astronomy and Beyond \ \ \ \ \ \ \  \ \ \ \ }
 \begin{document} 
 \setlength{\abovedisplayskip}{5.5pt}
 \setlength{\belowdisplayskip}{6pt}
