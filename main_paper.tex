@@ -83,10 +83,10 @@ Low Precision Data Representation: Radio Astronomy and Beyond}
 \vskip 0.3in
 ]
 
-\begin{abstract} 
-Many modern scientific instruments are overloaded 
-by the amount of data the system collects. In this 
-case, lossy compression of data is often a
+\iffalse
+Modern scientific instruments can be overloaded 
+by the amount of data collected by the system. 
+Lossy compression of data is a 
 potentially intriguing solution but could 
 also easily be ``scary'' to scientists.
 In this paper, we
@@ -112,6 +112,37 @@ using an FPGA implementation, and show that
 it can achieve up to 9.14$\times$ speed up with
 negligible loss of recovery quality 
 with data from a real telescope.
+\fi
+
+
+\begin{abstract} 
+
+
+Modern scientific instruments produce vast amounts of data, 
+which can overwhelm the processing ability of computer systems. 
+Lossy compression of data can be an intriguing solution, 
+but comes with its own dangers, such as potential signal loss, or need for careful parameter optimization. 
+In this work, we focus on a specific instance of this problem, 
+in the case of compressive sensing frameworks for radio astronomy, 
+and ask: 
+{\em Can the precision of data representation be lowered for \underline{all} 
+input data, with recovery guarantees and good practical performance?}
+
+Our first contribution is a
+theoretical analysis of the Iterative Hard 
+Thresholding (IHT) algorithm when all input
+data, that is, the measurement matrix and the
+observation, are quantized aggressively, to as little as 
+2 bits per value. 
+Under reasonable constraints, 
+we show that low precision IHT can still provide recovery guarantees. 
+The second contribution is a tailored 
+analysis of our general quantized framework  
+to radio astronomy, showing that its conditions are satisfied in this case. 
+We evaluate our approach 
+using an FPGA implementation, and show that
+it can achieve up to 9.14$\times$ speed up with
+negligible loss of recovery quality, on  real telescope data.
 
 %We then illustrate through empirical experiments 
 %the potential for radio interferometry imaging with 
@@ -126,21 +157,20 @@ with data from a real telescope.
 %This low precision framework results in runtime efficiency on hardware yet still maintaining the stability and performance guarantees of the algorithm. To demonstrate this, we first derive theoretical error bounds for sparse signal recovery. Under certain constraints, low precision IHT is shown to converge with performance guarantees. We then illustrate through empirical experiments the potential for radio interferometry imaging with achievement of 7.7x speed up on Field-Programmable Gate Array. An application to LOFAR, the low frequency array in Netherlands, leads to a better resolution of the sky sources recovered with order of magnitude speed up. 
 \end{abstract} 
 
-\vspace{-2em}
+\vspace{-2.5em}
 \section{Introduction}
-
+\vspace{-.5em}
 
 %\vspace{-1em}
 The ability to collect, store, and process large amount of
-data is enabling the next generation of scientific 
-instruments that are {\em data intensive}. For example,
+data is enabling a next generation of {\em data intensive} scientific 
+instruments. For example,
 the Square Kilometre Array (SKA), the largest
-radio telescope ever built with thousands of 
-dishes and over a square kilometres 
-of collecting area, is expected to achieve
-raw data throughput of 62 exabytes by mid 2020s.
-Instruments like this requires advanced operational 
-capabilities such as engineering, algorithms, instrument calibration, storage and many others~\cite{hu, rik2016ska}. 
+radio telescope ever built, has thousands of 
+dishes, and is expected to achieve
+raw data throughput of 62 exabytes by mid-2020.
+Such instruments require advanced  
+capabilities in terms of engineering, algorithms, calibration, and storage~\cite{hu, rik2016ska}. 
 
 %. The most powerful radio telescope on Earth that has ever known, the SKA combines thousands of antennas at various locations spread over an extensive area on the ground. The data collected by the antennas is immense to be efficiently processed further in the operational chain. The estimated raw data throughput by mid 2020s is 62 exabytes: 20 times higher than the global email traffic. The SKA thus demands advanced functional and operational capabilities such as engineering, algorithms, instrument calibration, storage and many others~\cite{hu, rik2016ska}. 
 
@@ -157,34 +187,29 @@ capabilities such as engineering, algorithms, instrument calibration, storage an
   \label{fig:sky_images}
 \end{figure}
 
-\vspace{-2em}
+\vspace{-1em}
 In this paper, we focus on compressive sensing~\cite{donoho2006cs, candes2006cs, candes2006cs2}, one popular mathematical formulation behind many of these instruments. Particularly, we are interested in understanding
-the impact of {\em representing all input data to compressive sensing
-in lower precision instead of 32-bit floating points}. 
-We made three technical contributions:
+the impact of {\em representing all input data
+in lower precision, instead of 32-bit floating points}. 
+We make the following technical contributions:
 
 \vspace{-1em}
 \begin{enumerate}
-\item We develop the theoretical framework, which for the first time
-shows that, under certain
+\item We develop a theoretical framework, which shows for the first time that, under certain
 technical conditions, Iterative Hard Thresholding (IHT),
-one popular algorithm for compressive sensing, is going to converge
-with guarantees on the recovery quality using only
+one popular algorithm for compressive sensing, is converges
+with guarantees on the recovery quality using only 
 input data in lower precision.
-\item We study one radio
-astronomy application that can be easily formulated in
-the compressive sensing framework, 
-and developed {stronger} application-specific 
+\item We refine our results in the context of a radio
+astronomy application which can be easily formulated in
+the context of compressive sensing, 
+and develop {stronger} application-specific 
 guarantees for sky recovery using the properties of the measurement matrix in this application. 
 \item We evaluate our approach on an FPGA-based
 implementation that achieves up to 9.14$\times$ speed up 
-on problems with dense measurement matrix using 2-bit 
-measurement and 8-bit observation.
-We hope our approach could facilitate further sparse reconstruction problems demanding high processing capability in practice. 
+on problems with a dense measurement matrix quantized to 2-bit precision, and with 8-bit observations.
+We believe this approach can further generalize to other sparse reconstruction problems demanding high processing capability. 
 \end{enumerate}
-
-
- 
 
 
 
@@ -195,31 +220,33 @@ We hope our approach could facilitate further sparse reconstruction problems dem
 \subsection{Problem Formulation}
 
 \vspace{-0.5em}
-The rapidly emerging field of compressive sensing (CS)~\cite{donoho2006cs, candes2006cs, candes2006cs2} is a foundational technique in sparse signal reconstruction. CS offers a range of efficient algorithms acquiring high dimensional signals from inaccurate and incomplete samples when the structure is known a priori: sparsity. Many real-life problems of medical imaging, interferometry, video, spectroscopy and genomic data analysis  benefit these techniques, i.e., they are practically well-approximated by sparse signals.
+Compressive sensing (CS)~\cite{donoho2006cs, candes2006cs, candes2006cs2} is a foundational technique in sparse signal reconstruction. CS offers a range of efficient algorithms acquiring high dimensional signals from inaccurate and incomplete samples with an underlying sparse structure. 
+Many real-life problems, e.g, medical imaging, interferometry, video, spectroscopy and genomic data analysis, can benefit from these techniques.
 
 % 1- CS
-In mathematical terms, the standard CS problem is formulated as follows. Let a sparse or approximately sparse signal ${\bf x}\in \mathbb{R}^N$ be sampled with a linear sampling operator ${\bf \Phi}^{M\times N}$. In matrix notation, the vector of measurements ${\bf y} \in \mathbb{C}^M$ is
+In mathematical terms, the standard CS problem is formulated as follows. Let a sparse or approximately sparse signal ${\bf x}\in \mathbb{R}^N$ be sampled via a linear sampling operator ${\bf \Phi}^{M\times N}$. In matrix notation, the vector of measurements ${\bf y} \in \mathbb{C}^M$ is
 \begin{equation}\label{CS_model}
  {\bf y} =  {\bf \Phi}  {\bf x} + {\bf e}
 \end{equation}
 where ${\bf e}$ is the observation noise and $M < N$.
 
-The CS algorithms iteratively build up a sparse estimate ${\bf x}$ such that ${\bf \Phi}  {\bf x}$ well approximates ${\bf y}$, that is,  $\| {\bf y}- {\bf \Phi}  {\bf x} \|_2$ is small. The sparsity constraint imposed on ${\bf x}$ radically overcomes this ill-posed problem yet computationally NP-hard due to its combinatorial nature. 
-Therefore, most CS algorithms resort to convex relaxation of $\ell_0$-based optimization, or a collection of thresholding and greedy methods such as Iterative Hard Thresholding (IHT) \cite{blumensath2008iht, blumensath2009iht} and Compressive Sampling Matching Pursuit (CoSaMP) \cite{needel2008cosamp}. The past decade has seen an explosion of discoveries on CoSaMP and IHT and avalanche of results obtained by~\cite{liu2017dualiht, yuan2014ht, yuan2016htp, blumensath2013cs, needel2008cosamp} and the references therein. There, a comprehensive analysis is performed to derive the provable performance guarantees of such sparsity-constrained minimization methods, namely, the convergence to fixed points of $\ell_0$-regularized cost functions and the optimality of such approximation. They however face several challenges when applied to real-life problems: for provable guarantees (1) the measurement matrix ${\bf \Phi}$ is required to satisfy the Restricted Isometry Property (RIP)~\cite{candes2008rip, chartrand2008rip} when operating onto sparse vectors, (2) the sparsity level has to be chosen appropriately. A simple yet effective strategy, the so-called normalized IHT, is suggested by \cite{blumensath2010niht} that massively relieves the limitations listed above: a step size parameter is introduced to the traditional IHT~\cite{blumensath2008iht}. This simple refinement alleviates the RIP condition imposed on ${\bf \Phi}$ hence enabling rigorous guarantees for a broader class of problems in practice. {This paper
+CS recovery algorithms iteratively build up a sparse estimate ${\bf x}$ such that ${\bf \Phi}  {\bf x}$ approximates ${\bf y}$ well, that is,  $\| {\bf y}- {\bf \Phi}  {\bf x} \|_2$ is small. The sparsity constraint imposed on ${\bf x}$ overcomes this ill-posed problem, yet is computationally NP-hard due to its combinatorial nature. 
+Therefore, most CS algorithms resort to convex relaxation of $\ell_0$-based optimization, or a collection of thresholding and greedy methods such as Iterative Hard Thresholding (IHT) \cite{blumensath2008iht, blumensath2009iht} and Compressive Sampling Matching Pursuit (CoSaMP) \cite{needel2008cosamp}. The past decade has seen significant work on such methods, see~\cite{liu2017dualiht, yuan2014ht, yuan2016htp, blumensath2013cs, needel2008cosamp} and references therein. These references present an almost-comprehensive analysis of the provable performance guarantees for such sparsity-constrained minimization methods, in terms of convergence to fixed points of $\ell_0$-regularized cost functions and the optimality of such approximations. However, these frameworks face several challenges when applied to real-life problems: for provable guarantees, it is often required that (1) the measurement matrix ${\bf \Phi}$ satisfies the Restricted Isometry Property (RIP)~\cite{candes2008rip, chartrand2008rip}, and that (2) the sparsity level is chosen appropriately. 
+Normalized IHT (NIHT)~ \cite{blumensath2010niht}, is a simple yet very effective strategy  which relieves some of the limitations listed above: a step size parameter is introduced to the traditional IHT~\cite{blumensath2008iht}. This simple refinement alleviates the RIP condition imposed on ${\bf \Phi}$, enabling rigorous guarantees for a broader class of practical problems. {This paper
 builds upon the work of Blumensath and Davies.}
 
 \vspace{-1em}
 \paragraph*{Problem Formulation}
- We consider the sparse signal recovery problem in~\ref{CS_model} described as: for given ${\bf y}$ and ${\bf \Phi}$, find coefficients ${\bf x}$ minimizing the cost function
+ We consider the sparse signal recovery problem in (\ref{CS_model}) described as: given ${\bf y}$ and ${\bf \Phi}$, find coefficients ${\bf x}$ minimizing the cost function
  \begin{equation}\label{cost_function}
-     \|{\bf y} - {\bf \Phi x} \|_2^2 \ \ \rm{subject \ to \ \|{\bf x} \|_0 \leq s}
+     \|{\bf y} - {\bf \Phi x} \|_2^2 \ \ \rm{subject \ to \ \|{\bf x} \|_0 \leq s},
  \end{equation}
  where $\|{\bf x} \|_0 = |\rm{supp}({\bf x})| = |\{i: x_i\neq 0 \}|$.
  
 
 %\subsection{Technical contributions}
 
-Under certain constraints, normalized IHT is guaranteed to approximate ${\bf x}$ with high accuracy. We rather consider the properties of this algorithm in a lossy compression scheme: the data ${\bf y}$ and ${\bf \Phi}$ consisting of floating point values undergoes a stochastic rounding process to a small set of integer levels denoted by $Q$. That is, we recover ${\bf x}$ using a modified update rule of normalized IHT:
+Under certain constraints, normalized IHT is guaranteed to approximate ${\bf x}$ with high accuracy. Here, we consider the properties of this algorithm in a lossy compression setting, where the data ${\bf y}$ and ${\bf \Phi}$ consisting of floating point values undergoes a stochastic rounding process to a small set of integer levels denoted by $Q$, to reduce the high cost of data transmission. That is, we wish to recover ${\bf x}$ using the following modified NIHT update rule:
  \begin{equation}
      {\bf x}^{[n+1]} = H_s({\bf x}^{[n]} + \mu^{[n]}Q({\bf \Phi})(Q({\bf y}) - Q({\bf \Phi}){\bf x}^{[n]}))
  \end{equation}
@@ -270,43 +297,41 @@ respectively ($\checkmark$ means yes).}
 \vspace{-0.5em}
 
 Using low precision data representation for compressive sensing
-is not new. In fact, there have emerged a wave of studies that has successive attempts applying the low precision framework 
+is not new. In fact, a wave of studies made successive attempts to apply low precision  
 to compressive sensing problems, summarized in
-Fig.~\ref{tab:cs}. \cite{boufounos20091bitcs} demonstrate the sparse signals can be recovered with a scale factor when measurements preserve only sign information. \cite{ai20121bitcs, davenport20121bit} exhibit that approximately sparse signals can be robustly recovered from single-bit measurements sampled with a sub-gaussian distribution. \cite{jacques20111bit, laska20111bitcs} study the similar setting with a Gaussian measurement matrix the so called Binary IHT. \cite{plan20111bitcs, plan20121bitcs} propose a computationally tractable and optimal recovery of 1-bit compressive sensing problem. \cite{recht20121bitcs, gopi20131bitcs} present provable theoretical guarantees to identify support recovery of high dimensional sparse signals for 1-bit measurements. {This paper is different from these works
-in two ways: as we will discuss in Section~\ref{section_lpiht},
+Fig.~\ref{tab:cs}. \cite{boufounos20091bitcs} demonstrate the sparse signals can be recovered with a scale factor when measurements preserve only sign information. \cite{ai20121bitcs, davenport20121bit} exhibit that approximately sparse signals can be robustly recovered from single-bit measurements sampled with a sub-gaussian distribution. \cite{jacques20111bit, laska20111bitcs} study the similar setting with a Gaussian measurement matrix the so called Binary IHT. \cite{plan20111bitcs, plan20121bitcs} propose a computationally tractable and optimal recovery of 1-bit compressive sensing problem. \cite{recht20121bitcs, gopi20131bitcs} present provable theoretical guarantees to identify support recovery of high dimensional sparse signals for 1-bit measurements. 
+
+{This paper is different from these references
+in two ways: first, as we discuss in Section~\ref{section_lpiht},
 our assumption that the measurement matrix being
-non-symmetric RIP is useful for our radio astronomy applications
-and none of these previous' assumption fit into our
-use case well; also, we are one of the few works,
-except \cite{gopi20131bitcs}, that quantizes
+non-symmetric RIP is critical in our radio astronomy applications, 
+and none of these assumptions made by previous work would fit  this use case; second, we are the only work,
+with the exceptionof~\cite{gopi20131bitcs}, that quantizes
 {\em both} the measurement matrix $\Phi$ and the observations.
-We will also discuss the benefit from the system side
-of quantizing the $\Phi$ in Section~\ref{sec:fpga}.
+We discuss the system-side benefits  
+of quantizing the matrix $\Phi$ in Section~\ref{sec:fpga}.
 } 
 
 %\cite{recht20121bitcs} identifies the support of sparse signals by using binary measurements.
 
 %\cite{gopi20131bitcs} studies 1 bit CS with rigorous support and approximation error: norm(x-xs) guarantee. The measurement matrix is designed using a Gaussian and the actual measurement matrix}
 
-There have been an emerging line of work
-about low precision training for other
-machine learning models beyond compressive
+Another emerging line of work has been on low precision training for 
+machine learning applications beyond compressive
 sensing. Examples include Buckwild!~\cite{desa2015hogwild},
 QSGD~\cite{alistarh2016qsgd},  
 ZipML~\cite{zhang2017zipml}, and
-a series of work about 
-end-to-end for training 
-training deep learning models~\cite{seide2014sgd1bit, hubara2016qsnn, rastegari2016binarycnn,zhou2016cnn, miyashita2016cnn, li2016twn, gupta2015dl}.
+a series of works about 
+partial or end-to-end low-precision training 
+of deep learning models~\cite{seide2014sgd1bit, hubara2016qsnn, rastegari2016binarycnn,zhou2016cnn, miyashita2016cnn, li2016twn, gupta2015dl}.
 Most of these work are built upon stochastic gradient descent. In this paper, we 
-go beyond SGD and focus on a standard 
-algorithm for compressive sensing.
+go beyond SGD and focus on  compressive sensing.
 
 
 %Multi-level quantization of measurement for CS problems, therefore, exhibit a great empirical success. The analysis of such heuristics is yet challenging. In this paper, a successive application of low precision framework to CS, particularly IHT, is shown to possess rigorous theoretical guaratees, potentially allowing more efficient information processing in large scale applications. To distinct from the prior proposals listed above, we achieve this by quantizing not only measurements but also measurement matrix.
 
 Another line of research on 
-designing new algorithms for sparse recovery problems~\cite{blumensath2011aiht, wei2015fiht, blanchard2013iht, cevher2011ht, liu2017dualiht}. In this paper, we focus on the normalized IHT algorithm, and hope our technique can also be applied to 
-these algorithms in the future.
+designing efficient algorithms for sparse recovery problems~\cite{blumensath2011aiht, wei2015fiht, blanchard2013iht, cevher2011ht, liu2017dualiht}. In this paper, we focus on the normalized IHT algorithm, and leave extensions to other recovery methods as future work.
 
 
 
@@ -315,14 +340,14 @@ these algorithms in the future.
 \section{Preliminaries}\label{section_iht}
 \vspace{-0.5em}
 
-In this section, we review the preliminary results on the normalized IHT algorithm introduced by~\cite{blumensath2010niht, blumensath2012greedy}.
+In this section, we review the preliminary results on the normalized IHT (NIHT) algorithm introduced by~\cite{blumensath2010niht, blumensath2012greedy}.
 \vspace{-0.3em}
 
-{\it Notation:} Scalars are denoted by italics, vectors by bold lower-case and matrices by bold upper-case. For all ${\bf x}= (x_1, \hdot, x_n) \in \mathbb{R}^n$, we denote by $\|{\bf x}\|_p$ the standard operator norm. Let ${\bf \Phi}_{m, n}\in \mathbb{C}^{M\times N}$ denote its element in $m$'th row and $n$'th column. Finally $b_{\bf \Phi}/b_{\bf y}${\it-bit precision} implies that number of bits used to represent vector of observations ${\bf y}$ and the measurement matrix ${\bf \Phi}$ are $b_{\bf \Phi}$ and $b_{\bf y}$, respectively.
+{\it Notation:} Scalars are denoted by italics, vectors by bold lower-case and matrices by bold upper-case. For all ${\bf x}= (x_1, \hdot, x_n) \in \mathbb{R}^n$, we denote by $\|{\bf x}\|_p$ the standard operator norm. Let ${\bf \Phi}_{m, n}\in \mathbb{C}^{M\times N}$ denote its element in the $m$'th row and $n$'th column. Finally $b_{\bf \Phi}/b_{\bf y}${\it-bit precision} implies that number of bits used to represent vector of observations ${\bf y}$ and the measurement matrix ${\bf \Phi}$ are $b_{\bf \Phi}$ and $b_{\bf y}$, respectively.
 \vspace{-1em}
 \subsection{Iterative Hard Thresholding} 
 \vspace{-0.5em}
-Let ${\bf x}^{[0]} = 0$, the normalized IHT has the following update rule per iteration
+Let ${\bf x}^{[0]} = 0$. Normalized IHT has the following update rule per iteration
 \begin{equation}\label{iht_update_rule}
 {\bf x}^{[n+1]} = H_s({\bf x}^{[n]} + \mu^{[n]}{\bf \Phi}({\bf y}-{\bf \Phi}{\bf x}^{[n]})),
 \end{equation}
@@ -338,30 +363,32 @@ thresholding operator that preserves the largest $s$ (in magnitude) entries.
 %\end{equation}
 
 \subsection{Convergence} 
-The analysis of hard thresholding algorithms heavily relies on the scaling properties of ${\bf \Phi}$. More precisely, the convergence to a local minimum of the cost function Eqn.~\ref{cost_function} as well as the quality of such approximation were proven under certain conditions on ${\bf \Phi}$. To be more concrete on these conditions, one must often deal with non-symmetric Restricted Isometry Property (RIP), namely, a matrix ${\bf \Phi}$ satisfies non-symmetric RIP if
+The analysis of hard thresholding algorithms heavily relies on the scaling properties of ${\bf \Phi}$. More precisely, the convergence to a local minimum of the cost function Eqn.~\ref{cost_function} as well as the quality of such approximation are proven under certain conditions on ${\bf \Phi}$. More concretely, one must often deal with non-symmetric Restricted Isometry Property (RIP) condition: a matrix ${\bf \Phi}$ satisfies non-symmetric RIP if
 \begin{equation}\label{rip}
 \alpha_{s} \leq \frac{\|{\bf \Phi} {\bf x}\|_2}{\|{\bf x}\|_2} \leq \beta_{s}
 \end{equation}
 for all ${\bf x}: \|{\bf x}\|_0 \leq s$, and where $\alpha_s, \beta_s \in \mathbb{R}, \ \alpha_s\leq \beta_s$, the so-called Restricted Isometric Constants (RICs), are lower and upper singular values of ${\bf \Phi}$, respectively.
+
 \begin{remark}\label{remark_noise_amp}
-The convergence of normalized IHT depends conditionally on the step size parameter $\mu^{[n]}$ unlike the traditional IHT approach where $\mu^{[n]}=1$.
-While the traditional approach requires a re-scaling of measurement matrix such that $\|{\bf \Phi}\|_2 <1$ to ensure convergence, introducing a step size parameter enables the arbitrary scaling of ${\bf \Phi}$ hence relaxing the bounds of its norm. The role of $\mu^{[n]}$ here is to compensate for this re-scaling by accordingly avoiding undesirable amplification of noise, i.e., the ratio of $\|{\bf \Phi x}\|_2/\|{\bf e}\|_2$ remains unchanged. 
+The convergence of normalized IHT depends conditionally on the step size parameter $\mu^{[n]}$, unlike the traditional IHT approach where $\mu^{[n]}=1$.
+While the traditional approach requires a re-scaling of the measurement matrix such that $\|{\bf \Phi}\|_2 <1$ to ensure convergence, introducing a step size parameter enables the arbitrary scaling of ${\bf \Phi}$ hence relaxing the bounds on its norm. The role of $\mu^{[n]}$ here is to compensate for this re-scaling by accordingly avoiding undesirable amplification of noise, i.e., the ratio of $\|{\bf \Phi x}\|_2/\|{\bf e}\|_2$ remains unchanged. 
 \end{remark}
+
 The main convergence result can be stated as follows.
 \begin{theorem}\label{theorem_convergence_IHT}
 {\rm{\cite{blumensath2012greedy}}}\\ 
-Let ${\bf \Phi}$ is of full rank and $s\leq m$. If $\beta_{2s}\leq\mu^{-1}$, then normalized IHT converges to a local minimum of Eqn.~\ref{cost_function}.
+Let ${\bf \Phi}$ be full rank, and $s\leq m$. If $\beta_{2s}\leq\mu^{-1}$, then NIHT converges to a local minimum of Eqn.~\ref{cost_function}.
 \end{theorem}
 \subsection{Step Size Determination} 
-While setting the step size parameter, the condition that $\beta_{2s}\leq\mu^{-1}$ ensuring convergence poses the following challenge. To date, there is no universal strategy known to check if the RIP holds for an arbitrary measurement matrix in a computationally efficient manner. Similar discussion holds for attaining the RICs, i.e., ${\beta_s}$ and $\alpha_s$, associated with the measurement matrix ${\bf \Phi}$. It could however be shown that, under certain conditions, randomly constructed measurement matrices can satisfy
-the RIP with high probability~\cite{candes2008rip, chartrand2008rip}. Still, it remains a bottleneck for a more general class of
-measurement matrices. Without losing the main track, here we intend to review a more generic strategy for step size determination.
+While setting the step size parameter, the condition that $\beta_{2s}\leq\mu^{-1}$ ensuring convergence poses the following challenge. To date, there is no universal strategy known to check if the RIP holds for an arbitrary measurement matrix in a computationally efficient manner. A similar discussion holds for attaining the RICs, i.e., ${\beta_s}$ and $\alpha_s$, associated with the measurement matrix ${\bf \Phi}$. It can however be shown that, under certain conditions, randomly constructed measurement matrices can satisfy
+the RIP with high probability~\cite{candes2008rip, chartrand2008rip}. Still, this remains a bottleneck for a more general class of
+measurement matrices. Without losing the main track, here we intend to review a more generic strategy for step size determination. 
 
 If the support is fixed, a natural strategy to set the step size adaptively is~\cite{blumensath2010niht}
 \begin{equation}\label{step_size}
    \mu^{[n]} = \frac{{\bf g}^T_{\Gamma^{[n]}}{\bf g}_{\Gamma^{[n]}}}{{\bf g}^T_{\Gamma^{[n]}}{\bf \Phi}^T_{\Gamma^{[n]}}{\bf \Phi}_{\Gamma^{[n]}}{\bf g}_{\Gamma^{[n]}}}
 \end{equation}
-where ${\bf g}^{[n]} = {\bf \Phi}^T({\bf y}-{\bf \Phi x}^{[n]})$. Clearly, the maximal reduction in cost function can then be attained. However, if the support of ${\bf x}^{[n+1]}$ differs than that of ${\bf x}^{[n]}$, the sufficient condition to guarantee convergence 
+where ${\bf g}^{[n]} = {\bf \Phi}^T({\bf y}-{\bf \Phi x}^{[n]})$. Clearly, the maximal reduction in cost function can then be attained. However, if the support of ${\bf x}^{[n+1]}$ differs from that of ${\bf x}^{[n]}$, the sufficient convergence condition  becomes
 \begin{equation}
     \mu^{[n]} \leq(1-c) \frac{\|{\bf x}^{[n+1]}-{\bf x}^{[n]} \|_2^2}{\|{\bf \Phi}({\bf x}^{[n+1]}-{\bf x}^{[n]}) \|_2^2},
 \end{equation}
@@ -369,7 +396,7 @@ for any small constant $c$.
 
 If the above condition is not met, a new proposal for ${\bf x}^{[n+1]}$ can be calculated by using $\mu^{[n]}\leftarrow{\mu^{[n]}/(k(1-c))}$, where $k$ is a shrinkage parameter such that $k>1/(1-c)$.
 % In a series of papers [...], extensive research effors have been made and strong theoretical guarantees were derived. Here we state the most refined recovery error bounds.
-This adaptive setting of step size parameter is shown to provide RIP-invariant convergence result as follows.
+This adaptive setting of step size parameter is shown to provide RIP-invariant convergence  as follows.
 \begin{theorem}\label{guarantee_niht}
 {\rm{\cite{blumensath2010niht}}}\\
 Consider a noisy observation ${\bf y} = {\bf \Phi x} + {\bf e}$ with an arbitrary vector {\bf x}. If rank({${\bf \Phi}$}) = m and rank(${\bf \Phi}$_{\Gamma}) = s \ $\forall \Gamma:\ |\Gamma| = s$, then the normalized IHT algorithm converges to a local minimum of the cost function Eqn.~\ref{cost_function}. Also, assume ${\bf \Phi}}$ is non-symmetric RIP$_{2s}$ and let $\gamma_{2s} = \beta_{2s}/\alpha_{2s}-1$. If $\gamma_{2s} \leq {1}/{8}$, then
@@ -383,7 +410,7 @@ After at most $n^*=\log_2(\|{\bf x}^s\|_2/ {\bf \epsilon}_s)$ iterations, the re
    \| {\bf x}-{\bf x}^n\|_2 \leq 9 {{\bf \epsilon}_s}.
 \end{equation}
 \end{theorem}
-The above result suggests that, after a sufficiently large number of executions, the reconstruction error is induced only by the noise ${\bf e}$ and that ${\bf x}$ is not exactly s-sparse.
+The above result suggests that, after a sufficiently large number of iterations, the reconstruction error is induced only by the noise ${\bf e}$ and that ${\bf x}$ is not exactly s-sparse.
 
 \vspace{-1em}
 \section{Low Precision Iterative Thresholding}\label{section_lpiht}
@@ -392,18 +419,18 @@ The above result suggests that, after a sufficiently large number of executions,
 In this section, we analyze the
 quantized version of IHT for 
 its guarantee for signal recovery performance.
-The key development here is that, by reducing the bit widths of the data points, we
-can upper bound the recovery error. Later
-in Section~\ref{section_experiments},
+The key development here is that, by reducing the bit widths of the data points in a structured manner, we
+can upper bound the recovery error. 
+In Section~\ref{section_experiments},
 we will show that for radio astronomy,
-we expect this error to be small given
+we expect this error to be small, given
 the structure of the measurement matrix.
 
 As introduced earlier, let ${\bf x}^{[0]} = 0$ and use iteration
 \begin{equation} \label{modified_update_rule}
   {\bf x}^{[n+1]} = H_s\big({\bf x}^{[n]}+\hat{\mu}^{[n]} Q_b(\boldsymbol{\Phi})(Q_b({\bf y})-Q_b(\boldsymbol{\Phi}){\bf x}^{[n]})\big)  
 \end{equation}
-where $Q(\cdot)$ is the quantization function that maps single-precision floating-points onto a codomain where each element has $b$-bits precision.
+where $Q(\cdot)$ is the quantization function that maps single-precision floating-points onto a co-domain where each element has $b$-bits precision.
 
 {\bf Quantization Scheme:} We analyze a stochastic quantization function denoted with $Q_b({\bf v})$, where ${\bf v}=(v_1, v_2, .., v_d) \in \mathbb{R}^d$ is an arbitrary vector and $b$ is the total number of bits used to represent it. {\bf v} can then be quantized into $l=2^b$ levels as follows. Let $\ell_i$, $i\in \{1, 2, ..., l-1 \}$ denote $l$ equally spaced points on $[-1, 1]$ such that $\ell_1= -1$, $\ell_l= +1$ and $\ell_1\leq\ell_2 \leq ... \leq \ell_l$, also $v_j$ for $j\in \{1, 2, ..., d \}$ fall into the interval $[\ell_i, \ell_{i+1}]$. Then we assign the probabilities to the nearest levels as
 \[
@@ -415,11 +442,9 @@ where $Q(\cdot)$ is the quantization function that maps single-precision floatin
   
 Remark that the above equation yields that the quantization operation $Q(\cdot)$ is unbiased, i.e., $\mathbb{E}[Q_b({\bf v})] = {\bf v}$. Also, let $\hat{{\bf v}}$ represent the quantized ${\bf v}$ and drop $Q_b(\cdot)$ to simplify notational burden. The detailed steps of the algorithm is then given in Algorithm \ref{low_precision_iht}.
 
-{\bf Deterministic Quantization:} A more
-effective data compression scheme is deterministic
-quantization, i.e., quantize the number
-$v_j \in [l_i, l_{i+1}]$ to the nearest
-value, either $l_i$ or $l_{i+1}$. 
+{\bf Deterministic Quantization:} A slightly more efficient compression scheme is via deterministic quantization, i.e., quantize the number
+$v_j \in [\ell_i, \ell_{i+1}]$ directly to the nearest
+value, either $\ell_i$ or $\ell_{i+1}$. 
 This quantization scheme will lead to the same 
 error bound and similar empirical result as stochastic quantization. {We leave the analysis
 of this case to the supplementary material.}
@@ -508,18 +533,18 @@ The error bound above is actually oversimplified, our proof in the supplementary
 
 We now examine the error bound presented in Theorem~\ref{main_theorem_TH}. The low precision IHT will asymptotically provide a sparse approximation of ${\bf x}$ up to the multiples of $ {\epsilon}_s$ and $ {\epsilon}_q$ involving the noise term ${\bf e}$, the approximation error on how well ${\bf x}$ can be represented by a sparse vector ${\bf x}^s$ and the corruption introduced by the quantization operator. This makes intuitive sense yet still requires the understanding of our limits on the accuracy of results achievable at low precision. Here we highlight the main limitations.
 
-{\bf Condition on $\hat{\boldsymbol{\gamma}}_{2s}$:} In comparison to the unmodified algorithm, the condition under which the performance guarantee holds is stricter in our approach, i.e., ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/16$ where it was ${\gamma}_{2s}\leq 1/8$ in Theorem \ref{guarantee_niht}. In practice, this can be altered with a suitable transformation of $\hat{\bf \Phi}$ such that ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/16$ is satisfied. Alternatively, a closer look into the derivation in the supplementary material reveals that there exists finite constants $c_1$ and $c_2$ such that $\mathbb{E}[\|{\bf x}^{n^*}-{\bf x}^s \|_2] \leq c_1\epsilon_s + c_2\epsilon_q$ when ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/8$. For a wide class of problems, an accurate approximation to ${\bf x}^s$ can still be recovered after sufficient number of iterations.
+{\bf Condition on $\hat{\boldsymbol{\gamma}}_{2s}$:} In comparison to the unmodified algorithm, the condition under which the performance guarantee holds is stricter in our approach, i.e., ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/16$ where it was ${\gamma}_{2s}\leq 1/8$ in Theorem \ref{guarantee_niht}. In practice, this can be altered with a suitable transformation of $\hat{\bf \Phi}$ such that ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/16$ is satisfied. Alternatively, a closer look into the derivation in the supplementary material reveals that there exist finite constants $c_1$ and $c_2$ such that $\mathbb{E}[\|{\bf x}^{n^*}-{\bf x}^s \|_2] \leq c_1\epsilon_s + c_2\epsilon_q$ when ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/8$. For a wide class of problems, an accurate approximation to ${\bf x}^s$ can still be recovered after sufficient number of iterations.
 %One might argue that it can potentially amplify noise yet from changing $\gamma_{2s}$ from $1/8$ to $1/16$ 
 
 %We also monitor $\hat{\gamma}_{2s}$ by using the strategy described in ref.
 %can easily be verified in a computationally efficient manner
-{\bf Natural limitation on ${\boldsymbol{\beta}}_{2s}$ and $\hat{\boldsymbol{\beta}}_{2s}$:} In both low and high precision settings, the measurement matrix ${\bf \Phi}$ is scale-invariant and rigorous theoretical guarantee is achievable provided its scaling onto sparse vectors is confined in certain intervals, i.e., ${\gamma}_{2s}, \hat{\gamma}_{2s}\in [0, 1/16]$. As introduced in Remark \ref{remark_noise_amp}, even this condition is met, there still remains a further limitation by the noise: ${\bf e}$. That is, the signal-to-noise ratio of $\|\hat{\bf \Phi} {\bf x} \|_2/\|{\bf e} \|_2$ will be amplified upon a down-scaling of $\hat{\bf \Phi}$. Re-scaling ${\bf y}$ could accordingly overcome this up to some level. {See supplementary material for more details about
-re-scaling}).
+{\bf Natural limitations on ${\boldsymbol{\beta}}_{2s}$ and $\hat{\boldsymbol{\beta}}_{2s}$:} In both low and high precision settings, the measurement matrix ${\bf \Phi}$ is scale-invariant and rigorous theoretical guarantee is achievable provided its scaling onto sparse vectors is confined in certain intervals, i.e., ${\gamma}_{2s}, \hat{\gamma}_{2s}\in [0, 1/16]$. As introduced in Remark \ref{remark_noise_amp}, even this condition is met, there still remains a further limitation by the noise: ${\bf e}$. That is, the signal-to-noise ratio of $\|\hat{\bf \Phi} {\bf x} \|_2/\|{\bf e} \|_2$ will be amplified upon a down-scaling of $\hat{\bf \Phi}$. Re-scaling ${\bf y}$ could accordingly overcome this up to some level. 
+{We discuss re-scaling strategies in the supplementary material.}
 
-{\bf Further limitation on ${\boldsymbol{\beta}}_{2s}$ and $\hat{\boldsymbol{\beta}}_{2s}$ due to quantization:} The recovery error bound satisfying Eqn.~\ref{main_theorem} depends on the error term of high precision IHT: $ {\epsilon_s}$ and the quantization error: $ {\epsilon}_q$ that is inversely proportional to $\hat{\beta}_{2s}$. For sufficiently large $\hat{\beta}_{2s}$ that compensates for $\sqrt{M} \|{\bf x}^s \|_2$, the low precision approach appears competitive with the unmodified algorithm where the recovery error is bounded by $9\epsilon_s$ in Eqn.~\ref{niht_error_bound}. Furthermore, the scaling-invariant property of the measurement matrix $\hat{\bf \Phi}$ permits us to scale up $\hat{\beta}_{2s}$ by still retaining the strong recovery result similar to that of high precision algorithm. An arbitrary scaling of $\hat{\bf \Phi}$ has no effect on the condition $\hat{\gamma}_{2s}\leq 1/16$. We however have strong theoretical guarantee for the recovery holds if the low precision algorithm operates in a regime where both the condition of ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/16$ holds and ${\epsilon}_q$ is small.
 
-From quantization point of view, re-scaling of the ${\bf y}$ and $\hat{\bf \Phi}$ is not necessity,
-otherwise the constant factor weighting ${\epsilon}_q$ will change. A small factor naturally reduces the quantization error yet imposes some mild conditions on $\hat{\beta}_{2s}$. Namely, $\hat{\beta}_{2s}$ can not arbitrarily, instead is required to satisfy that all entries of ${\bf y}$ and $\hat{\bf \Phi}$ are contained in $[-1, 1]$.
+{\bf Further limitation on ${\boldsymbol{\beta}}_{2s}$ and $\hat{\boldsymbol{\beta}}_{2s}$ due to quantization:} The recovery error bound satisfying Eqn.~\ref{main_theorem} depends on the error term of high precision IHT: $ {\epsilon_s}$ and the quantization error: $ {\epsilon}_q$ that is inversely proportional to $\hat{\beta}_{2s}$. For a sufficiently large $\hat{\beta}_{2s}$, which compensates for $\sqrt{M} \|{\bf x}^s \|_2$, the low precision approach appears competitive with the unmodified algorithm where the recovery error is bounded by $9\epsilon_s$ in Eqn.~\ref{niht_error_bound}. Furthermore, the scaling-invariant property of the measurement matrix $\hat{\bf \Phi}$ permits us to scale up $\hat{\beta}_{2s}$ by still retaining the strong recovery result similar to that of high precision algorithm. An arbitrary scaling of $\hat{\bf \Phi}$ has no effect on the condition $\hat{\gamma}_{2s}\leq 1/16$. We however have strong theoretical guarantees recovery if the low precision algorithm operates in a regime where both ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/16$ hold and ${\epsilon}_q$ is small.
+
+From the  point of view of quantization, re-scaling ${\bf y}$ and $\hat{\bf \Phi}$ is not necessary. A small   ${\epsilon}_q$ factor naturally reduces the quantization error, yet imposes some mild conditions on $\hat{\beta}_{2s}$. Namely, $\hat{\beta}_{2s}$ can not be arbitrary: instead, it is required to satisfy that all entries of ${\bf y}$ and $\hat{\bf \Phi}$ are contained in $[-1, 1]$.
 
 % \subsection{An Alternative Approach}
 % The normalized IHT offers an adaptive step size tuning to ensure maximal reduction in the cost function at each iteration, yet doubling the computational cost. We instead propose using a constant step size that guarantees the convergence, that is, $\hat{\mu}=\frac{k}{\|{\bf \Phi} \|_{\mathcal{F}}}$ with $0<k<1$. This modification might increase the convergence time but counteracts the additional cost introduced by iterative tuning of ${\mu}^{[n]}$. We therefore have the following version.
@@ -541,31 +566,31 @@ otherwise the constant factor weighting ${\epsilon}_q$ will change. A small fact
 % \end{equation}
 % \end{theorem}
 
-{\bf Comparison to other state-of-art methods:} Compressive sensing literature covers a range algorithms such as $\ell_1$-minimization, greedy and thresholding-based methods that have certain properties weighted against each other. In~\cite{blumensath2010niht}, CoSaMP, normalized IHT and $\ell_1$-minimization exhibit similar empirical performance when applied to the problems with dense Gaussian matrices. Moreover, after a simple modification of step size parameter, IHT has became compatible with these powerful methods with similar provable guarantees~\cite{blumensath2012greedy}. 
-In the supplementary material, we show the the result of 
-empirical performance of low precision IHT on a simple toy examples using a Gaussian measurement matrices.
+{\bf Comparison to other state-of-art methods:} The compressive sensing literature covers a range algorithms such as $\ell_1$-minimization, greedy and thresholding-based methods, each with its own trade-offs. In~\cite{blumensath2010niht}, CoSaMP, normalized IHT and $\ell_1$-minimization exhibit similar empirical performance when applied to the problems with dense Gaussian matrices. Moreover, after a simple modification of step size parameter, IHT has became compatible with these powerful methods with similar provable guarantees~\cite{blumensath2012greedy}. 
+In the supplementary material, we show the  
+empirical performance of low precision IHT on such synthetic examples using  Gaussian measurement matrices.
 
 
 
-
-\subsection{Application to Radio Astronomy}
+\vspace{-0.5em}
+\subsection{Radio Astronomy Application}
 \vspace{-0.5em}
 
-Radio interferometers at various locations on the ground record radio waves emitted by the celestial sources over a certain time interval, then store and process it all in order to deduce a sky image. Interferometers first estimate the cross-correlation between the time series measurements that is called visibilities, and sky image is estimated by the so-called {CLEAN} algorithm~\cite{hogbom1974clean}. {CLEAN} is a greedy pursuit technique, deconvoluting the inverse Fourier transform of visibilities and forming a sky map by iteratively removing a fraction of the highest peak convolved with an instrument based point spread function. CLEAN is a simple and easy-to-implement imaging technique, yet radio interferometers are formed as a CS problem, for example, by~\cite{wiaux2009csforra, wenger2010csforra, li2011deconvolution} inspired by its recovery success in noisy environments.
+In our application, radio interferometers at various locations on the ground record radio waves emitted by the celestial sources over a certain time interval, then store and process these signals to deduce a sky image. Interferometers first estimate the cross-correlation between the time series measurements, called visibilities, and the sky image is estimated by the so-called {CLEAN} algorithm~\cite{hogbom1974clean}. {CLEAN} is a greedy pursuit technique, deconvolving the inverse Fourier transform of visibilities and forming a sky map by iteratively removing a fraction of the highest peak, convolved with an instrument based point spread function. CLEAN is a simple and easy-to-implement imaging technique, yet radio interferometers are formed as a CS problem, for example, by~\cite{wiaux2009csforra, wenger2010csforra, li2011deconvolution} inspired by its recovery success in noisy environments.
 
-Let sky be observed by employing $L$ antennas over a stationary time interval (STI) where the earth rotation is negligible. Also, we denote the vectorized sky image by ${\bf x} \in \mathbb{R}^N$ with $N = {r^2}$ where $r$ is the resolution of images, i.e., height and width of the image in pixels. We formulate the interferometer pipeline as a compressive sensing problem such that ${\bf y} = {\bf \Phi} {\bf x} + {\bf e}$ where ${\bf \Phi} \in \mathbb{C}^{M\times N}$ is the measurement matrix with complex entries as a function of inner product between antenna and pixel locations, ${\bf y} \in \mathbb{C}^{M}$ is the visibilities where $M=L^2$, and ${\bf e} \in \mathbb{C}^M$ is the noise vector. The reader is referred to the supplementary material for detailed derivations. 
+Assume the sky is observed by employing $L$ antennas over a stationary time interval (STI) where the earth rotation is negligible. Denote the vectorized sky image by ${\bf x} \in \mathbb{R}^N$ with $N = {r^2}$ where $r$ is the resolution of images, i.e., height and width of the image in pixels. We formulate the interferometer pipeline as a compressive sensing problem such that ${\bf y} = {\bf \Phi} {\bf x} + {\bf e}$ where ${\bf \Phi} \in \mathbb{C}^{M\times N}$ is the measurement matrix with complex entries as a function of inner product between antenna and pixel locations, ${\bf y} \in \mathbb{C}^{M}$ is the visibilities where $M=L^2$, and ${\bf e} \in \mathbb{C}^M$ is the noise vector. The reader is referred to the supplementary material for detailed derivations. 
 
 
-{\bf Why iterative hard thresholding?} According to our formulation, the measurement vector ${\bf y}$ represents the cross-correlations between the antenna measurements: the visibilities. The naive method to map from ${\bf y}$ to a vectorized sky image ${\bf x}$ is the Fourier inversion followed by the {CLEAN} algorithm. Alternatively, {A(W)-projection} algorithm initially makes corrections on the visibilities then deduce a sky image~\cite{bhatnagar2008ra}. Still, forming a sky map using the non-uniform samples of visibility function recorded by finite number of antennas is naturally inaccurate. Furthermore, the thermal noise introduced by the electronic instruments embedded in RF antenna receivers heavily corrupts the weak incoming signal, therefore poses a further challenge for these imaging algorithms. To date, the current techniques revolve around carrying out noise reduction by collecting many data so that the noise can be circumvented. The choice of IHT can be justified by its robustness to noise. We will demonstrate this with further experiments on the supplementary material where {CLEAN} resolves noise artefacts as actual sky sources.
+{\bf Why iterative hard thresholding?} According to our formulation, the measurement vector ${\bf y}$ represents the cross-correlations between the antenna measurements: the visibilities. The naive method to map from ${\bf y}$ to a vectorized sky image ${\bf x}$ is the Fourier inversion followed by the {CLEAN} algorithm. Alternatively, {A(W)-projection} algorithm initially makes corrections on the visibilities then deduces a sky image~\cite{bhatganar2008raar2008ra}. Still, forming a sky map using the non-uniform samples of visibility functions recorded by finite number of antennas is naturally inaccurate. Furthermore, the thermal noise introduced by the electronic instruments embedded in the RF antenna receivers heavily corrupt the weak incoming signal, and therefore pose a further challenge for these imaging algorithms. To date, the current techniques revolve around carrying out noise reduction by collecting lots of data, so that the noise can be circumvented. The choice of IHT can be justified by its robustness to noise. We will demonstrate this with further experiments on the supplementary material where we show that the baseline {CLEAN} approach resolves noise artefacts as actual sky sources.
 
 We can refine our error bound for radio astronomy:
 
 \begin{corollary}
 Let $\sigma_n^2$ is the variance of noise introduced by a single antenna. By Theorem \ref{main_theorem_TH}, if $\hat{\gamma}_{2s}\leq 1/16$, the low precision iterative hard thresholding recovers the sky image ${\bf x}^s$ with accuracy
 \begin{equation}
-    \mathbb{E}[\|{\bf x}^{n+1} - {\bf x}^s \|_2] \leq 2^{-n}\| {\bf x}^s\|_2 + 5\frac{L}{\hat{\beta}_{2s}} \epsilon_{\rm{sky}}
+    \mathbb{E}[\|{\bf x}^{n+1} - {\bf x}^s \|_2] \leq 2^{-n}\| {\bf x}^s\|_2 + 10(\frac{\sqrt{L}}{\beta_{2s}}\sigma_n+\frac{L}{\hat{\beta}_{2s}}\epsilon_{\rm{sky}})
 \end{equation}
-where $\epsilon_{\rm{sky}} = (2\sigma_n + \|{\bf x}^s \|_2/2^{b_{\bf \Phi}-1} + 1/2^{b_{\bf y}})$.
+where $\epsilon_{\rm{sky}} =  \|{\bf x}^s \|_2/2^{b_{\bf \Phi}} + 1/2^{b_{\bf y}}$.
 \label{corollary1}
 \end{corollary}
 
@@ -586,7 +611,7 @@ are sufficiently small. Do these conditions hold for a real telescope? We now an
 % \caption{Monitoring the error coefficients: $1/\beta_{2s}$ and $L/\hat{\beta}_{2s}$ that scale $ {\epsilon}_s$ and $ {\epsilon}_q$, respectively. Sparsity ratio stands for $2s/M$. The numerical value of coefficients guarantees that quantization error $ {\epsilon}_q$ is sufficiently small regardless of the number of bits used to represent ${\bf \Phi}$.}
 % \label{fig:beta}
 % \end{figure}
- Recall from Theorem~\ref{main_theorem_TH} that two conditions ensuring the performance guarantees are in order (a) $\gamma_{2s}, \hat{\gamma}_{2s} \leq 1/16$, (b) ${L}/{\hat{\beta}_{2s}$ must be large to minimize quantization error $ {\epsilon}_q$. Fortunately in radio interferometry case, the image grid we initially form as well as scale-invariant property of normalized IHT yield us the control over $\gamma_{2s}, \hat{\gamma}_{2s}$ and ${\beta}_{2s}, \hat{\beta}_{2s}$, respectively, through a pre-processing of ${\bf \Phi}$. Analytic derivations of these parameters is possible but intractable due to amount of nonlinear operations contained in the formulation of ${\bf \Phi}$. 
+ Recall from Theorem~\ref{main_theorem_TH} the two conditions ensuring  performance guarantees: (a) $\gamma_{2s}, \hat{\gamma}_{2s} \leq 1/16$, (b) ${L}/{\hat{\beta}_{2s}}$ must be large to minimize quantization error $ {\epsilon}_q$. Fortunately, in the radio interferometry application, the image grid we initially form as well as scale-invariant property of normalized IHT yield us the control over $\gamma_{2s}, \hat{\gamma}_{2s}$ and ${\beta}_{2s}, \hat{\beta}_{2s}$, respectively, through a pre-processing of ${\bf \Phi}$. Analytic derivations of these parameters are possible in theory, but intractable due to amount of nonlinear operations contained in the formulation of ${\bf \Phi}$. 
 \begin{figure}[t!]
 \centering
 \includegraphics[width=1\columnwidth, angle=0]{figs/beta.pdf}
@@ -594,15 +619,15 @@ are sufficiently small. Do these conditions hold for a real telescope? We now an
 \label{fig:beta}
 \end{figure}
 
-In Fig.~\ref{fig:beta}, for CS302 station of LOFAR, we first form the image grid and compute ${\bf \Phi}, \hat{\bf \Phi}$ such that $\alpha_{2s}, \hat{\alpha}_{2s}\leq 1/16$ holds, then numerically provide the scaling factors of errors $ {\epsilon}_s$ and ${\epsilon}_q$: $1/\beta_{2s}$ and ${L}/{\hat{\beta}_{2s}}$, respectively. Theorem~\ref{main_theorem_TH} states that the recovery error is induced by the terms: $\|{\bf e} \|_2/|\beta_{2s}$ and $L\|{\bf x}^s \|_2/{\hat{\beta}_{2s}$. Therefore we investigate these scaling over various antenna numbers and sparsity level. The results suggest that 2-bits IHT has a negligible quantization error when applied radio interferometry imaging problem.
+In Fig.~\ref{fig:beta}, for station CS302 of LOFAR, we first form the image grid and compute ${\bf \Phi}, \hat{\bf \Phi}$ such that $\alpha_{2s}, \hat{\alpha}_{2s}\leq 1/16$ holds, then numerically provide the scaling factors of errors $ {\epsilon}_s$ and ${\epsilon}_q$: $1/\beta_{2s}$ and ${L}/{\hat{\beta}_{2s}}$, respectively. Theorem~\ref{main_theorem_TH} states that the recovery error is induced by two terms: $\|{\bf e} \|_2/|\beta_{2s}$ and $L\|{\bf x}^s \|_2/{\hat{\beta}_{2s}$. Therefore we investigate these scaling over various antenna numbers and sparsity level. The results suggest that 2-bits IHT has a negligible quantization error when applied radio interferometry imaging problem.
 
 \vspace{-1em}
-\subsection{FPGA Implementation} \label{sec:fpga}
+\subsection{FPGA Implementation Details} \label{sec:fpga}
 \vspace{-0.5em}
 
-Field-Programmable Gate Arrays (FPGA) are an alternative to commonly used Graphics Processing Units (GPU) for accelerated processing of compute intensive machine learning workloads. The custom logic fabric of an FPGA enables the design of specialized compute units, which is very advantageous when working on extremely low-precision and irregular numeric formats, such as 2-bit numbers. Thanks to the microarchitectural flexibility advantage, it is possible to achieve near linear speed-up when lowering the precision of data that is read from the memory. This has been shown recently for stochastic gradient descent (SGD) when training linear models~\cite{zhang2017zipml, kara2017fpga}. In this work, we take the open-source FPGA implementation from the mentioned works and modify it to perform IHT.
+Field-Programmable Gate Arrays (FPGA) are an alternative to commonly used Graphics Processing Units (GPU) for accelerated processing of compute intensive machine learning workloads. The custom logic fabric of an FPGA enables the design of specialized compute units, which is very advantageous when working on extremely low-precision and irregular numeric formats, such as 2-bit numbers. Thanks to the microarchitectural flexibility advantage, it is possible to achieve near linear speed-up when lowering the precision of data that is read from the memory. This has been shown recently for stochastic gradient descent (SGD) when training linear models~\cite{zhang2017zipml, kara2017fpga}. In this work, we use the open-source FPGA implementation from the mentioned works and modify it to perform IHT.
 
-In terms of the computation, we need to modify two parts of the design to convert it from performing SGD to IHT: 1) Instead of updating the model after a mini-batch count is reached, we update it after all samples are processed and the true gradient is available. 2) After each epoch, we perform a binary search on the updated model to find the threshold value satisfying that only top $S$ values are larger than the determined threshold.
+In terms of the computation, we need to modify two parts of the design to convert it from performing SGD to IHT: 1) Instead of updating the model after a mini-batch count is reached, we update it after all samples are processed and the true gradient is available. 2) After each epoch, we perform a binary search on the updated model to find the threshold value satisfying that only top $S$ values are larger than the  threshold.
 
 \begin{figure}[t!]
 \centering
@@ -612,32 +637,29 @@ In terms of the computation, we need to modify two parts of the design to conver
 \end{figure}
 
 
-{\bf Performance analysis:} The gradient computation unit as shown in Fig.~\ref{fig:fpga} reads the measurement matrix ${\bf \Phi}$ and the measurements ${\bf y}$ from main memory and keeps {\bf x} in on-chip memory. It is able to process data from memory at ${\bf P}=12.8\,GB/s$. Thus, the design is bound on ${\bf P}$ for processing ${\bf \Phi}$ and ${\bf y}$. We achieve speed-up by quantizing ${\bf \Phi}$, because the time for each epoch is given by
-$T = size({\bf \Phi})/{\bf P}$, since $size({\bf y}) \ll size({\bf \Phi})$. The essential trick for achieving linear speed-up is keeping ${\bf P}$ constant as the precision of ${\bf \Phi}$ is lowered (${\bf P}\to \land \, size({\bf \Phi})\downarrow$), which leads to more values arriving within each line from main memory. ${\bf P}$ can be kept constant on an FPGA, because we can adapt the gradient computation unit's microarchitecture and increase its internal parallelism to handle more values per incoming line. 
+{\bf Performance analysis:} The gradient computation unit as shown in Fig.~\ref{fig:fpga} reads the measurement matrix ${\bf \Phi}$ and the measurements ${\bf y}$ from main memory and keeps ${\bf x}$ in on-chip memory. It is able to process data from memory at ${\bf P}=12.8\,GB/s$. Thus, the design is bound on ${\bf P}$ for processing ${\bf \Phi}$ and ${\bf y}$. We achieve speed-up by quantizing ${\bf \Phi}$, because the time for each epoch is given by
+$T = size({\bf \Phi})/{\bf P}$, since $size({\bf y}) \ll size({\bf \Phi})$. The essential idea behind achieving linear speed-up is keeping ${\bf P}$ constant as the precision of ${\bf \Phi}$ is lowered (${\bf P}\to \land \, size({\bf \Phi})\downarrow$), which leads to more values arriving within each transfer from main memory. ${\bf P}$ can be kept constant on an FPGA, because we can adapt the gradient computation unit's microarchitecture and increase its internal parallelism to handle more values per incoming line. 
 
 
-{\bf Compute $\Phi$ on the Fly:} The above analysis focuses on the
-case when $\Phi$ is stored in main memory, in which case
-quantization helps to save bandwidth between the main
-memory and FPGA. In some applications, $\Phi$
-can be calculated on the fly. In this case, quantization
-can also help for better performance. \textcolor{red}{
-This is because KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN
-KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN 
-KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN 
-KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN
-KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN 
-KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN 
-KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN 
-KAAN KAAN KAAN KAAN KAAN KAAN KAAN KAAN.}
-
-
+{\bf Compute ${\bf \Phi}$ on the Fly:} The above analysis focuses on the case when ${\bf \Phi}$ 
+is stored in main memory, in which case quantization helps to reduce the amount of 
+data transferred between the main memory and FPGA. In some applications, ${\bf \Phi}$
+can be calculated on the fly, inside the FPGA. Also in this case, quantization can help 
+achieve better performance.
+This is because the matrix-vector product between ${\bf \Phi}$ and ${\bf x}$ can be 
+be performed with increased parallelism on an FPGA, if ${\bf \Phi}$ is quantized.
+The reason why quantizing ${\bf \Phi}$ helps, even if it can be calculated on the fly, is
+that a quantized ${\bf \Phi}$ saves many crucial resources (e.g., multipliers) that
+are limited on an FPGA. These resource savings are very important in achieving a higher 
+internal parallelism, for instance, to speed up the computation of ${\bf \Phi}\times{\bf x}$. 
+For example, it has been shown by~\cite{kara2017fpga} that to go from 64-value dot product to 128-value
+dot product on an FPGA, it is necessary to lower the precision of one side of the dot product to 2-bits.
 
 \vspace{-1em}
-\section{Experiments}\label{section_experiments}
+\section{Experimental Results}\label{section_experiments}
 \vspace{-0.5em}
 
-We assess the empirical performance of our approach using the radio interferometer measurements from a real telescope: the LOw Frequency ARray (LOFAR). We first demonstrate that the accuracy achieved in the low precision setting is compatible with high precision IHT and the other state-of-art methods; we then show the speed-up on FPGA.
+We assess the empirical performance of our approach using the radio interferometer measurements from a real telescope: the LOw Frequency ARray (LOFAR). We first demonstrate that the accuracy achieved in the low precision setting is comparable with high precision IHT and other state-of-art methods; we then show the speed-up on FPGA.
 
 \vspace{-1em}
 \subsection{Accuracy of Sky Recovery}
@@ -646,35 +668,31 @@ We assess the empirical performance of our approach using the radio interferomet
 We recover the full sky image of the resolution $256\times 256$ pixels (${\bf x} \in \mathbb{R}^{65,536}$ in vectorized form) by employing 30 low-band antennas of LOFAR CS302 station that operates in 15-80 MHz frequency band where the sky is populated with 30 strong sources, that is, ${\bf y} \in \mathbb{C}^{900}$, $\hat{\bf \Phi} \in \mathbb{C}^{900\times 65,536}$. Signal-to-noise ratio is 0 dB at the antenna level, i.e., $10\log_{10}(\|{\bf \Phi x}\|_2^2/\|{\bf e}\|_2^2) = 0$ dB. 
 
 \vspace{-0.5em}
-\subsubsection{Improving the least square estimates}
-\vspace{-0.5em}
+{\bf Improving least square estimates}
+Fig.~\ref{fig:sky_images} provides an example of sky recoveries: (a) ground truth estimated over 12 hours of observation, (b) a least square estimate of underlying sky (or dirty image in the nomenclature of radio astronomy), (c) 32/32-bits and (d) 2/8-bits (normalized) IHT. This experiment indicates that low precision IHT captures the sky sources successively even when only 2-bits are used to compress ${\bf \Phi}$. This suggests that we can drastically reduce the data precision yet still estimate the sky precisely.
 
-Fig.~\ref{fig:sky_images} provides an example of sky recoveries: (a) ground truth estimated over 12 hours of observation, (b) a least square estimate of underlying sky (or dirty image in the nomenclature of radio astronomy), (c) 32/32-bits and (d) 2/8-bits IHT. This experiment indicates that low precision IHT captures the sky sources successively even when only 2-bits are used to compress ${\bf \Phi}$. This suggest that we can drastically reduce the data precision yet still estimate the sky precisely.
-
-This empirical evidence is powerful yet not completely surprising. Mathematically, the measurement matrix we formed here hints on the distance between the antennas hence the phase relations. That is, each time a bit $r_{m, n}$ or $c_{m, n}$ flips its sign where $\hat{\bf \Phi}_{m, n} = r_{m, n} +j c_{m,n}$, $m = {1, 2, ..., M}$ and $n = {1, 2, ..., N}$, we approximately know the change in horizontal and vertical directions on the ground, preserving the phase information required for interferometric imaging even at very low precision.
+This strong empirical performance is not completely surprising. Mathematically, the measurement matrix we formed here reflects the phase relations, as induced by the antenna locations.  That is, each time a bit $r_{m, n}$ or $c_{m, n}$ flips its sign where $\hat{\bf \Phi}_{m, n} = r_{m, n} +j c_{m,n}$, $m = {1, 2, ..., M}$ and $n = {1, 2, ..., N}$, we approximately know the change in horizontal and vertical directions on the ground, preserving the phase information required for interferometric imaging even at very low precision.
 
 %Recall from the former discussions that noise in receivers is far stronger than the weak incoming signals thus low SNR at the antenna level results, i.e., usually ranged from -5 to 5 dB. The CLEAN algorithm notably underperforms in the presence of significant noise. This undesirable property is yet not surprising. A careful look into the the algorithmic steps, it apparently matches also to the noise artefacts in the image considering them as a point source. This can also be justified mathematically: we designed the problem such that an execution of {CLEAN} corresponds to the first iteration recovery of IHT, which interprets our numerical results. 
 
 %The reader might argue that, besides being on its most possible realistic setting, the above experiment does not fully capture the performance of low precision iht especially when only 2-bits are used to represent a dense measurement matrix. 
 
 \vspace{-0.5em}
-\subsubsection{Empirical comparison to other state-of-art methods}
-\vspace{-0.5em}
-
-This section dedicates in numerical comparisons of low precision to high precision IHT, CoSaMP and $\ell_1$-based approach. The thread that binds all of these approaches in this experiment is their capability of sparse signal recovery. For this particular formulation of the interferometric imaging problem, they can iteratively build up an estimate of sky map ${\bf x}$. In order to avoid creating bias towards any algorithm, we implement these algorithms in a fair setting.
+{\bf Comparison to state-of-art methods}
+We compare low precision IHT to high precision IHT, CoSaMP and an $\ell_1$-based approach in terms of their capability to recover sparse signals. For this particular formulation of the interferometric imaging problem, they can iteratively build up an estimate of sky map ${\bf x}$. In order to avoid creating bias towards any algorithm, we optimized each algorithm independently.
 \begin{figure}[t]
 \centering
 \includegraphics[width=1.1\columnwidth, angle=0]{figs/comparison.pdf}
 \caption{Comparison of recovery error and support recovery: \textcolor{red}{2/8-bits} IHT vs. 32-bits IHT, CoSaMP, \& $\ell_1$ (XXX add arrow to say higher the better).}
 \label{fig:comparison}
 \end{figure}
-We evaluate the algorithms through two different metrices: (1) the recovery error and (2) exact support recovery. In radio interferometry, however, it is customary to use number of true celestial sources resolved in the recovered image as a performance metric, i.e., true-positive findings. That is, the performance of the algorithms is no longer described by its ability to recover support entirely but the sky objects, which possess higher error tolerance. 
+We evaluate the algorithms through two different metrics: (1) the recovery error and (2) exact support recovery. In radio interferometry, however, it is customary to use number of true celestial sources resolved in the recovered image as a performance metric, i.e., true-positive findings. That is, the performance of the algorithms is no longer described by its ability to recover support entirely but the sky objects, which possess higher error tolerance. 
 We demonstrate in Fig.~\ref{fig:comparison}{(b)} that IHT performs as good as its alternatives and compatible to $\ell_1$-minimization in terms of its exact recovery performance. The empirical results suggest that the celestial sources can still be recovered by dramatically compressing ${\bf \Phi}$.
 
-{\it Discussions on these results:} This experiment is informative merely on the accuracy of the results obtained implementing these alternative algorithms. A fair comparison involves the analysis of different properties such as speed and storage requirements, flexibility and ease of implementation. Capsulizing briefly, 
+{\bf Discussion:} This experiment is informative merely on the accuracy of the results obtained implementing these alternative algorithms. A fair comparison involves the analysis of different properties such as speed and storage requirements, flexibility and ease of implementation. In brief, 
 %CoSaMP has strong theoretical guarantee when the least squares solution is supplied and requires the solution to an inverse problem at each iteration, which is costly in general and demands better storage capability~\cite{needel2008cosamp}. On the other hand, 
-IHT is shown to outperform CoSaMP when ${\bf \Phi}$ has similar entries in magnitude, e.g., radio interferometer case and has significant speed advantage~\cite{blumensath2012greedy}. The empirical evidence further suggest that IHT performs nearly as well as the $\ell_1$-based approach. %Referring back to supplemetary material, the CLEAN requires a 2D Fourier inversion and deconvolution per iteration thus the operational expense of the method is relatively higher compared to those of IHT and CoSaMP~\cite{simeoni2015rai}. 
-Sharing similar performance guarantees with the high precision IHT, low precision approach thus seems powerful considering all these aspects. This is evident in Fig.~\ref{fig:comparison}.
+IHT is shown to outperform CoSaMP when ${\bf \Phi}$ has similar entries in magnitude, e.g., radio interferometer case and has significant speed advantage~\cite{blumensath2012greedy}. Empirical evidence further suggests that IHT performs nearly as well as the $\ell_1$-based approach. %Referring back to supplemetary material, the CLEAN requires a 2D Fourier inversion and deconvolution per iteration thus the operational expense of the method is relatively higher compared to those of IHT and CoSaMP~\cite{simeoni2015rai}. 
+The low precision approach has similar performance guarantees with high precision IHT. This is evident in Fig.~\ref{fig:comparison}.
 
 
 % \., which is vastly superior to the resitual in...
@@ -701,15 +719,15 @@ ratio 9.14$\times$ faster.
 \begin{figure}[t!]
 \centering
 \includegraphics[width=1.1\columnwidth, angle=0]{figs/fpga_final.pdf}
-\caption{Speed-up achievements of low precision IHT on FPGA. 2-bits IHT provides 7.7x runtime efficiency. (XXX Update measure)}
+\caption{Speed-up of low precision IHT on FPGA. 2-bits IHT provides 7.7x runtime efficiency. (XXX Update measure)}
 \label{fig:fpga_time}
 \end{figure}
 \section{Discussion}\label{section_discussion}
-Motivated by the question "How can we efficiently transmit and process enormous amount of telescope data?", we investigate the applicability of low precision scheme to the applications that are essentially sparse signal recovery problems. Our algorithm performed far beyond what we anticipated.
 
-IHT for compressive sensing was rigorously shown to retain uniform convergence guarantees at low precision. An application to radio astronomy validated our claim and showed that the heuristic and rigorous arguments are in agreement with experiments. The results bear out that our approach offers similar accuracy with the high precision IHT even with far less precision of data points. A fundamental contribution was to show that even using 2-bits to represent data hence significant speed-up on hardware, accuracy of sparse approximations can still be preserved.
+We investigated the applicability of low precision schemes to sparse signal recovery problems, and introduced a low-precision NIHT variant, with theoretical guarantees and good practical performance, both in terms of accuracy and recovery time. 
+An application to radio astronomy validated our claim and showed that the heuristic and rigorous arguments are in agreement with experiments. The results bear out that our approach offers similar accuracy with the high precision IHT even with far less precision of data points. Further, we showed that even using 2-bits to represent data hence significant speed-up on hardware, accuracy of sparse approximations can still be preserved.
 
-Our next question is: Can end-to-end low precision data representation enable the same?
+There are several questions for future work. In particular, can we devise algorithms which work with end-to-end low precision data representation? Can we extend these techniques to other greedy recovery algorithms, and other sparse recovery frameworks?
 \bibliography{references}
 \bibliographystyle{icml2018}
 \end{document} 

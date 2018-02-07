@@ -1,46 +1,39 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%% ICML 2017 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Use the following line _only_ if you're still using LaTeX 2.09.
-%\documentstyle[icml2013,epsf,natbib]{article}
-% If you rely on Latex2e packages, like most moden people use this:
-\documentclass{article}
+\documentclass[11pt]{article}
 \usepackage{graphicx} % more modern
-%\usepackage{epsfig} % less modern
+\usepackage{epsfig} % less modern
 \usepackage{subfigure} 
 \usepackage{natbib}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amsthm}
+\usepackage{esint}
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{hyperref}
 \newcommand{\theHalgorithm}{\arabic{algorithm}}
-\usepackage{icml2013} 
+%\usepackage{icml2013} 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
-%\newtheorem{proof}{Proof}
 \newtheorem{remark}{Remark}
 \newtheorem{proposition}{Proposition}
 \newtheorem{corollary}{Corollary}
 \newtheorem*{proof*}{Proof}
-\onecolumn
+%\onecolumn
 %\icmltitlerunning{Compressive Sensing with Low Precision Data Representation: Radio Astronomy and Beyond}
-\title{SUPPLEMENTARIES}
-	\usepackage{fancyheadings}
-	\pagestyle{fancy}
-	\rhead{Compressive Sensing with Low Precision Data Representation: Radio Astronomy and Beyond \ \ \ \ \ \ \  \ \ \ \ }
+%\usepackage{fancyheadings}
+%\pagestyle{fancy}
+%\lhead{\ \ \ \ \ \ \ \  \ \ \   Compressive Sensing with Low Precision Data Representation: Radio Astronomy and Beyond}
+\usepackage[top=3.2cm,bottom=3.2cm,left=2.5cm,right=2.5cm,headsep=20pt,a4paper]{geometry} 
 \begin{document} 
 \setlength{\abovedisplayskip}{5.5pt}
 \setlength{\belowdisplayskip}{6pt}
 \onecolumn
-
 \appendix
 \section*{Supplementaries}
 \addcontentsline{toc}{section}{Appendices}
 \renewcommand{\thesubsection}{\Alph{subsection}}
-
+\normalsize
 
 % ${\bf x}^{[n+1]}\leftarrow H_s\big({\bf x}^{[n]} + \mu ({\bf \Phi}{\bf \Psi})^{\dagger}({\bf y} -{\bf \Phi}{\bf \Psi}{\bf x}^{[n]})\big)$
 
@@ -73,7 +66,7 @@
 
 
 
-
+\nolinenumbers
 
 \subsection{Proofs}
 We begin with introducing our notation.
@@ -97,9 +90,20 @@ for all ${\bf x}: \|{\bf x}\|_0 \leq s$, and some $\alpha_s, \beta_s \in \mathbb
 \end{equation}
 where $\hat{\alpha}_{s}$ and $\hat{\beta}_{s}$ are associated restricted isometry constants. For simplicity, we drop $b_m$, and use $Q({\bf {\bf \Phi}})$ instead. Also, let $\gamma_s=\beta_s/\alpha_s-1$ and $\hat{\gamma}_s=\hat{\beta}_s/\hat{\alpha}_s-1$.
 
+\begin{remark}
+The adaptive setting of step size parameter $\mu^{[n]}$ and $\hat{\mu}^{[n]}$ in normalized IHT is shown to satisfy
+\begin{equation}\label{bounds_mu}
+   1/\beta^2_{2s} \leq \mu^{[n]} \leq 1/\alpha^2_{2s},
+\end{equation}
+\begin{equation}\label{bounds_muhat}
+   1/\hat{\beta}^2_{2s} \leq \mu^{[n]} \leq 1/\hat{\alpha}^2_{2s}.
+\end{equation}
+\end{remark}
+
+
 We will start by the following results.
 \begin{lemma}\label{lemmas_on_phi}
-{\rm{\cite{niht}}}}
+{\rm{\cite{blumensath2010niht}}}}
 If ${\bf {\bf \Phi}}$ satisfies the restricted isometry property, then for $|\Gamma|\leq 2s$
 \begin{equation}\label{mu*phi}
     \| {\bf {\bf \Phi}}_{\Gamma}^T{\bf x}\|_2 \leq \beta_{2s}\|{\bf x} \|_2,
@@ -129,7 +133,7 @@ Clearly, similar results hold for $Q(\boldsymbol{{\bf \Phi}})$ such that
     \| \mu^{[n]}Q({\bf {\bf \Phi}})_{\Upsilon}^TQ({\bf {\bf \Phi}})_{\Lambda}{\bf x}_{\Lambda}\|_2 \leq \hat{\gamma}_{2s}\|{\bf x}_{\Lambda} \|_2.
 \end{equation}
 \begin{lemma} \label{residual_lemma}
-{\rm{\cite{niht}}}}
+{\rm{\cite{blumensath2010niht}}}}
 For any ${\bf x}$, let ${\bf x}^s$ be the best s-term approximation to ${\bf x}$ and $\Upsilon$ be a set with at most s elements. Then
 \begin{equation}\label{residual_x_bound}
 \|\mu^{[n]}{\bf \Phi}^T_{\Upsilon} {\bf \Phi} ({\bf x}-{\bf x}^s)\|_2 \leq (1+\gamma_{2s})\big [\|{\bf x}-{\bf x}^s\|_2 ]+ \frac{\|{\bf x}-{\bf x}^s\|_}{\sqrt{s}}\big].
@@ -167,9 +171,9 @@ Using restricted isometry property in \ref{rip} and \ref{rip_lowprecision} over 
 
 Equation \ref{mu_phi2_diff} is a consequence of the fact that $-\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Upsilon}^T\boldsymbol{{\bf \Phi}}_{\Lambda}$ is a submatrix of $\rm{I}-\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Upsilon \cup \Lambda}^T\boldsymbol{{\bf \Phi}}_{\Upsilon \cup \Lambda}$, which in turn implies that $\|\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Upsilon}^T\boldsymbol{{\bf \Phi}}_{\Lambda}\|_2 \leq \|\rm{I}-\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Upsilon \cup \Lambda}^T\boldsymbol{{\bf \Phi}}_{\Upsilon \cup \Lambda} \|_2$, (i.e., spectral norm of a submatrix is bounded by the norm of its full matrix). Using \ref{mu*phi*phi}, the eigenvalues of $\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Upsilon}^T\boldsymbol{{\bf \Phi}}_{\Lambda}$ can be shown to be in $[0, \gamma_{2s}]$, and in parallel, $\hat{\mu}^{[n]}Q(\boldsymbol{{\bf \Phi}})_{\Upsilon}^TQ(\boldsymbol{{\bf \Phi}})_{\Lambda}$ in $[0, \hat{\gamma}_{2s}]$. The difference $\rm{I}-\mu^{[n]}\boldsymbol{{\bf \Phi}}_{\Upsilon \cup \Lambda}^T\boldsymbol{{\bf \Phi}}_{\Upsilon \cup \Lambda}$ then have eigenvalues no larger than $\rm{max}(\gamma_{2s}, \hat{\gamma}_{2s})$.
 \begin{lemma}\label{lemma_on_quantized_vector}
-Let $Q(\cdot, b): \mathbb{R}^n\times \mathbb{Z}^+ \rightarrow \mathbb{Z}^n$ denote quantization operator described in ref. For any ${\bf v}\in \mathbb{R}^n$, the norm of quantization error can be bounded by
+Let $Q(\cdot, b): \mathbb{R}^M\times \mathbb{Z}^+ \rightarrow \mathbb{R}^d$ denote quantization operator described in ref. For any ${\bf v}\in \mathbb{R}^d$, the norm of quantization error can be bounded by
 \begin{equation}\label{quantization_error}
-    \mathbb{E}[\| Q({\bf v}, b) - \hat{\bf v}\|_2] \leq \frac{\sqrt{n}}{2^{b-1}}
+    \mathbb{E}[\| Q({\bf v}, b) - \hat{\bf v}\|_2] \leq \frac{\sqrt{M}}{2^{b-1}}
 \end{equation}
 where $\hat{\bf v}$ is a scaled version of ${\bf v}$ so that every component is normalized to $[-1, 1]$.
 \end{lemma}
@@ -177,19 +181,27 @@ where $\hat{\bf v}$ is a scaled version of ${\bf v}$ so that every component is 
 Using Jensen's inequality we can easily show that
 \begin{equation}\label{quantization_error_bound1}
 \begin{split}
-    \mathbb{E}[\| Q({\bf v}, b) - \hat{\bf v}\|_2] &= \mathbb{E}\left[\sqrt{\| Q({\bf v}, b) - \hat{\bf v}\|^2_2} \right]\\
-    &\leq \sqrt{\mathbb{E}[\| Q({\bf v}, b) - \hat{\bf v}\|^2_2]}\\
-    &\leq \sqrt{\sum_{i=1}^{n} \mathbb{E}[\big (Q({\bf v}, b)_i -\hat{v_i}\big)^2]}\\
-    &\leq \sqrt{\sum_{i=1}^{n} \mathbb{P}(Q({\bf v}, b)_i = \ell_j)(\hat{v}_i-\ell_j)^2 + \mathbb{P}(Q({\bf v}, b)_i = \ell_{j+1})(\ell_{j+1}-\hat{v}_i)^2}.
+    \mathbb{E}[\| Q(\hat{\bf v}, b) - \hat{\bf v}\|_2] &= \mathbb{E}\left[\sqrt{\| Q(\hat{\bf v}, b) - \hat{\bf v}\|^2_2} \right]\\
+    &\leq \sqrt{\mathbb{E}[\| Q(\hat{\bf v}, b) - \hat{\bf v}\|^2_2]}\\
+    &\leq \sqrt{\sum_{i=1}^{M} \mathbb{E}[\big (Q(\hat{\bf v}, b)_i -\hat{v_i}\big)^2]}\\
+    &\leq \sqrt{\sum_{i=1}^{M} \mathbb{P}(Q(\hat{\bf v}, b)_i = \ell_j)(\hat{v}_i-\ell_j)^2 + \mathbb{P}(Q(\hat{\bf v}, b)_i = \ell_{j+1})(\ell_{j+1}-\hat{v}_i)^2}.
 \end{split}
 \end{equation}
-Our quantization scheme uses a stochastic approach such that $\mathbb{P}(Q({\bf v}, b)_i = \ell_j)=\frac{\ell_{j+1}-\hat{v}_i}{\ell_{j+1}-\ell_{j}}$, and hence $\mathbb{P}(Q({\bf v}, b)_i = \ell_{j+1})=1-\frac{\ell_{j+1}-\hat{v}_i}{\ell_{j+1}-\ell_{j}}$. Substituting these into \ref{quantization_error_bound1} we have
+Our quantization scheme uses a stochastic approach such that $\mathbb{P}(Q(\hat{\bf v}, b)_i = \ell_j)=\frac{\ell_{j+1}-\hat{v}_i}{\ell_{j+1}-\ell_{j}}$, and hence $\mathbb{P}(Q(\hat{\bf v}, b)_i = \ell_{j+1})=1-\frac{\ell_{j+1}-\hat{v}_i}{\ell_{j+1}-\ell_{j}}$. Substituting these into \ref{quantization_error_bound1} we have
+\begin{equation}\label{quantization_error_sub}
+\begin{split}
+    \mathbb{E}[\| Q(\hat{\bf v}, b) - \hat{\bf v}\|_2] \leq \sqrt{\sum_{i=1}^{n} (l_{j+1}-Q(\hat{\bf v}, b)_i)(Q(\hat{\bf v}, b)_i-\ell_j)}.
+\end{split}
+\end{equation}
+
+It can easily be seen that $(l_{j+1}-Q(\hat{\bf v}, b)_i)(Q(\hat{\bf v}, b)_i-\ell_j)$ is maximized when $Q(\hat{\bf v}, b)_i) =  \frac{\ell_{j+1}-\ell_j}{2}}$, moreover quantization function implies that $\ell_{j+1}-\ell_j = \frac{1-(-1)}{l} = \frac{1}{2^{b-2}}$
+
+
 \begin{equation}\label{quantization_error}
 \begin{split}
-    \mathbb{E}[\| Q({\bf v}, b) - \hat{\bf v}\|_2] &\leq \sqrt{\sum_{i=1}^{n} (l_{j+1}-Q({\bf v}, b)_i)(Q({\bf v}, b)_i-\ell_j)}\\
-    &\leq \sqrt{\sum_{i=1}^{n} \frac{(\ell_{j+1}-\ell_j)^2}{4}}\\
-    &\leq \frac{\sqrt{n}(\ell_{j+1}-\ell_j)}{2}\\
-    &\leq \frac{\sqrt{n}}{2^{b-1}}.
+    \mathbb{E}[\| Q(\hat{\bf v}, b) - \hat{\bf v}\|_2] &\leq \sqrt{\sum_{i=1}^{M} \frac{(\ell_{j+1}-\ell_j)^2}{4}}\\
+    &\leq \frac{\sqrt{M}(\ell_{j+1}-\ell_j)}{2}\\
+    &\leq \frac{\sqrt{M}}{2^{b-1}}.
 \end{split}
 \end{equation}
 \end{proof}
@@ -205,7 +217,7 @@ Our quantization scheme uses a stochastic approach such that $\mathbb{P}(Q({\bf 
 % coming soon
 %\end{proof}
 
-\subsubsection{Proof of Theorem}
+\subsubsection{Proof of Theorem 3}
 The recovery error can be split into two parts by using triangle inequality
 \begin{equation}\label{main_theorem}
 \begin{split}
@@ -304,16 +316,22 @@ Combining results obtained in \ref{second_term_quantization_error}
 (a.3) The third term of \ref{quantization_error_terms}
 \begin{equation}\label{third_term_main_theorem}
     \begin{split}
-         \mathbb{E}[\|\hat{\mu}^{[n+1]}Q_1({\bf \Phi})_{B^{[n+1]}}^T \boldsymbol{\epsilon}_y \|_2] &\leq \frac{\hat{\gamma}_{2s}+1}{\hat{\beta}_{2s}}\mathbb{E}[{\|\boldsymbol{\epsilon}_y \|_2}]\\
-         &\leq \frac{(1+\hat{\gamma}_{2s})\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}.
+         \mathbb{E}[\|\hat{\mu}^{[n+1]}Q_1({\bf \Phi})_{B^{[n+1]}}^T \boldsymbol{\epsilon}_y \|_2]& \ \stackrel{(1)}{\leq} \  \frac{(1+\hat{\gamma}_{2s})}{\hat{\beta}_{2s}}\mathbb{E}[{\|\boldsymbol{\epsilon}_y \|_2}]\\
+         &\ \stackrel{(2)}{\leq}\frac{(1+\hat{\gamma}_{2s})\sqrt{M}}{\hat{\beta}_{2s}2^{b_{\bf y}-1}}.
     \end{split}
 \end{equation}
-where the inequalities follows from \ref{q_mu*phi}, the choice of $\hat{\mu}^{[n]}$, (i.e., $1/\hat{\beta}_{2s}\leq \hat{\mu}^{[n]} \leq 1/\hat{\alpha}_{2s})$ and \ref{quantization_error}.
+where the inequalities follows from (1) Eqn.~\ref{rip_lowprecision}\&\ref{bounds_mu}, and (2) Lemma~\ref{lemma_on_quantized_vector}.
 
-(a.4) Proof. coming soon.
-%Combining with {\it Cauchy-Bunyakovsky-Schwarz} inequality, an application of \ref{quantization_error_matrices} reveals that
+(a.4) Combining with {\it Cauchy-Bunyakovsky-Schwarz}, {\it Jensen} inequalities and the similar discussion above
 \begin{equation}\label{forth_term_main_theorem}
-    \mathbb{E}[\| \hat{\mu}^{[n]}Q_1({\bf \Phi})_{B^{[n+1]}}^T\big({\bf {\bf \Phi}}-Q_2({\bf {\bf \Phi}})\big){\bf x}^s \|_2]\leq \frac{(1+\hat{\gamma}_{2s})\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}\|{\bf x}^s \|_2.
+\begin{split}
+    \mathbb{E}[\| \hat{\mu}^{[n]}Q_1({\bf \Phi})_{B^{[n+1]}}^T\big({\bf {\bf \Phi}}-Q_2({\bf {\bf \Phi}})\big){\bf x}^s \|_2]&\ \leq \ \frac{(1+\hat{\gamma}_{2s})}{\hat{\beta}_{2s}}\mathbb{E}[\|\big({\bf {\bf \Phi}}-Q_2({\bf {\bf \Phi}})\big){\bf x}^s \|_2]\\
+    &\ \leq \ \frac{(1+\hat{\gamma}_{2s})}{\hat{\beta}_{2s}}\sqrt{
+    \sum_{i}^M \sum_{j}^N\mathbb{E}[({\bf \Phi}_{i, j}-Q_2({\bf \Phi}_{i, j}){\bf x}_j^s)^2]}\\
+    & \ = \ \frac{(1+\hat{\gamma}_{2s})}{\hat{\beta}_{2s}}\sqrt{\sum_{i=1}^M \sum_{j=1}^N \frac{1}{2^{2(b_{\bf \Phi}-1)}}({\bf x}_j^s)^2}\\
+    & \ = \ \frac{(1+\hat{\gamma}_{2s})}{\hat{\beta}_{2s}}\sqrt{\sum_{i=1}^M \frac{1}{2^{2(b_{\bf \Phi}-1)}}\|{\bf x}^s\|_2^2}\\
+    & \ = \ \frac{(1+\hat{\gamma}_{2s})\sqrt{M}}{\hat{\beta}_{2s}2^{b_{\bf \Phi}-1}}\|{\bf x}^s \|_2.
+\end{split}
 \end{equation}
 
 (b) Finally, we bound the second term on the right hand side of \ref{nonproof_bound_final} as follows.
@@ -352,34 +370,235 @@ Combining (a) and (b), the norm of recovery error is given by
     \begin{split}
         \mathbb{E}[\|{\bf r}^{[n+1]}\|_2|{\bf r}^{[0]}=-{\bf x}^s] \leq &8\rm{max}(\gamma_{2s},\hat{\gamma}_{2s}) \|{\bf r}^{[n]}\|_2 
         + 2\bigg(\rm{max}\big((1+\gamma_{2s})/\beta_{2s} - 1/\hat{\beta}_{2s}, (1+\hat{\gamma}_{2s})/\hat{\beta}_{2s} - 1/{\beta}_{2s} \big)+\frac{1+\gamma_{2s}}{\beta_{2s}}\bigg)\|{\bf e} \|_2\\
-        &+2\sqrt{2}(1+2\rm{max}({\gamma}_{2s}, \hat{\gamma}_{2s}))\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg]+2\frac{(1+\hat{\gamma}_{2s})\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}\|{\bf x}^s \|_2 + 2\frac{(1+\hat{\gamma}_{2s})\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}
+        &+2\sqrt{2}(1+2\rm{max}({\gamma}_{2s}, \hat{\gamma}_{2s}))\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg]+2\frac{(1+\hat{\gamma}_{2s})\sqrt{M}}{\hat{\beta}_{2s}2^{b_{\bf \Phi}-1}}\|{\bf x}^s \|_2 + 2\frac{(1+\hat{\gamma}_{2s})\sqrt{M}}{\hat{\beta}_{2s}2^{b_{\bf y}-1}}
     \end{split}
 \end{equation}
 If $\rm{max}({\gamma_{2s}, \hat{\gamma}_{2s}})\leq 1/16$, \ref{final_error_residual} can be re-written as 
 \begin{equation}
     \begin{split}
-        \mathbb{E}[\|{\bf r}^{[n+1]}\|_2|{\bf r}^{[0]}=-{\bf x}^s] \leq &\frac{1}{2}\|{\bf r}^{[n]}\|_2+ \frac{5}{\beta_{2s}}\|{\bf e} \|_2 +3.2\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg]+ \frac{2.5\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}(\| {\bf x}^s\|_2+1).
+        \mathbb{E}[\|{\bf r}^{[n+1]}\|_2|{\bf r}^{[0]}=-{\bf x}^s] \leq &\frac{1}{2}\|{\bf r}^{[n]}\|_2+ \frac{5}{\beta_{2s}}\|{\bf e} \|_2 +3.2\bigg  [ \|{\bf x}-{\bf x}^s \|_2 + \frac{\|{\bf x}-{\bf x}^s \|_1}{\sqrt{s}}\bigg]+ \frac{2.5\sqrt{M}}{\hat{\beta}_{2s}(\| {\bf x}^*\|_2/2^{b_{\bf \Phi}-1}+1/2^{b_{\bf y}-1}).
     \end{split}
 \end{equation}
+
+\begin{equation}\label{general bound}
+    \begin{split}
+        \mathbb{E}[\|\hat{{\bf x}}^{[n+1]}-{\bf x}^*\|_2|\hat{{\bf x}}^{[0]}={\bf 0}] \leq &2^{-n}\|{\bf x}^{*}\|_2+ \frac{10}{{\beta}_{2s}}\|{\bf e} \|_2 +6.4\bigg  [ \|{\bf x}-{\bf x}^* \|_2 + \frac{\|{\bf x}-{\bf x}^* \|_1}{\sqrt{s}}\bigg] + \frac{5\sqrt{M}}{\hat{\beta}_{2s}}(\| {\bf x}^*\|_2/2^{b_{\bf \Phi}-1}+1/2^{b_{\bf y}-1}).
+    \end{split}
+\end{equation}
+
+\subsubsection{Proof of Corollary 1}
+The point source assumption implies that the signal is naturally sparse such that ${\bf x} = {\bf x}^s$. Let also $\sigma_n^2$ is the variance of noise corrupting antennas. Referring to Section~\ref{sec:astronomy}, $\|{\bf e} \|_2 = \sqrt{M}\sigma_n^2 = L\sigma_n^2$. Hence if $\alpha_{2s}, \hat{\alpha}_{2s}\leq 1/16$, substituting these into Eqn.~\ref{general bound}, low precision IHT recovers ${\bf x}$ with accuracy
+\begin{equation}
+    \mathbb{E}[\|{\bf x}^{n+1} - {\bf x}^s \|_2] \leq 2^{-n}\| {\bf x}^s\|_2 + 10(\frac{\sqrt{L}}{\beta_{2s}}\sigma_n+\frac{L}{\hat{\beta}_{2s}}\epsilon_{\rm{sky}})
+\end{equation}
+where $\epsilon_{\rm{sky}} =  \|{\bf x}^s \|_2/2^{b_{\bf \Phi}} + 1/2^{b_{\bf y}}$.
+
+\subsection{Gaussian Data}
+\subsection{Radio Interferometer Pipeline}
+Antennas at various locations on the ground records radio waves coming from the sources in space, and then send those to {\it interferometers} (correlator unit), which first estimate correlation between the time series-measurements so-called visibilities. Then the central processor estimates the sky image with a specified imaging technique, i.e., {CLEAN}~\cite{hogbom1974clean} and A(W)-projection~\cite{bhatganar2008ra}. 
+\subsubsection{Basic Data Model}
+
+Let us start with the following modeling assumptions:~\cite{perley}
+
+1. Celestial sources are in far field, the series emanating from sources and captured by the antennas are thus paralel,
+  
+2.  series emitted by celestial sources are narrow band zero mean circularly-symmetric complex Gaussian processes,
+    
+3.  series originating from different directions in the sky are uncorrelated.  
+  
+(1) follows from the assumption sources lie on a hypothetical sphere, the so-called celestial sphere. This implies that we can not measure how far the sources are.
+ \vspace{3mm}
+ 
+Let $\hat{s}(t,{\bf r})$ denote the series emitted by the source coming from the direction ${\bf r} \in \mathbb{S}^2$. (2), therefore, implies $\hat{s}(t,{\bf r}) \sim \mathbb{C}\mathcal{N}(0,I(\bf{r}))$ where $I(\bf{r})$ is the intensity of the source series emanating from direction {\bf r}. Given the center frequency $f_0 \in \mathbb{R}$, (2) yields the following baseband representation of $\hat{s}(t,{\bf r})$:
+\begin{equation}
+ s(t,{\bf r}) = \hat{s}(t,{\bf r})e^{j2\pi f_0t}.\label{baseband}
+ \end{equation}
+ 
+Note also that $\mathbb{E}[s(t,{\bf r}_1)s^*(t,{\bf r}_2)] =0$, $\forall {\bf r}_1, {\bf r}_2 \in \mathbb{S}^2$ follows from (3). 
+The series coming from direction {\bf r} and recorded by antenna $i$ is thus given by:
+\begin{equation}
+x_i(t,{\bf r}) = s(t-\tau_{i}({\bf r}),{\bf r}) \label{ant_source}
+\end{equation} 
+ where $\tau_i({\bf r})$ denotes the time delay for the series reaching from the source to reach at the antenna $i$. Combining Equations \ref{baseband} and \ref{ant_source} we have
+ \begin{equation}
+ x_i(t,{\bf r}) = \hat{s}(t-\tau_{i}({\bf r}),{\bf r})e^{j2\pi f_0(t-\tau_{i}({\bf r}))}.
+ \end{equation}
+The above derivations concern merely a specific source. Let now focus on the series measured by the antenna $i$ coming from multiple sources (from all directions). It is then by the following integral:
+\begin{equation}
+x_i(t) = \oiint \displaylimits_{\mathbb{S}^2} \hat{s}(t-\tau_i({\bf r}), {\bf r})e^{j2\pi f_0(t-\tau_i({\bf r}))}d{\bf r}. \label{int_sour}
+\end{equation}
+ 
+As correlations between the antenna time-series are of special interest of imaging, let us have a closer look at the algebraic equations regarding the correlations. Recall that the source series coming from different directions in space are uncorrelated. Using this, we have the following closed-form expression:
+ \begin{equation}
+ \mathbb{E}[x_i(t)x_k(t)^*] = \oiint\displaylimits_{\mathbb{S}^2} \mathbb{E}[\hat{s}(t-\tau_i({\bf r}),{\bf r})\hat{s}^*(t-\tau_k({\bf r}),{\bf r})]e^{-j2\pi f_0 (\tau_i({\bf r})-\tau_k({\bf r}))}d{\bf r} \label{cross_corr}
+ \end{equation}
+ where $i$ and $k$ denote different antennas.
+ By the assumption of (2), the series $\hat{s}(t,{\bf r})$ remains constant over the time shift we further have 
+ \begin{equation}
+ \mathbb{E}[x_i(t)x_k(t)^*] = \oiint\displaylimits_{\mathbb{S}^2} {I}({\bf r}) e^{-j2\pi f_0 (\tau_i({\bf r})-\tau_k({\bf r}))} d {\bf r} \label{cross_upt}
+ \end{equation}
+ where ${I}({\bf r})$ denotes the variance of the series emitted from direction {\bf r} referred to as sky image. We further have
+%$\tau_{i,q} = \frac{1}{c} \langle {\bf r}_q,\lambda_0{\bf p}_i\rangle$\label{tau} 
+%where ${\bf r}_q$ and ${\bf p}_i$ denote the direction of source $q$ and position of antenna $i$ expressed in the units of wavelengths $\lambda_0$, respectively.[]
+\begin{equation}
+\tau_{i}({\bf r}) = \frac{1}{c} \langle {\bf r}_{\text{norm}}, {\bf p}_i\rangle \label{tau}
+\end{equation}
+
+where ${\bf r}_{\text{norm}} = \frac{{\bf r}}{\| {\bf r}\|_2}$ and ${\bf{p}}_i$ denotes the position of antenna $i$.
+The above relation together with Eqn. \ref{cross_upt} gives us that
+\begin{equation}
+ \mathbb{E}[x_i(t)x_k(t)^*] = \oiint\displaylimits_{\mathbb{S}^2} {I}({\bf r}) e^{-j2\pi \frac{f_0}{c} \langle {\bf r}_{\text{norm}},  \ {\bf p}_i -{\bf p}_k\rangle }d{\bf r}.\label{corr_f}
+\end{equation}
+Note that $\frac{f_0}{c} = \frac{1}{\lambda_0}$ where $\lambda_0$ is the wavelength of the observation, Eqn. \ref{corr_f} can be further simplified to the following equation:
+\begin{equation}
+ \mathbb{E}[x_i(t)x_k(t)^*] = \oiint\displaylimits_{\mathbb{S}^2} {I}({\bf r}) e^{-j2\pi \langle {\bf r}_{\text{norm}},  \ \frac{{\bf p}_i -{\bf p}_k}{\lambda_0}\rangle }d{\bf r}\label{corr_four}
+\end{equation}
+so-called {\bf measurement equation}.
+
+
+Consider now a specific region of interest centered around ${\bf r}_0$ and basis vectors $\hat{{\bf e}}_1$, $\hat{{\bf e}}_2$ and $\hat{{\bf e}}_3$ where $\hat{{\bf e}}_1$ points in the direction of rotation of the earth, $\hat{{\bf e}}_3$ denotes the direction of ${\bf r}_0$ and $\hat{{\bf e}}_2$ is perpendicular to $\hat{{\bf e}}_1$ and $\hat{{\bf e}}_3$. ${\bf r}$ can be therefore approximated to $r \approx l\hat{{\bf e}}_1 + m\hat{{\bf e}}_2 +1\hat{{\bf e}}_3$\footnote{More clearly; $ ({\bf r}-{\bf r}_0) + {\bf r}_0 \approx l\hat{{\bf e}}_1 + m\hat{{\bf e}}_2 +1\hat{{\bf e}}_3$.}. Similarly, $\frac{{\bf p}_i -{\bf p}_k}{\lambda_0}$ can also be expressed in terms of the basis vectors, i.e., $\frac{{\bf p}_i -{\bf p}_k}{\lambda_0} = u_{i,k}\hat{{\bf e}}_1+v_{i,k}\hat{{\bf e}}_2+w_{i,k}\hat{{\bf e}}_3$. Substituting these into Eqn. \ref{corr_four}, we get
+\begin{equation}
+ \mathbb{E}[x_i(t)x^*_k(t)] =   \iint\displaylimits_{K\subset \mathbb{R}^2} \frac{e^{-j2\pi w_{i,k} (\sqrt{1-l^2-m^2}-1)}}{\sqrt{1-l^2-m^2}} {I}(l,m)e^{-j2\pi (u_{i,k}l+v_{i,k}m)} \   dl\ dm \label{tangent_plane}
+\end{equation}
+where $K$ is the compact support of $I \in \mathbb{R}^2$. The above equation is called {\bf tangent plane measurement equation}.
+
+As indicated earlier, the field of view is small pointing ${\bf r}_0$, i.e., small $l$ and $m$. Hence $\frac{e^{-j2\pi w_{i,k} }}{\sqrt{1-l^2-m^2}-1} \sim 1$ and $\sqrt{1-l^2-m^2}$ term can be assumed to be constant. The above resulting representation can then be further simplified to the following:
+\begin{equation}
+ \mathbb{E}[x_i(t)x^*_k(t)] =   \iint\displaylimits_{K\subset \mathbb{R}^2} e^{-j2\pi w_{i,k}}{I}(l,m) e^{-j2\pi (u_{i,k}l+v_{i,k}m)} \   dldm.
+\end{equation}
+%the sources lie on a plane as well as the antennas.
+
+{\bf{Key definition:}} The {\it{visibility}} function is defined by removing the constant phase $e^{-j2\pi w_{i,k}}$ as follows:
+\begin{equation}
+V(u, v) \stackrel{{\text{def}}}{=} \iint\displaylimits_{K\subset \mathbb{R}^2} {I}(l, m)e^{-j2\pi (ul+vm)}\ dldm.
+\end{equation}
+
+Therefore, each sample of this function is given by $V(u_{i,k}, v_{i,k}) = \mathbb{E}[x_i(t)x^*_k(t)]$ the so-called {\it{visibility}} measurement. 
+
+Remark that {\it{visibility}} equation is an integration of the product of sky intensity and a complex exponential over the unit sphere, which can be represented as a two dimensional Fourier transform. {\bf{Therefore, {{visibility}} function is equivalent to Fourier transform of the image I(l, m\bf )}}. This relation is known as van Cittert-Zernike theorem~\cite{perley}.  Consequently, the samples of $V(u,v)$ are sufficient information for sky image recovery where each baseline gives an approximate sample from Fourier transform of the sky image. This can be mathematically stated as follows:
+\begin{equation}\label{visibility equation}
+V_{i,k} \sim V(u_{i,k}, v_{i,k}) = \iint\displaylimits_{K\subset \mathbb{R}^2} {I}(l, m)e^{-j2\pi (u_{i,k}l+v_{i,k}m)}\ dl\ dm.
+\end{equation}
+
+Therefore, the sky image can be recovered by taking inverse Fourier transform of the non-uniformly samples visibility function so-called {\it dirty image} as follows:
+\begin{equation}
+I_d(l, m) = \mathcal{F}^{-1}\Big \{ \sum_{i, k} V(u, v) \delta (u-u_{i,k}, v-v_{i,k}) \Big \}.\label{meas_eq_non_beam}
+\end{equation}
+
+A closer look into the above equation reveals that {\it dirty image} is equivalent to
+\begin{equation}
+I_d(l, m) = I(l, m)\ast I_{db}(l, m) \label{imaging_eq}
+\end{equation}
+where 
+\begin{equation}
+I_{db}(l, m)= \sum_{i, k} e^{j2\pi(u_{i, k}l+v_{i, k}m)}\label{dirty_beam}
+\end{equation}
+is called {\it dirty beam} with $k$ baselines ((i, k) pairs with the previous notation), ${\bf I}(l, m)$ is the true sky map,  and $\ast$ denotes convolution operator.
+
+The imaging problem in radio astronomy can be viewed as reconstructing a sky image from estimates of its Fourier transform samples. Moreover, the problem is ill-posed as we have finite number of antennas thus the baselines. This can be tackled with up to some level by introducing a prior sky model. After having reviewed the basic data model and revealed how visibilities link to Fourier transform of the sky intensities, let us now focus on the data model from array series processing point of view. 
+ 
+As widely used, we (very often astronomers as well) assume a point source model for the sky~\cite{veen, perley}. The series measured by the antenna $i$ denoted by $x_i(t)$ is given by:
+ \begin{equation}\label{idare}
+ x_i(t) = \sum_{q=1}^Q \hat{s}(t-\tau_{i,q},{\bf r}_q)e^{j2\pi f_0 (t-\tau_{i,q})}
+ \end{equation} 
+ where $\tau_{i,q}$ is the time delay at the antenna $i$ for source $q$ and $Q$ denotes the number of sources. 
+ 
+Recall that the series $\hat{s}(t,r)$ remains constant over the time shift, i.e., $\hat{s}(t-\tau_{i,q},{\bf r}_q) = \hat{s}(t-\tau_{k,q},{\bf r}_q)$, $\forall i,k$ and hence Equation \ref{idare} can be simplified as follows:
+\begin{equation}
+\begin{split}
+x_i(t) &\stackrel{(1)}{=} \sum_{q=1}^Q \hat{s}(t-\tau_{i,q},{\bf r}_q)e^{j2\pi f_0 (t-\tau_{i,q})}\\
+&\stackrel{(2)}{=} \sum_{q=1}^Q \hat{s}(t, {\bf r}_q)e^{j2\pi f_0 (t-\tau_{i,q})}\\
+&\stackrel{(3)}{=} \sum_{q=1}^Q \hat{s}_q(t)e^{j2\pi f_0 (t-\tau_{i,q})}
+\end{split}
+\end{equation}
+where (1) and (2) follow from the arguments above. To simplify notation, we denote $\hat{s}(t,{\bf r}_q)$ by $\hat{s}_q(t)$ which leads (3).
+By Eqn. \ref{tau}, we have
+\begin{equation}\label{mudur}
+x_i(t) = \sum_{q=1}^Q \hat{s}_q(t)e^{j2\pi f_0 (t- \langle {\bf r}_q,\lambda_0{\bf p}_i\rangle/c)}.
+\end{equation}
+ 
+Consider now that antenna series $x_i(t)$, $i\in \{ 1,...,L\}$ are concatenated in a vector ${\bf x}(t) \in \mathbb{C}^L$. Eqn. \ref{mudur} can be re-written as
+ \begin{equation}
+{\bf x}(t) = e^{j2\pi f_0 t} \sum_{q=1}^Q {\bf a}_q \hat{s}_q(t)\label{ind_xt}
+\end{equation}
+where $\bf{a}_q \in \mathbb{C}^L$ so-called {\it antenna steering vector} is given by
+\begin{equation}\label{steering}
+\bf{a}_q =
+  \begin{bmatrix}
+    e^{-j2\pi \langle {\bf r}_q, {\bf p}_1 \rangle}   \\
+    e^{-j2\pi \langle {\bf r}_q, {\bf p}_2 \rangle}    \\
+    \vdots \\
+    e^{-j2\pi \langle {\bf r}_q, {\bf p}_L \rangle}   
+  \end{bmatrix}
+ \end{equation}
+ towards source $q$.
+ 
+Let ${\bf A} \in \mathbb{C}^{L\times Q}$ denote {\it antenna steering matrix} with each column given by individual {\it antenna steering vector} ${\bf a}_q$ and also $\hat{\bf{s}}(t)$ be vector of source series $\hat{s}_q(t)$, $q \in \{ 1,2,...,Q \}$. We then have following matrix product:
+ \begin{equation}
+ {\bf x}(t) = e^{j2\pi f_0 t}\bf{A} \hat{\bf{s}}(t).
+ \end{equation}
+ 
+ Up to now, we have introduced the data model under perfect conditions in means of noise. Real-life scenarios however are not that optimistic. Conversely, thermal noise usually has a big share in the series measured by the antennas. Let thus ${\bf n}(t) \in \mathbb{C}^L$ be the additive white Gaussian noise (AWGN) at the antennas. More realistic model for {\bf x}(t) in presence of noise can be as the following:
+ \begin{equation}
+ {\bf x}(t) = e^{j2\pi f_0 t}\bf{A} \hat{\bf{s}}(t) + {\bf n}(t)\label{x_t}
+ \end{equation}
+where ${\bf n}(t)$ is assumed to be independently drawn from the distribution $\mathbb{C} \mathcal{N}(0,\sigma_n^2 \bf{I}_L)$, $\sigma_n \in \mathbb{R}$ and ${\bf I}_L$ is $L\times L$ identity matrix. Moreover, the series emitted by the sources $\hat{{\bf s}}(t)$ are also modelled as stochastic processes where the parameters to be estimated, i.e., $\hat{{\bf s}}(t) \sim \mathbb{C}\mathcal{N}(0, {\bf \Sigma}_s)$ where ${\bf \Sigma}_s$ is the diagonal covariance matrix for the source series $\hat{{\bf s}}(t)$. 
+
+Let ${\bf V}$ account for the visibility (cross-correlation) matrix. Then
 
 \begin{equation}
-    \begin{split}
-        \mathbb{E}[\|\hat{{\bf x}}^{[n+1]}-{\bf x}^*\|_2|\hat{{\bf x}}^{[0]}={\bf 0}] \leq &2^{-n}\|{\bf x}^{*}\|_2+ \frac{10}{{\beta}_{2s}}\|{\bf e} \|_2 +6.4\bigg  [ \|{\bf x}-{\bf x}^* \|_2 + \frac{\|{\bf x}-{\bf x}^* \|_1}{\sqrt{s}}\bigg] + \frac{5\sqrt{m}}{\hat{\beta}_{2s}2^{b-1}}(\| {\bf x}^*\|_2+1).
+\begin{split}
+{\bf V} & = \mathbb{E}[{\bf x}(t){\bf x}^{\dagger}(t)]\\
+& = \mathbb{E}[\big(e^{j2\puf_0t}{\bf A}\hat{\bf s}(t)\big)\big(e^{j2\puf_0t}{\bf A}\hat{\bf s}(t)\big)^{\dagger}]\\
+& ={\bf A}{\bf \Sigma}_s{\bf A}^{\dagger} + {\bf \Sigma}_n.
     \end{split}
+\end{equation}
+
+Using Eqn.~\ref{visibility equation}, we can approximate the sky map ${\bf I}(l, m)$ by
+
+\begin{equation}
+    {\bf V}_{i, k} = \sum_{l, m} {}
 \end{equation}
 
 
 
-%\begin{equation}
- %   \begin{split}
-  %      \mathbb{E}[\|\hat{{\bf x}}^{[n+1]}-{\bf x}^*\|_2] \leq &2^{-n}\|{\bf x}^{*}\|_2+ \frac{10}{{\beta}_{2s}}\|{\bf e} \|_2 +6.4\bigg  [ \|{\bf x}-{\bf x}^* \|_2 + \frac{\|{\bf x}-{\bf x}^* \|_1}{\sqrt{s}}\bigg] + \frac{4}{\sqrt{s} 2^{b-1}}(\| {\bf x}^*\|_2+1).
- %   \end{split}
-%\end{equation}
-%\cite{iht}
-%\cite{niht}
-%\cite{greedy_algorithms}
-\bibliography{references}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bibliography{references*}
 \bibliographystyle{icml2018}
-
-
 \end{document} 
