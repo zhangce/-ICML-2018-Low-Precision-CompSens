@@ -50,7 +50,7 @@
 \newtheorem{corollary}{Corollary}
 \newtheorem*{proof*}{Proof}
 \usepackage{setspace}
-\onehalfspacing
+%\onehalfspacing
 
 \begin{document}
 \begin{frontmatter}
@@ -347,7 +347,7 @@ Combining results obtained in Eqn. \ref{second_term_quantization_error}
 \end{equation}
 where the inequalities follows from (1) Eqn.~\ref{rip_lowprecision}\&\ref{bounds_mu}, and (2) Lemma~\ref{lemma_on_quantized_vector}.\\
 
-(a.4) Combining with {\it Cauchy-Bunyakovsky-Schwarz}, {\it Jensen} inequalities and the similar discussion above
+(a.4) Combining with Eqn. \ref{rip_lowprecision}\&\ref{bounds_muhat}, {\it Cauchy-Bunyakovsky-Schwarz}, {\it Jensen} inequalities and the similar discussion above
 \begin{equation}\label{forth_term_main_theorem}
 \begin{split}
     \mathbb{E}[\| \hat{\mu}^{[n]}Q_1({\bf \Phi})_{B^{[n+1]}}^T\big({\bf {\bf \Phi}}-Q_2({\bf {\bf \Phi}})\big){\bf x}^s \|_2]&\ \leq \ \frac{(1+\hat{\gamma}_{2s})}{\hat{\beta}_{2s}}\mathbb{E}[\|\big({\bf {\bf \Phi}}-Q_2({\bf {\bf \Phi}})\big){\bf x}^s \|_2]\\
