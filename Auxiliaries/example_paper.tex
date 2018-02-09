@@ -1,94 +1,70 @@
-% Template for the submission to:
-%   The Annals of Probability           [aop]
-%   The Annals of Applied Probability   [aap]
-%   The Annals of Statistics            [aos] 
-%   The Annals of Applied Statistics    [aoas]
-%   Stochastic Systems                  [ssy]
-%
-%Author: In this template, the places where you need to add information
-%        (or delete line) are indicated by {???}.  Mostly the information
-%        required is obvious, but some explanations are given in lines starting
-%Author:
-%All other lines should be ignored.  After editing, there should be
-%no instances of ??? after this line.
+%%%%%%%% ICML 2018 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
 
-% use option [preprint] to remove info line at bottom
-% journal options: aop,aap,aos,aoas,ssy
-% natbib option: authoryear
-\documentclass[article]{imsart}
-\usepackage[top=5.5cm,bottom=5cm,left=3.5cm,right=3.5cm,headsep=20pt,a4paper]{geometry} 
+\documentclass{article}
 
-%\usepackage{amsthm,amsmath,natbib}
-%\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
-
-% provide arXiv number if available:
-%\arxiv{arXiv:0000.0000}
-
-% put your definitions there:
-\startlocaldefs
-\endlocaldefs
-\usepackage{graphicx} % more modern
-\usepackage{epsfig} % less modern
-\usepackage{subfigure} 
-\usepackage{natbib}
-\usepackage{amssymb}
+% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subfigure}
 \usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amsthm}
-\usepackage{esint}
-\usepackage{algorithm}
-%\usepackage{algorithm2e}
-\usepackage{algorithmic}
+\usepackage{booktabs} % for professional tables
+
+
+% hyperref makes hyperlinks in the resulting PDF.
+% If your build breaks (sometimes temporarily if a hyperlink spans a page)
+% please comment out the following usepackage line and replace
+% \usepackage{icml2018} with \usepackage[nohyperref]{icml2018} above.
 \usepackage{hyperref}
+
+% Attempt to make hyperref and algorithmic work together better:
 \newcommand{\theHalgorithm}{\arabic{algorithm}}
-%\usepackage{icml2013} 
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{definition}{Definition}
-\newtheorem{remark}{Remark}
-\newtheorem{proposition}{Proposition}
-\newtheorem{corollary}{Corollary}
-\newtheorem*{proof*}{Proof}
-\usepackage{setspace}
-%\onehalfspacing
+
+% Use the following line for the initial blind version submitted for review:
+\usepackage{icml2018}
+
+% If accepted, instead use the following line for the camera-ready submission:
+%\usepackage[accepted]{icml2018}
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{Compressive Sensing with Low Precision Data Representation: Radio Astronomy and Beyond}
 
 \begin{document}
-%\begin{frontmatter}
-% "Title of the paper"
-\title{Compressive Sensing with
-Low Precision Data Representation: Radio Astronomy and Beyond}
-\runtitle{Compressive Sensing with
-Low Precision Data Representation: Radio Astronomy and Beyond}
-% indicate corresponding author with \corref{}
-% \author{\fnms{John} \snm{Smith}\corref{}\ead[label=e1]{smith@foo.com}\thanksref{t1}}
-% \thankstext{t1}{Thanks to somebody} 
-% \address{line 1\\ line 2\\ printead{e1}}
-% \affiliation{Some University}
+\onehalfspacing
+\onecolumn
+\icmltitle{Supplementary Material for Compressive Sensing with Low Precision Data Representation: Radio Astronomy and Beyond}
 
-%\author{\fnms{???} \snm{???}\ead[label=e1]{???}}
-%\%address{\printead{e1}}
-%\and
-%\author{\fnms{???} \snm{???}\ead[label=e2]{???}}
-%\address{\printead{e2}}
-%\affiliation{???}
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2018
+% package.
 
-%\runauthor{???}
+% List of affiliations: The first argument should be a (short)
+% identifier you will use later to specify author affiliations
+% Academic affiliations should list Department, University, City, Region, Country
+% Industry affiliations should list Company, City, Region, Country
 
-%\begin{abstract}
-%\end{abstract}
+% You can specify symbols, otherwise they are numbered in order.
+% Ideally, you should not use this facility. Affiliations will be numbered
+% in order of appearance and this is the preferred way.
 
-%\begin{keyword}[class=MSC]
-%\kwd[Primary ]{}
-%\kwd{}
-%\kwd[; secondary ]{}
-%\end{keyword}
+% find helpful for describing your paper; these are used to populate
+% the "keywords" metadata in the PDF but will not be shown in the document
 
-%\begin{keyword}
-%\kwd{}
-%\kwd{}
-%\end{keyword}
 
-%\end{frontmatter}
+\vskip 0.3in
+
+
+% this must go after the closing bracket ] following \twocolumn[ ...
+
+% This command actually creates the footnote in the first column
+% listing the affiliations and the copyright notice.
+% The command takes one argument, which is text to display at the start of the footnote.
+% The \icmlEqualContribution command is standard text for equal contribution.
+% Remove it (just {}) if you do not need this facility.
+
+%\printAffiliationsAndNotice{}  % leave blank if no need to mention equal contribution
+%\printAffiliationsAndNotice{\icmlEqualContribution} % otherwise use the standard text.
 
 \section{Proofs}
 We begin with introducing our notation.
@@ -424,6 +400,13 @@ where $\epsilon_{\rm{sky}} =  \|{\bf x}^s \|_2/2^{b_{\bf \Phi}} + 1/2^{b_{\bf y}
 Clearly from the above derivations, Eqn.~\ref{final_bound} holds for the deterministic quantization as well.
 \end{remark}
 \section{Toy Example: Gaussian Data}
+We also investigate the performance of low precision IHT on a toy example: when data points are drawn from Gaussian distribution. For Gaussian matrices, it is well know that they satisfy restricted isometry property with high probability. Motivated by this, we apply low precision IHT to a data set where observations and entries of measurement matrix are independently drawn from Gaussian distribution. We compute the recovery error and exact supoort recovery over 1000 realizations of data with different SNR levels. The results are demonstrated in Fig.
+
+{XXX comment}
+
+
+
+
 \section{Radio Interferometer Pipeline}
 Antennas at various locations on the ground records radio waves coming from the sources in space, and then send those to {\it interferometers} (correlator unit), which first estimate correlation between the time series-measurements so-called visibilities. Then the central processor estimates the sky image with a specified imaging technique, i.e., {CLEAN}~\cite{hogbom1974clean} and A(W)-projection~\cite{bhatganar2008ra}. 
 \subsection{Basic Data Model}
@@ -611,24 +594,27 @@ with ${\bf y}, {\bf e} \in \mathbb{C}^{M}$, ${\bf \Phi} \in \mathbb{C}^{M\times 
 \end{equation}
 where $z = i + L(k-1), \ \ i, k = \{1, 2, ..., L\}$ and $w = l + r(m-1), \ \ l, m = \{1, 2, ..., r\}$.
 
-\subsubsection{Conditions on Restricted Isometry Constants}
-Real-life problems usually lack of traditional RIP, that is, $\|{\bf \Phi}\|_2 < 1$. The scale-invariant feature of the measurement matrix used in normalized IHT however alleviates the RIP condition and imposes a fairly mild constraint in~\ref{rip_lowprecision}, i.e., non-symmetric RIP. In a series of paper~\cite{blumensath2010niht, blumensath2012greedy}, CoSaMP is shown to perform markedly worse when the RIP condition fails. IHT, however, still preserves its near-optimal recoveries far beyond the region of RIP. While this favors IHT over CoSaMP when applying to real-life problems, there is no rigid assumption imposed on $\ell_1$-minimization. Still \ref{rip} trivially holds.
-%The step size $\hat{\mu}^{[n]}$ is required to counteract the scaling of $\hat{{\bf \Phi}}$ such that $\|\hat{\mu}^{0.5} \hat{\bf\Phi}\|_2^2 <1$ to ensure the convergence. 
-%This adaptive step size setting yields the trivial bound on $\mu$ as~\cite{blumensath2012greedy}
-%\begin{equation}
- %  1/\hat{\beta}_{2s}^2\leq  1/\hat{\beta}_s^2 < \hat{\mu}^{[n]} < 1/\hat{\alpha}_s^2 \leq 1/\hat{\alpha}_{2s}^2.
-%\end{equation}
-%Moreover, using \ref{step_size} in the low precision setting, we can initially determine $\hat{\mu}^{[n]}$ to guarantee the convergence without requiring the knowledge of the restricted isometry constants.
+\subsubsection{How we satisfy conditions on Restricted Isometry Constants?}
+Real-life problems usually lack of traditional RIP, that is, $\|{\bf \Phi}\|_2 < 1$. The scale-invariant feature of the measurement matrix used in normalized IHT however alleviates the RIP condition and imposes a fairly mild constraint in~\ref{rip_lowprecision}, i.e., non-symmetric RIP. In a series of paper~\cite{blumensath2010niht, blumensath2012greedy}, CoSaMP is shown to perform markedly worse when the RIP condition fails. IHT, however, still preserves its near-optimal recoveries far beyond the region of RIP. %While this favors IHT over CoSaMP when applying to real-life problems, there is no rigid assumption imposed on $\ell_1$-minimization. Still \ref{rip} trivially holds.
+Recall from the main paper that the step size $\hat{\mu}^{[n]}$ is required to counteract the scaling of $\hat{{\bf \Phi}}$ such that $\|\hat{\mu}^{0.5} \hat{\bf\Phi}\|_2^2 <1$ to ensure the convergence. 
+The adaptive step size setting of normalized IHT yields the trivial bound on $\mu$ as~\cite{blumensath2012greedy}
+\begin{equation}
+   1/\hat{\beta}_{2s}^2\leq  1/\hat{\beta}_s^2 < \hat{\mu}^{[n]} < 1/\hat{\alpha}_s^2 \leq 1/\hat{\alpha}_{2s}^2.
+\end{equation}
+
+Convergence is trivial in low precision setting provided that $\hat{\mu}^{[n]}$ is chosen adaptively according to strategy introduced by~\cite{blumensath2010niht}. Regarding performance guarantees, however, in Theorem 3 we show that if $\gamma_{2s} = \beta_{2s}/\alpha_{2s}-1, \hat{\gamma}_{2s} = \hat{\beta}_{2s}/\hat{\alpha}_{2s}-1\leq 1/16$ the recovery error inversely scales with $\beta_{2s}$ and $\hat{\beta}_{2s}$, which we can up-scale hence reduce the error. We previously sketch the values of $\beta_{2s}$ and $\hat{\beta}_{2s}$ for the current setting in our paper and show that they are high enough to diminish recovery error and no upscale is necessity in radio astronomy case. Yet, for provable guarantees, yet, we need to satisfy the conditions on $\gamma_{2s}$ and $\hat{\gamma}_{2s}$. Clearly, this cannot be done by re-scaling $\beta_{2s}$ and $\hat{\beta}_{2s}$ because $\alpha_{2s}$ and $\hat{\alpha}_{2s}$ will be scaled accordingly by the same weight. Therefore it remains to use a more sophisticated technique to achieve this. We claim that there exist possible deterministic transformations that can be applied on ${\bf \Phi}$. However, in radio astronomy, we have the flexibility to ensure the conditions on $\alpha_{2s}$ and $\hat{\alpha}_{2s}$ holds as follows. 
+
+Let us form a grid on $[l, m], \  \ l, m \in [-d, d]$ where the sky map is displayed. By changing $d$, we claim that the bounds on $\alpha_{2s}$ and $\hat{\alpha}_{2s}$ can be tuned. Given the antenna locations, we can compute ${\bf \Phi}$ that ensures the conditions with high probability. Fig. illustrates the numerical experiments conducted in the current setting where we employed 30 antennas and recover the sky map with resolution of 256 pixels per axis. The numerical results suggest that these conditions in the certain settings and can be further refined with parameter $d$. Yet, everything comes with its own cost. The disadvantage of this strategy lies in the meaning of $d$, that is, $d$ limits the field of view the antennas observe. Luckily, it is not a practical concern as the lmits of $d$ can be known a priori given number and the locations of antennas. Also, when we increase $d$ drastically to enlarge the field of view and no longer observe a sky source in the outer field, it already hints on the practical range of $d$ for the respective setting. In our setting, practical range of d is contained in $[0, 1]$. The conditions on $\alpha_{2s}$ and $\hat{\alpha}_{2s}$ are satisfied in our setting with high probability. The effect of antenna numbers and sparsity level are also illustrated in Fig.
+
+
+
 \subsection{Inverse Fourier transform combined with CLEAN algorithm}
 Referring to Eqn.~\ref{eq:dirty_image}\&\ref{dirty_beam}, current imaging techniques in its simplest setting first performs naive inverse Fourier transform of the visibilities such that
 \begin{equation}
 {\bf I}_{d}(l, m) = \sum_{i, j} V(u_{i, j}, v_{i, j})e^{j2\pi (u_{i, j}l+v_{i, j}m)}.
 \end{equation}
 
-CLEAN algorithm (a deconvolution algorithm) therefore takes the {\it dirty image} ${\bf I}_d(l, m)$ as input and outputs a sparse sky map by iteratively removing a fraction\footnote{so-called {\it loop gain} $\leq 0.3$} of the highest peak convolved with the {\it dirty beam} {\bf I}${}_{db}$(l, m). The algorithmic steps for full sky imaging is summarized in Algorithm~\ref{algo:clean}.
-
-
-\begin{algorithm}[t!]
+\begin{algorithm}[t]
    \caption{The CLEAN algorithm for basic data model}
    \label{algo:clean}
 \begin{algorithmic}
@@ -646,24 +632,35 @@ CLEAN algorithm (a deconvolution algorithm) therefore takes the {\it dirty image
 \end{algorithm}
 Location and flux intensities of the sources are estimated by the CLEAN algorithm.
 
+CLEAN algorithm (a deconvolution algorithm) therefore takes the {\it dirty image} ${\bf I}_d(l, m)$ as input and outputs a sparse sky map by iteratively removing a fraction\footnote{so-called {\it loop gain} $\leq 0.3$} of the highest peak convolved with the {\it dirty beam} {\bf I}${}_{db}$(l, m). The algorithmic steps for full sky imaging is summarized in Algorithm~\ref{algo:clean}.
+
+
+
+
+\begin{figure}[t!]
+\centering
+\includegraphics[width=1\columnwidth, angle=0]{figs/clean_image.pdf}
+\caption{Comparison of 2\&8 bit IHT to CLEAN Algorithm. The CLEAN mostly captures the noise artefacts as actual sources unlike IHT.}
+\label{fig:clean}
+\end{figure}
 Recall from the discussions in the main paper that noise in receivers is far stronger than the weak incoming signals thus low SNR at the antenna level results, i.e., usually ranged from -5 to 5 dB. In Fig., we apply the CLEAN algorithm to the LOFAR data set we use throughout the main paper, where SNR is computed nearly 0 dB. This particular experiment states that the CLEAN algorithm notably underperforms in the presence of significant noise. This undesirable property is yet not surprising. A careful look into the the algorithmic steps, it apparently matches also to the noise artefacts in the image considering them as a point source. This can also be justified mathematically: we designed the problem such that an execution of {CLEAN} corresponds to the first iteration recovery of IHT, which interprets our numerical results. 
 
 Computationaly, the CLEAN requires a 2D Fourier inversion and deconvolution per iteration thus the operational expense of the method is relatively higher compared to those of IHT and CoSaMP. 
 
-
-
-
-
-
-
-% AOS,AOAS: If there are supplements please fill:
-%\begin{supplement}[id=suppA]
-%  \sname{Supplement A}
-% % \stitle{Title}
-%%  \slink[doi]{10.1214/00-AOASXXXXSUPP}
-%%  \sdatatype{.pdf}" 
-%%  \sdescription{Some text}
-%\end{supplement}
-
+% \bibliography{references}
+% \bibliographystyle{references}
 
 \end{document}
+
+
+% This document was modified from the file originally made available by
+% Pat Langley and Andrea Danyluk for ICML-2K. This version was created
+% by Iain Murray in 2018. It was modified from a version from Dan Roy in
+% 2017, which was based on a version from Lise Getoor and Tobias
+% Scheffer, which was slightly modified from the 2010 version by
+% Thorsten Joachims & Johannes Fuernkranz, slightly modified from the
+% 2009 version by Kiri Wagstaff and Sam Roweis's 2008 version, which is
+% slightly modified from Prasad Tadepalli's 2007 version which is a
+% lightly changed version of the previous year's version by Andrew
+% Moore, which was in turn edited from those of Kristian Kersting and
+% Codrina Lauth. Alex Smola contributed to the algorithmic style files.
