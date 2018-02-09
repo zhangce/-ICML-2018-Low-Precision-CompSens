@@ -8,6 +8,15 @@
 \usepackage{subfigure}
 \usepackage{amsmath}
 \usepackage{booktabs} % for professional tables
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+\newtheorem{proposition}{Proposition}
+\newtheorem{proof}{Proof}
+\newtheorem{corollary}{Corollary}
+%\newtheorem*{proof*}{Proof}
+
 
 
 % hyperref makes hyperlinks in the resulting PDF.
@@ -30,7 +39,7 @@
 \icmltitlerunning{Compressive Sensing with Low Precision Data Representation: Radio Astronomy and Beyond}
 
 \begin{document}
-\onehalfspacing
+\doublespacing
 \onecolumn
 \icmltitle{Supplementary Material for Compressive Sensing with Low Precision Data Representation: Radio Astronomy and Beyond}
 
@@ -130,6 +139,7 @@ Clearly, similar results hold for $Q(\boldsymbol{{\bf \Phi}})$ such that
 \begin{equation}\label{q_mu*phi1*phi2}
     \| \mu^{[n]}Q({\bf {\bf \Phi}})_{\Upsilon}^TQ({\bf {\bf \Phi}})_{\Lambda}{\bf x}_{\Lambda}\|_2 \leq \hat{\gamma}_{2s}\|{\bf x}_{\Lambda} \|_2.
 \end{equation}
+
 \begin{lemma} \label{residual_lemma}
 {\rm{\cite{blumensath2010niht}}}
 For any ${\bf x}$, let ${\bf x}^s$ be the best s-term approximation to ${\bf x}$ and $\Upsilon$ be a set with at most s elements. Then
@@ -177,6 +187,9 @@ Let $Q(\cdot, b): \mathbb{R}^M\times \mathbb{Z}^+ \rightarrow \mathbb{R}^d$ deno
 \end{equation}
 where $\hat{\bf v}$ is a scaled version of ${\bf v}$ so that every component is normalized to $[-1, 1]$.
 \end{lemma}
+\begin{remark}
+For efficient fixed-point computation on Field Programmable Gate Array, we need an odd number of quantization levels, and therefore total number of levels for $b$ bit quantization is $2^{b-1}+1$. That is, the interval between two consecutive levels is $2^{b-1}$ provided the values are confined in the interval $[-1, 1]$ a priori.
+\end{remark}
 \begin{proof}
 Using Jensen's inequality we can easily show that
 \begin{equation}\label{quantization_error_bound1}
@@ -401,9 +414,13 @@ Clearly from the above derivations, Eqn.~\ref{final_bound} holds for the determi
 \end{remark}
 \section{Toy Example: Gaussian Data}
 We also investigate the performance of low precision IHT on a toy example: when data points are drawn from Gaussian distribution. For Gaussian matrices, it is well know that they satisfy restricted isometry property with high probability. Motivated by this, we apply low precision IHT to a data set where observations and entries of measurement matrix are independently drawn from Gaussian distribution. We compute the recovery error and exact supoort recovery over 1000 realizations of data with different SNR levels. The results are demonstrated in Fig.
-
-{XXX comment}
-
+\begin{figure}[t]
+\centering
+\includegraphics[width=1.1\columnwidth, angle=0]{figs/IHT_on_Gaussian.pdf}
+\caption{Comparison of recovery error and exact recovery (support): {2\&8 bit} IHT vs. 32 bit IHT, CoSaMP, \& $\ell_1$.}
+\label{fig:comparison}
+\vspace{-1em}
+\end{figure}
 
 
 
@@ -601,6 +618,12 @@ The adaptive step size setting of normalized IHT yields the trivial bound on $\m
 \begin{equation}
    1/\hat{\beta}_{2s}^2\leq  1/\hat{\beta}_s^2 < \hat{\mu}^{[n]} < 1/\hat{\alpha}_s^2 \leq 1/\hat{\alpha}_{2s}^2.
 \end{equation}
+\begin{figure}[t!]
+\centering
+\includegraphics[width=1\columnwidth, angle=0]{figs/gamma.pdf}
+\caption{Comparison of 2\&8 bit IHT to CLEAN Algorithm. The CLEAN mostly captures the noise artefacts as actual sources unlike IHT.}
+\label{fig:gamma}
+\end{figure}
 
 Convergence is trivial in low precision setting provided that $\hat{\mu}^{[n]}$ is chosen adaptively according to strategy introduced by~\cite{blumensath2010niht}. Regarding performance guarantees, however, in Theorem 3 we show that if $\gamma_{2s} = \beta_{2s}/\alpha_{2s}-1, \hat{\gamma}_{2s} = \hat{\beta}_{2s}/\hat{\alpha}_{2s}-1\leq 1/16$ the recovery error inversely scales with $\beta_{2s}$ and $\hat{\beta}_{2s}$, which we can up-scale hence reduce the error. We previously sketch the values of $\beta_{2s}$ and $\hat{\beta}_{2s}$ for the current setting in our paper and show that they are high enough to diminish recovery error and no upscale is necessity in radio astronomy case. Yet, for provable guarantees, yet, we need to satisfy the conditions on $\gamma_{2s}$ and $\hat{\gamma}_{2s}$. Clearly, this cannot be done by re-scaling $\beta_{2s}$ and $\hat{\beta}_{2s}$ because $\alpha_{2s}$ and $\hat{\alpha}_{2s}$ will be scaled accordingly by the same weight. Therefore it remains to use a more sophisticated technique to achieve this. We claim that there exist possible deterministic transformations that can be applied on ${\bf \Phi}$. However, in radio astronomy, we have the flexibility to ensure the conditions on $\alpha_{2s}$ and $\hat{\alpha}_{2s}$ holds as follows. 
 
@@ -649,7 +672,8 @@ Computationaly, the CLEAN requires a 2D Fourier inversion and deconvolution per 
 
 % \bibliography{references}
 % \bibliographystyle{references}
-
+\bibliography{references}
+\bibliographystyle{icml2018}
 \end{document}
 
 

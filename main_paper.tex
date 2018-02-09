@@ -315,7 +315,7 @@ designing efficient algorithms for sparse recovery problems~\cite{blumensath2011
 In this section, we review the preliminary results on the normalized IHT (NIHT) algorithm introduced by~\cite{blumensath2010niht, blumensath2012greedy}.
 %\vspace{-0.3em}
 
-{\it Notation:} Scalars are denoted by italics, vectors by bold lower-case and matrices by bold upper-case. For all ${\bf x}= (x_1, \hdot, x_N) \in \mathbb{R}^N$, we denote by $\|{\bf x}\|_p$ the standard operator norm. Let ${\bf \Phi}_{m, n}\in \mathbb{C}^{M\times N}$ denote its element in the $m$'th row and $n$'th column. Finally {\it 32 bit} accounts for the full precision scheme and $b_{\bf \Phi}\&b_{\bf y}${\it bit precision} denote the number of bits used to represent the measurement matrix ${\bf \Phi}$ and vector of observations ${\bf y}$, respectively.
+{\it Notation:} Scalars are denoted by italics, vectors by bold lower-case and matrices by bold upper-case. For all ${\bf x}= (x_1, \hdot, x_N) \in \mathbb{R}^N$, we denote by $\|{\bf x}\|_p$ the standard operator norm. Let ${\bf \Phi}_{m, n}\in \mathbb{C}^{M\times N}$ denote its element in the $m$'th row and $n$'th column. Finally {\it 32 bit} accounts for the full precision scheme and $b_{\bf \Phi}\&b_{\bf y}$ {\it bit} precision denote the number of bits used to represent the measurement matrix ${\bf \Phi}$ and vector of observations ${\bf y}$, respectively.
 %\vspace{-1em}
 \subsection{Iterative Hard Thresholding} 
 %\vspace{-0.5em}
@@ -548,7 +548,7 @@ The error bound above is actually oversimplified, our proof in the supplementary
 We now examine the error bound presented in Theorem~\ref{main_theorem_TH}. The low precision IHT will asymptotically provide a sparse approximation of ${\bf x}$ up to the multiples of $ {\epsilon}_s$ and $ {\epsilon}_q$ involving the noise term ${\bf e}$, the approximation error on how well ${\bf x}$ can be represented by a sparse vector ${\bf x}^s$ and the corruption introduced by the quantization operator. This makes intuitive sense yet still requires the understanding of our limits on the accuracy of results achievable at low precision. Here we highlight the main limitations.
 %\vspace{-.3em}
 
-{\bf Condition on $\hat{\boldsymbol{\gamma}}_{2s}$:} In comparison to the unmodified algorithm, the condition under which the performance guarantee holds is stricter in our approach, i.e., ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/16$ where it was ${\gamma}_{2s}\leq 1/8$ in Theorem \ref{guarantee_niht}. In practice, this can be altered with a suitable transformation of $\hat{\bf \Phi}$ such that ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/16$ is satisfied. Alternatively, a closer look into the derivation in the supplementary material reveals that there exist finite constants $c_1$ and $c_2$ such that $\mathbb{E}[\|{\bf x}^{n^*}-{\bf x}^s \|_2] \leq c_1\epsilon_s + c_2\epsilon_q$ when ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/8$. For a wide class of problems, an accurate approximation to ${\bf x}^s$ can still be recovered after sufficient number of iterations.
+{\bf Condition on $\hat{\boldsymbol{\gamma}}_{2s}$:} In comparison to the unmodified algorithm, the condition under which the performance guarantee holds is stricter in our approach, i.e., ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/16$ where it was ${\gamma}_{2s}\leq 1/8$ in Theorem \ref{guarantee_niht}. In practice, this can be altered with a suitable transformation of $\hat{\bf \Phi}$ such that ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/16$ is satisfied. Alternatively, a closer look into the derivation in the supplementary material reveals that there exist finite constants $c_1$ and $c_2$ with $c_1\leq 11$ and $c_2\leq 5$ such that $\mathbb{E}[\|{\bf x}^{n^*}-{\bf x}^s \|_2] \leq c_1\epsilon_s + c_2\epsilon_q$ when ${\gamma}_{2s}, \hat{\gamma}_{2s}\leq 1/8$. For a wide class of problems, an accurate approximation to ${\bf x}^s$ can still be recovered after sufficient number of iterations.
 %One might argue that it can potentially amplify noise yet from changing $\gamma_{2s}$ from $1/8$ to $1/16$ 
 %\vspace{-.3em}
 
@@ -556,7 +556,6 @@ We now examine the error bound presented in Theorem~\ref{main_theorem_TH}. The l
 %We also monitor $\hat{\gamma}_{2s}$ by using the strategy described in ref.
 %can easily be verified in a computationally efficient manner
 {\bf Natural limitations on ${\boldsymbol{\beta}}_{2s}$ and $\hat{\boldsymbol{\beta}}_{2s}$:} In both low and full precision settings, the measurement matrix ${\bf \Phi}$ is scale-invariant and rigorous theoretical guarantee is achievable provided its scaling onto sparse vectors is confined in certain intervals, i.e., ${\gamma}_{2s}, \hat{\gamma}_{2s}\in [0, 1/16]$. As introduced in Remark \ref{remark_noise_amp}, even this condition is met, there still remains a further limitation by the noise: ${\bf e}$. That is, the signal-to-noise ratio of $\|\hat{\bf \Phi} {\bf x} \|_2/\|{\bf e} \|_2$ will be amplified upon a down-scaling of $\hat{\bf \Phi}$. Re-scaling ${\bf y}$ could accordingly overcome this up to some level. 
-{We discuss re-scaling strategies in the supplementary material.}
 
 %\vspace{-.3em}
 
@@ -644,7 +643,7 @@ are sufficiently small. Do these conditions hold for a real telescope? We now an
 \end{figure}
 %\vspace{-.1em}
 
-In Fig.~\ref{fig:beta}, for station CS302 of LOFAR, we first form the image grid and compute and adjust ${\bf \Phi}, \hat{\bf \Phi}$ such that $\alpha_{2s}, \hat{\alpha}_{2s}\leq 1/16$ holds, then numerically provide the scaling factors of errors $ {\epsilon}_s$ and ${\epsilon}_q$: $\sqrt{L}/\beta_{2s}$ and ${L}/{\hat{\beta}_{2s}}$, respectively. Theorem~\ref{main_theorem_TH} states that the recovery error is induced by two terms: $\sqrt{L}/\beta_{2s}$ and $L/{\hat{\beta}_{2s}$. Therefore we investigate these scaling over various antenna numbers and sparsity level. The results suggest that 2-bits IHT has a negligible quantization error when applied radio interferometry imaging problem.
+In Fig.~\ref{fig:beta}, for station CS302 of LOFAR, we first form the image grid and compute and adjust ${\bf \Phi}, \hat{\bf \Phi}$ such that $\alpha_{2s}, \hat{\alpha}_{2s}\leq 1/16$ holds. We refer to the supplementary material for more detail. Then we numerically provide the scaling factors of errors $\sigma_n$ and ${\epsilon}_{\textrm sky}$: $\sqrt{L}/\beta_{2s}$ and ${L}/{\hat{\beta}_{2s}}$, respectively. Theorem~\ref{main_theorem_TH} states that the recovery error is induced by two terms: $\sqrt{L}/\beta_{2s}$ and $L/{\hat{\beta}_{2s}$. Therefore we investigate these scaling over various antenna numbers and sparsity level. The results suggest that 2-bits IHT has a negligible quantization error when applied radio interferometry imaging problem.
 
 %\vspace{-1em}
 \subsection{FPGA Implementation Details} \label{sec:fpga}
