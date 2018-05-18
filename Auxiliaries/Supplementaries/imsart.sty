@@ -1183,7 +1183,7 @@
                                   \@ifnonempty{\journal@issn\break}%
                                   \doi@text}%
 
-\setattribute{infoline}   {text} {\lower12pt \hbox{\footnotesize\ttfamily\imsfmt@name\journal@id\ ver. \imsfmt@version\ file: \jobname.tex\ date: \today}}
+\setattribute{infoline}   {text} {\lower12pt} %\hbox{\footnotesize\ttfamily\imsfmt@name\journal@id\ ver.}} %\imsfmt@version\ file: \jobname.tex\ date: \today}}
 \setattribute{copyright} {owner} {$\copyright$~\@copyrightyear \copyrightowner@text}
 \setattribute{author}   {prefix} {}
 \setattribute{keyword} {postfix} {\unskip.}
@@ -3044,7 +3044,7 @@
 \endinput
 %%
 %% History:
-2014.10.16 - added \qq{} 
+%2014.10.16 - added \qq{} 
 2014.10.13 - added \OrigBibText and \endOrigBibText 
 2014.07.30 - removed \raggedright from \relateddois 
 2014.07.23 - added \relateddoi and \relateddois
